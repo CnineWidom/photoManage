@@ -1,13 +1,13 @@
 <?php
 
-if (!function_exists('md5Pwd')) {
+if (!function_exists('photoMPwd')) {
     /**
      * 定义password加密方式
      * @param $pwd 原始密码
      * @return string
      */
-    function md5Pwd($pwd){
-        return 'zxm_'.$pwd.'test';
+    function photoMPwd($pwd){
+        return $pwd;//bcrypt($pwd);
     }
 }
 

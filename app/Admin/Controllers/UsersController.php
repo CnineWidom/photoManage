@@ -99,8 +99,15 @@ class UsersController extends Controller
         $grid->updated_at('修改时间');
 
         //筛选控制
-        
+                
+        $grid->filter(function ($query) {     
+            // 去掉默认的id过滤器
+            $query->disableIdFilter();
+            $query->like('user_name', '账号')->placeholder('支持模糊查询');
+            $query->like('nick_name', '昵称')->placeholder('支持模糊查询');
+            $query->equal('phone_number', '手机号')->mobile();
 
+        });
 
         //行内操作控制
         $grid->actions(function ($actions) {
@@ -154,17 +161,20 @@ class UsersController extends Controller
         $form = new Form(new Users);
 
         $form->display('id', 'ID');
-        $form->text('user_name', '账号');
-        if($type == 'create')
-            $form->password('password', '密码');
+        $form->text('user_name', '账号')->rules('required');
+        if($type == 'edit'){
+            $form->password('password', '密码')->placeholder('密码空即不修改');
+        }else{
+            $form->password('password', '密码')->rules('required');
+        }
         $form->text('nick_name', '昵称');
         $form->text('phone_number', '手机号')->rules('required|regex:/^\d+$/|min:11', [
             'regex' => '号码必须全部为数字',
             'min'   => '号码不能少于11个字符',
         ]);
-        $form->email('email','邮箱');
+        $form->email('email','邮箱')->rules('required');
 
-        if($type == 'edit')
+        if($type != 'create')
             $form->switch('is_forbid', '封号？');
 
         $form->switch('is_activate', '激活？');
