@@ -263,3 +263,53 @@ CREATE TABLE `p_users`  (
 -- ----------------------------
 INSERT INTO `p_users` VALUES (2, 'zxm123', '111111', '华源', '11111111111', '123@qq.com', 1548666042, 1548736597, 0, 1, '');
 INSERT INTO `p_users` VALUES (3, 'm1', '123456', 'momo', '12345678910', 'zxm@126.com', 1548750695, 1548754320, 0, 1, '');
+
+-- ----------------------------
+-- Table structure for p_case_comment
+-- ----------------------------
+DROP TABLE IF EXISTS `p_case_comment`;
+CREATE TABLE `p_case_comment`  (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `cid` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '案例ID',
+  `pid` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '图片ID',
+  `uid` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户ID',
+  `stars` tinyint(4) UNSIGNED NULL DEFAULT 0 COMMENT '星数',
+  `content` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '评论',
+  `created_at` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '评论时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `cid`(`cid`) USING BTREE,
+  INDEX `pid`(`pid`) USING BTREE,
+  INDEX `uid`(`uid`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '影象评论表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for p_case_list
+-- ----------------------------
+DROP TABLE IF EXISTS `p_case_list`;
+CREATE TABLE `p_case_list`  (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '标题',
+  `keywords` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '关键词(多个，号隔开)',
+  `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '说明',
+  `author` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '作者',
+  `device` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '成像设备',
+  `created_at` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
+  `updated_at` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '修改时间',
+  `issue` tinyint(4) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否发布',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `title`(`title`) USING BTREE,
+  INDEX `keywords`(`keywords`) USING BTREE,
+  INDEX `utime`(`created_at`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '案例表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for p_case_photo
+-- ----------------------------
+DROP TABLE IF EXISTS `p_case_photo`;
+CREATE TABLE `p_case_photo`  (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `cid` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '案例ID',
+  `img` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '图片地址',
+  `views` int(11) UNSIGNED NULL DEFAULT 0 COMMENT '浏览次数',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '案例影像表' ROW_FORMAT = Dynamic;
