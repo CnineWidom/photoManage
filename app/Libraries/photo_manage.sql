@@ -313,3 +313,16 @@ CREATE TABLE `p_case_photo`  (
   `views` int(11) UNSIGNED NULL DEFAULT 0 COMMENT '浏览次数',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '案例影像表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for p_case_star
+-- ----------------------------
+DROP TABLE IF EXISTS `p_case_star`;
+CREATE TABLE `p_case_star`  (
+  `cid` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '案例ID',
+  `pid` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '图片ID',
+  `uid` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户ID',
+  `stars` tinyint(4) UNSIGNED NULL DEFAULT 0 COMMENT '星数',
+  PRIMARY KEY (`pid`, `uid`) USING BTREE,
+  INDEX `cid`(`cid`) USING BTREE
+) ENGINE = MyISAM CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '影象星数表' ROW_FORMAT = Fixed;
