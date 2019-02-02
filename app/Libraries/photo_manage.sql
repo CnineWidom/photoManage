@@ -46,6 +46,8 @@ INSERT INTO `admin_menu` VALUES (6, 2, 8, '菜单', 'fa-bars', 'auth/menu', NULL
 INSERT INTO `admin_menu` VALUES (7, 2, 9, '后台日志', 'fa-history', 'auth/logs', NULL, NULL, '2019-01-28 12:02:47');
 INSERT INTO `admin_menu` VALUES (8, 0, 2, '用户管理', 'fa-user', NULL, NULL, '2019-01-28 11:31:54', '2019-01-28 12:02:47');
 INSERT INTO `admin_menu` VALUES (9, 8, 3, '用户列表', 'fa-users', '/users', NULL, '2019-01-28 11:32:51', '2019-01-28 12:02:47');
+INSERT INTO `admin_menu` VALUES (10, 0, 4, '案例管理', 'fa-file-photo-o', NULL, NULL, '2019-02-02 15:02:40', '2019-02-02 15:03:44');
+INSERT INTO `admin_menu` VALUES (11, 10, 5, '案例列表', 'fa-bars', '/cases', NULL, '2019-02-02 15:03:32', '2019-02-02 15:03:44');
 
 -- ----------------------------
 -- Table structure for admin_operation_log
