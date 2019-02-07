@@ -1,5 +1,6 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+﻿<!DOCTYPE html>
+<html>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>jquery图片居中放大代码</title>
@@ -57,15 +58,16 @@ if (document.documentElement.scrollTop){
     var K=document.body.clientHeight;
     marginBot=J-I-K;
 }
-if(marginBot<=1) {
-    $('.load').css({'display':'block'})
-    setTimeout(function(){
+if(marginBot<=0) {
+    console.log(1);
+    // $('.load').css({'display':'block'})
+    // setTimeout(function(){
         
-        // var data = imgZoomInit();
-        getdata();
-    },2000);
+    //     // var data = imgZoomInit();
+    //     getdata();
+    // },2000);
     
-    $('.load').css({'display':'none'})
+    // $('.load').css({'display':'none'})
 }
 }
 function getdata(){
@@ -180,7 +182,6 @@ function imgZoomInit(page,num){
             <ul>
                 
                 
-                                                                                                                                 </li>
 
 
         </ul>
@@ -198,6 +199,6 @@ function imgZoomInit(page,num){
 
 
 
-</div>
+
 </body>
 </html>
