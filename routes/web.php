@@ -14,6 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/loginpc', 'UserloginController@login')->name('loginpc');
+Route::post('/login1', 'UserloginController@dologin');
+
+Route::get('/register', 'UserloginController@register')->name('pc.doregister');
+
 
 Auth::routes();
 
