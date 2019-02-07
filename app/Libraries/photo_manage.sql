@@ -38,12 +38,16 @@ CREATE TABLE `admin_menu`  (
 -- Records of admin_menu
 -- ----------------------------
 INSERT INTO `admin_menu` VALUES (1, 0, 1, 'Index', 'fa-university', '/', NULL, NULL, '2019-01-26 15:43:27');
-INSERT INTO `admin_menu` VALUES (2, 0, 2, '系统管理', 'fa-tasks', NULL, NULL, NULL, '2019-01-26 11:42:36');
-INSERT INTO `admin_menu` VALUES (3, 2, 3, '后台账号', 'fa-users', 'auth/users', NULL, NULL, '2019-01-26 11:43:00');
-INSERT INTO `admin_menu` VALUES (4, 2, 4, '权限组', 'fa-database', 'auth/roles', NULL, NULL, '2019-01-26 15:45:51');
-INSERT INTO `admin_menu` VALUES (5, 2, 5, '权限', 'fa-ban', 'auth/permissions', NULL, NULL, '2019-01-26 15:44:34');
-INSERT INTO `admin_menu` VALUES (6, 2, 6, '菜单', 'fa-bars', 'auth/menu', NULL, NULL, '2019-01-26 15:44:08');
-INSERT INTO `admin_menu` VALUES (7, 2, 7, '后台日志', 'fa-history', 'auth/logs', NULL, NULL, '2019-01-26 15:46:06');
+INSERT INTO `admin_menu` VALUES (2, 0, 4, '系统管理', 'fa-tasks', NULL, NULL, NULL, '2019-01-28 12:02:47');
+INSERT INTO `admin_menu` VALUES (3, 2, 5, '后台账号', 'fa-users', 'auth/users', NULL, NULL, '2019-01-28 12:02:47');
+INSERT INTO `admin_menu` VALUES (4, 2, 6, '权限组', 'fa-database', 'auth/roles', NULL, NULL, '2019-01-28 12:02:47');
+INSERT INTO `admin_menu` VALUES (5, 2, 7, '权限', 'fa-ban', 'auth/permissions', NULL, NULL, '2019-01-28 12:02:47');
+INSERT INTO `admin_menu` VALUES (6, 2, 8, '菜单', 'fa-bars', 'auth/menu', NULL, NULL, '2019-01-28 12:02:47');
+INSERT INTO `admin_menu` VALUES (7, 2, 9, '后台日志', 'fa-history', 'auth/logs', NULL, NULL, '2019-01-28 12:02:47');
+INSERT INTO `admin_menu` VALUES (8, 0, 2, '用户管理', 'fa-user', NULL, NULL, '2019-01-28 11:31:54', '2019-01-28 12:02:47');
+INSERT INTO `admin_menu` VALUES (9, 8, 3, '用户列表', 'fa-users', '/users', NULL, '2019-01-28 11:32:51', '2019-01-28 12:02:47');
+INSERT INTO `admin_menu` VALUES (10, 0, 4, '案例管理', 'fa-file-photo-o', NULL, NULL, '2019-02-02 15:02:40', '2019-02-02 15:03:44');
+INSERT INTO `admin_menu` VALUES (11, 10, 5, '案例列表', 'fa-bars', '/cases', NULL, '2019-02-02 15:03:32', '2019-02-02 15:03:44');
 
 -- ----------------------------
 -- Table structure for admin_operation_log
@@ -61,96 +65,6 @@ CREATE TABLE `admin_operation_log`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `admin_operation_log_user_id_index`(`user_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 87 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of admin_operation_log
--- ----------------------------
-INSERT INTO `admin_operation_log` VALUES (1, 1, 'admin', 'GET', '127.0.0.1', '[]', '2019-01-26 11:31:08', '2019-01-26 11:31:08');
-INSERT INTO `admin_operation_log` VALUES (2, 1, 'admin/auth/menu', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 11:31:47', '2019-01-26 11:31:47');
-INSERT INTO `admin_operation_log` VALUES (3, 1, 'admin/auth/menu/6/edit', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 11:32:53', '2019-01-26 11:32:53');
-INSERT INTO `admin_operation_log` VALUES (4, 1, 'admin/auth/menu', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 11:33:13', '2019-01-26 11:33:13');
-INSERT INTO `admin_operation_log` VALUES (5, 1, 'admin/auth/menu/2/edit', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 11:33:17', '2019-01-26 11:33:17');
-INSERT INTO `admin_operation_log` VALUES (6, 1, 'admin/auth/menu/2', 'PUT', '127.0.0.1', '{\"parent_id\":\"0\",\"title\":\"\\u7cfb\\u7edf\\u7ba1\\u7406\",\"icon\":\"fa-tasks\",\"uri\":null,\"roles\":[\"1\",null],\"permission\":null,\"_token\":\"rIZ50Ms5SZZlENJMF3TnIAI13HrAYqguYSas2OTC\",\"_method\":\"PUT\",\"_previous_\":\"http:\\/\\/work3.local.com:85\\/admin\\/auth\\/menu\"}', '2019-01-26 11:42:36', '2019-01-26 11:42:36');
-INSERT INTO `admin_operation_log` VALUES (7, 1, 'admin/auth/menu', 'GET', '127.0.0.1', '[]', '2019-01-26 11:42:37', '2019-01-26 11:42:37');
-INSERT INTO `admin_operation_log` VALUES (8, 1, 'admin/auth/menu/3/edit', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 11:42:44', '2019-01-26 11:42:44');
-INSERT INTO `admin_operation_log` VALUES (9, 1, 'admin/auth/menu/3', 'PUT', '127.0.0.1', '{\"parent_id\":\"2\",\"title\":\"\\u540e\\u53f0\\u8d26\\u53f7\",\"icon\":\"fa-users\",\"uri\":\"auth\\/users\",\"roles\":[null],\"permission\":null,\"_token\":\"rIZ50Ms5SZZlENJMF3TnIAI13HrAYqguYSas2OTC\",\"_method\":\"PUT\",\"_previous_\":\"http:\\/\\/work3.local.com:85\\/admin\\/auth\\/menu\"}', '2019-01-26 11:43:00', '2019-01-26 11:43:00');
-INSERT INTO `admin_operation_log` VALUES (10, 1, 'admin/auth/menu', 'GET', '127.0.0.1', '[]', '2019-01-26 11:43:00', '2019-01-26 11:43:00');
-INSERT INTO `admin_operation_log` VALUES (11, 1, 'admin/auth/users', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 11:43:10', '2019-01-26 11:43:10');
-INSERT INTO `admin_operation_log` VALUES (12, 1, 'admin/auth/users/1/edit', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 11:43:20', '2019-01-26 11:43:20');
-INSERT INTO `admin_operation_log` VALUES (13, 1, 'admin/auth/users/1/edit', 'GET', '127.0.0.1', '[]', '2019-01-26 12:01:27', '2019-01-26 12:01:27');
-INSERT INTO `admin_operation_log` VALUES (14, 1, 'admin/auth/users/1/edit', 'GET', '127.0.0.1', '[]', '2019-01-26 12:10:06', '2019-01-26 12:10:06');
-INSERT INTO `admin_operation_log` VALUES (15, 1, 'admin/auth/users/1/edit', 'GET', '127.0.0.1', '[]', '2019-01-26 12:10:08', '2019-01-26 12:10:08');
-INSERT INTO `admin_operation_log` VALUES (16, 1, 'admin/auth/users/1/edit', 'GET', '127.0.0.1', '[]', '2019-01-26 12:10:10', '2019-01-26 12:10:10');
-INSERT INTO `admin_operation_log` VALUES (17, 1, 'admin/auth/roles', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 12:21:27', '2019-01-26 12:21:27');
-INSERT INTO `admin_operation_log` VALUES (18, 1, 'admin/auth/roles', 'GET', '127.0.0.1', '[]', '2019-01-26 14:32:58', '2019-01-26 14:32:58');
-INSERT INTO `admin_operation_log` VALUES (19, 1, 'admin/auth/roles', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 14:33:03', '2019-01-26 14:33:03');
-INSERT INTO `admin_operation_log` VALUES (20, 1, 'admin/auth/roles/1/edit', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 14:33:09', '2019-01-26 14:33:09');
-INSERT INTO `admin_operation_log` VALUES (21, 1, 'admin', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 14:38:05', '2019-01-26 14:38:05');
-INSERT INTO `admin_operation_log` VALUES (22, 1, 'admin', 'GET', '127.0.0.1', '[]', '2019-01-26 14:39:28', '2019-01-26 14:39:28');
-INSERT INTO `admin_operation_log` VALUES (23, 1, 'admin', 'GET', '127.0.0.1', '[]', '2019-01-26 15:08:13', '2019-01-26 15:08:13');
-INSERT INTO `admin_operation_log` VALUES (24, 1, 'admin', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 15:08:18', '2019-01-26 15:08:18');
-INSERT INTO `admin_operation_log` VALUES (25, 1, 'admin', 'GET', '127.0.0.1', '[]', '2019-01-26 15:09:34', '2019-01-26 15:09:34');
-INSERT INTO `admin_operation_log` VALUES (26, 1, 'admin', 'GET', '127.0.0.1', '[]', '2019-01-26 15:09:55', '2019-01-26 15:09:55');
-INSERT INTO `admin_operation_log` VALUES (27, 1, 'admin/auth/menu', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 15:10:10', '2019-01-26 15:10:10');
-INSERT INTO `admin_operation_log` VALUES (28, 1, 'admin/auth/menu/1/edit', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 15:10:20', '2019-01-26 15:10:20');
-INSERT INTO `admin_operation_log` VALUES (29, 1, 'admin/auth/menu/1', 'PUT', '127.0.0.1', '{\"parent_id\":\"0\",\"title\":\"Index\",\"icon\":\"fa-university\",\"uri\":\"\\/\",\"roles\":[null],\"permission\":null,\"_token\":\"m1gHnmHLKHZKV83cKZUlVTACNyh9gLAnNRBVYdIS\",\"_method\":\"PUT\",\"_previous_\":\"http:\\/\\/work3.local.com:85\\/admin\\/auth\\/menu\"}', '2019-01-26 15:43:27', '2019-01-26 15:43:27');
-INSERT INTO `admin_operation_log` VALUES (30, 1, 'admin/auth/menu', 'GET', '127.0.0.1', '[]', '2019-01-26 15:43:28', '2019-01-26 15:43:28');
-INSERT INTO `admin_operation_log` VALUES (31, 1, 'admin/auth/menu', 'GET', '127.0.0.1', '[]', '2019-01-26 15:43:31', '2019-01-26 15:43:31');
-INSERT INTO `admin_operation_log` VALUES (32, 1, 'admin', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 15:43:33', '2019-01-26 15:43:33');
-INSERT INTO `admin_operation_log` VALUES (33, 1, 'admin', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 15:43:36', '2019-01-26 15:43:36');
-INSERT INTO `admin_operation_log` VALUES (34, 1, 'admin/auth/roles', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 15:43:42', '2019-01-26 15:43:42');
-INSERT INTO `admin_operation_log` VALUES (35, 1, 'admin/auth/permissions', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 15:43:44', '2019-01-26 15:43:44');
-INSERT INTO `admin_operation_log` VALUES (36, 1, 'admin/auth/menu', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 15:43:56', '2019-01-26 15:43:56');
-INSERT INTO `admin_operation_log` VALUES (37, 1, 'admin/auth/menu/6/edit', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 15:44:00', '2019-01-26 15:44:00');
-INSERT INTO `admin_operation_log` VALUES (38, 1, 'admin/auth/menu/6', 'PUT', '127.0.0.1', '{\"parent_id\":\"2\",\"title\":\"\\u83dc\\u5355\",\"icon\":\"fa-bars\",\"uri\":\"auth\\/menu\",\"roles\":[null],\"permission\":null,\"_token\":\"m1gHnmHLKHZKV83cKZUlVTACNyh9gLAnNRBVYdIS\",\"_method\":\"PUT\",\"_previous_\":\"http:\\/\\/work3.local.com:85\\/admin\\/auth\\/menu\"}', '2019-01-26 15:44:08', '2019-01-26 15:44:08');
-INSERT INTO `admin_operation_log` VALUES (39, 1, 'admin/auth/menu', 'GET', '127.0.0.1', '[]', '2019-01-26 15:44:08', '2019-01-26 15:44:08');
-INSERT INTO `admin_operation_log` VALUES (40, 1, 'admin/auth/menu/5/edit', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 15:44:12', '2019-01-26 15:44:12');
-INSERT INTO `admin_operation_log` VALUES (41, 1, 'admin/auth/menu/5', 'PUT', '127.0.0.1', '{\"parent_id\":\"2\",\"title\":\"\\u6743\\u9650\",\"icon\":\"fa-ban\",\"uri\":\"auth\\/permissions\",\"roles\":[null],\"permission\":null,\"_token\":\"m1gHnmHLKHZKV83cKZUlVTACNyh9gLAnNRBVYdIS\",\"_method\":\"PUT\",\"_previous_\":\"http:\\/\\/work3.local.com:85\\/admin\\/auth\\/menu\"}', '2019-01-26 15:44:34', '2019-01-26 15:44:34');
-INSERT INTO `admin_operation_log` VALUES (42, 1, 'admin/auth/menu', 'GET', '127.0.0.1', '[]', '2019-01-26 15:44:34', '2019-01-26 15:44:34');
-INSERT INTO `admin_operation_log` VALUES (43, 1, 'admin/auth/menu/4/edit', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 15:44:41', '2019-01-26 15:44:41');
-INSERT INTO `admin_operation_log` VALUES (44, 1, 'admin/auth/menu/4', 'PUT', '127.0.0.1', '{\"parent_id\":\"2\",\"title\":\"\\u6743\\u9650\\u7ec4\",\"icon\":\"fa-database\",\"uri\":\"auth\\/roles\",\"roles\":[null],\"permission\":null,\"_token\":\"m1gHnmHLKHZKV83cKZUlVTACNyh9gLAnNRBVYdIS\",\"_method\":\"PUT\",\"_previous_\":\"http:\\/\\/work3.local.com:85\\/admin\\/auth\\/menu\"}', '2019-01-26 15:45:51', '2019-01-26 15:45:51');
-INSERT INTO `admin_operation_log` VALUES (45, 1, 'admin/auth/menu', 'GET', '127.0.0.1', '[]', '2019-01-26 15:45:51', '2019-01-26 15:45:51');
-INSERT INTO `admin_operation_log` VALUES (46, 1, 'admin/auth/menu/7/edit', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 15:45:58', '2019-01-26 15:45:58');
-INSERT INTO `admin_operation_log` VALUES (47, 1, 'admin/auth/menu/7', 'PUT', '127.0.0.1', '{\"parent_id\":\"2\",\"title\":\"\\u540e\\u53f0\\u65e5\\u5fd7\",\"icon\":\"fa-history\",\"uri\":\"auth\\/logs\",\"roles\":[null],\"permission\":null,\"_token\":\"m1gHnmHLKHZKV83cKZUlVTACNyh9gLAnNRBVYdIS\",\"_method\":\"PUT\",\"_previous_\":\"http:\\/\\/work3.local.com:85\\/admin\\/auth\\/menu\"}', '2019-01-26 15:46:06', '2019-01-26 15:46:06');
-INSERT INTO `admin_operation_log` VALUES (48, 1, 'admin/auth/menu', 'GET', '127.0.0.1', '[]', '2019-01-26 15:46:07', '2019-01-26 15:46:07');
-INSERT INTO `admin_operation_log` VALUES (49, 1, 'admin/auth/menu/4/edit', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 15:46:20', '2019-01-26 15:46:20');
-INSERT INTO `admin_operation_log` VALUES (50, 1, 'admin/auth/menu/4/edit', 'GET', '127.0.0.1', '[]', '2019-01-26 15:46:25', '2019-01-26 15:46:25');
-INSERT INTO `admin_operation_log` VALUES (51, 1, 'admin/auth/roles', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 15:46:28', '2019-01-26 15:46:28');
-INSERT INTO `admin_operation_log` VALUES (52, 1, 'admin/auth/roles/1/edit', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 15:46:34', '2019-01-26 15:46:34');
-INSERT INTO `admin_operation_log` VALUES (53, 1, 'admin/auth/permissions', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 15:46:39', '2019-01-26 15:46:39');
-INSERT INTO `admin_operation_log` VALUES (54, 1, 'admin/auth/permissions/5/edit', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 15:47:46', '2019-01-26 15:47:46');
-INSERT INTO `admin_operation_log` VALUES (55, 1, 'admin/auth/permissions/5', 'PUT', '127.0.0.1', '{\"slug\":\"\\u7cfb\\u7edf\\u7ba1\\u7406\",\"name\":\"\\u7cfb\\u7edf\\u7ba1\\u7406\",\"http_method\":[null],\"http_path\":\"\\/auth\\/roles\\r\\n\\/auth\\/permissions\\r\\n\\/auth\\/menu\\r\\n\\/auth\\/logs\",\"_token\":\"m1gHnmHLKHZKV83cKZUlVTACNyh9gLAnNRBVYdIS\",\"_method\":\"PUT\",\"_previous_\":\"http:\\/\\/work3.local.com:85\\/admin\\/auth\\/permissions\"}', '2019-01-26 15:48:01', '2019-01-26 15:48:01');
-INSERT INTO `admin_operation_log` VALUES (56, 1, 'admin/auth/permissions', 'GET', '127.0.0.1', '[]', '2019-01-26 15:48:01', '2019-01-26 15:48:01');
-INSERT INTO `admin_operation_log` VALUES (57, 1, 'admin/auth/permissions/3/edit', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 15:48:26', '2019-01-26 15:48:26');
-INSERT INTO `admin_operation_log` VALUES (58, 1, 'admin/auth/permissions', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 15:48:30', '2019-01-26 15:48:30');
-INSERT INTO `admin_operation_log` VALUES (59, 1, 'admin/auth/permissions/3/edit', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 15:48:37', '2019-01-26 15:48:37');
-INSERT INTO `admin_operation_log` VALUES (60, 1, 'admin/auth/permissions/3', 'PUT', '127.0.0.1', '{\"slug\":\"\\u8d26\\u6237\\u4e2d\\u5fc3\",\"name\":\"\\u8d26\\u6237\\u4e2d\\u5fc3\",\"http_method\":[null],\"http_path\":\"\\/auth\\/login\\r\\n\\/auth\\/logout\\r\\n\\/auth\\/setting\\r\\n\\/\",\"_token\":\"m1gHnmHLKHZKV83cKZUlVTACNyh9gLAnNRBVYdIS\",\"_method\":\"PUT\",\"_previous_\":\"http:\\/\\/work3.local.com:85\\/admin\\/auth\\/permissions\"}', '2019-01-26 15:49:09', '2019-01-26 15:49:09');
-INSERT INTO `admin_operation_log` VALUES (61, 1, 'admin/auth/permissions', 'GET', '127.0.0.1', '[]', '2019-01-26 15:49:09', '2019-01-26 15:49:09');
-INSERT INTO `admin_operation_log` VALUES (62, 1, 'admin/auth/permissions/1/edit', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 15:49:18', '2019-01-26 15:49:18');
-INSERT INTO `admin_operation_log` VALUES (63, 1, 'admin/auth/permissions/1', 'PUT', '127.0.0.1', '{\"slug\":\"\\u5168\\u90e8\",\"name\":\"\\u5168\\u90e8\",\"http_method\":[null],\"http_path\":\"*\",\"_token\":\"m1gHnmHLKHZKV83cKZUlVTACNyh9gLAnNRBVYdIS\",\"_method\":\"PUT\",\"_previous_\":\"http:\\/\\/work3.local.com:85\\/admin\\/auth\\/permissions\"}', '2019-01-26 15:49:29', '2019-01-26 15:49:29');
-INSERT INTO `admin_operation_log` VALUES (64, 1, 'admin/auth/permissions', 'GET', '127.0.0.1', '[]', '2019-01-26 15:49:29', '2019-01-26 15:49:29');
-INSERT INTO `admin_operation_log` VALUES (65, 1, 'admin/auth/permissions/1/edit', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 15:49:34', '2019-01-26 15:49:34');
-INSERT INTO `admin_operation_log` VALUES (66, 1, 'admin/auth/permissions/1', 'PUT', '127.0.0.1', '{\"slug\":\"superAdmin\",\"name\":\"\\u5168\\u90e8\",\"http_method\":[null],\"http_path\":\"*\",\"_token\":\"m1gHnmHLKHZKV83cKZUlVTACNyh9gLAnNRBVYdIS\",\"_method\":\"PUT\",\"_previous_\":\"http:\\/\\/work3.local.com:85\\/admin\\/auth\\/permissions\"}', '2019-01-26 15:49:48', '2019-01-26 15:49:48');
-INSERT INTO `admin_operation_log` VALUES (67, 1, 'admin/auth/permissions', 'GET', '127.0.0.1', '[]', '2019-01-26 15:49:48', '2019-01-26 15:49:48');
-INSERT INTO `admin_operation_log` VALUES (68, 1, 'admin/auth/permissions/2', 'DELETE', '127.0.0.1', '{\"_method\":\"delete\",\"_token\":\"m1gHnmHLKHZKV83cKZUlVTACNyh9gLAnNRBVYdIS\"}', '2019-01-26 15:49:53', '2019-01-26 15:49:53');
-INSERT INTO `admin_operation_log` VALUES (69, 1, 'admin/auth/permissions', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 15:49:54', '2019-01-26 15:49:54');
-INSERT INTO `admin_operation_log` VALUES (70, 1, 'admin/auth/permissions/4', 'DELETE', '127.0.0.1', '{\"_method\":\"delete\",\"_token\":\"m1gHnmHLKHZKV83cKZUlVTACNyh9gLAnNRBVYdIS\"}', '2019-01-26 15:49:58', '2019-01-26 15:49:58');
-INSERT INTO `admin_operation_log` VALUES (71, 1, 'admin/auth/permissions', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 15:49:58', '2019-01-26 15:49:58');
-INSERT INTO `admin_operation_log` VALUES (72, 1, 'admin/auth/roles', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 15:50:10', '2019-01-26 15:50:10');
-INSERT INTO `admin_operation_log` VALUES (73, 1, 'admin/auth/roles/1/edit', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 15:50:14', '2019-01-26 15:50:14');
-INSERT INTO `admin_operation_log` VALUES (74, 1, 'admin/auth/roles/1', 'PUT', '127.0.0.1', '{\"slug\":\"superadmin\",\"name\":\"superadmin\",\"permissions\":[\"1\",null],\"_token\":\"m1gHnmHLKHZKV83cKZUlVTACNyh9gLAnNRBVYdIS\",\"_method\":\"PUT\",\"_previous_\":\"http:\\/\\/work3.local.com:85\\/admin\\/auth\\/roles\"}', '2019-01-26 15:50:36', '2019-01-26 15:50:36');
-INSERT INTO `admin_operation_log` VALUES (75, 1, 'admin/auth/roles', 'GET', '127.0.0.1', '[]', '2019-01-26 15:50:37', '2019-01-26 15:50:37');
-INSERT INTO `admin_operation_log` VALUES (76, 1, 'admin/auth/roles/1/edit', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 15:50:50', '2019-01-26 15:50:50');
-INSERT INTO `admin_operation_log` VALUES (77, 1, 'admin/auth/roles/1', 'PUT', '127.0.0.1', '{\"slug\":\"superadmin\",\"name\":\"\\u6700\\u9ad8\\u6743\\u9650\",\"permissions\":[\"1\",null],\"_token\":\"m1gHnmHLKHZKV83cKZUlVTACNyh9gLAnNRBVYdIS\",\"_method\":\"PUT\",\"_previous_\":\"http:\\/\\/work3.local.com:85\\/admin\\/auth\\/roles\"}', '2019-01-26 15:51:00', '2019-01-26 15:51:00');
-INSERT INTO `admin_operation_log` VALUES (78, 1, 'admin/auth/roles', 'GET', '127.0.0.1', '[]', '2019-01-26 15:51:00', '2019-01-26 15:51:00');
-INSERT INTO `admin_operation_log` VALUES (79, 1, 'admin/auth/roles', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 15:51:06', '2019-01-26 15:51:06');
-INSERT INTO `admin_operation_log` VALUES (80, 1, 'admin/auth/permissions', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 15:51:08', '2019-01-26 15:51:08');
-INSERT INTO `admin_operation_log` VALUES (81, 1, 'admin/auth/permissions/1/edit', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 15:51:10', '2019-01-26 15:51:10');
-INSERT INTO `admin_operation_log` VALUES (82, 1, 'admin/auth/permissions/1', 'PUT', '127.0.0.1', '{\"slug\":\"superAdmin\",\"name\":\"\\u6700\\u9ad8\\u6743\\u9650\",\"http_method\":[null],\"http_path\":\"*\",\"_token\":\"m1gHnmHLKHZKV83cKZUlVTACNyh9gLAnNRBVYdIS\",\"_method\":\"PUT\",\"_previous_\":\"http:\\/\\/work3.local.com:85\\/admin\\/auth\\/permissions\"}', '2019-01-26 15:51:18', '2019-01-26 15:51:18');
-INSERT INTO `admin_operation_log` VALUES (83, 1, 'admin/auth/permissions', 'GET', '127.0.0.1', '[]', '2019-01-26 15:51:18', '2019-01-26 15:51:18');
-INSERT INTO `admin_operation_log` VALUES (84, 1, 'admin', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 15:51:28', '2019-01-26 15:51:28');
-INSERT INTO `admin_operation_log` VALUES (85, 1, 'admin/auth/setting', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 15:51:34', '2019-01-26 15:51:34');
-INSERT INTO `admin_operation_log` VALUES (86, 1, 'admin/auth/logout', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2019-01-26 15:51:41', '2019-01-26 15:51:41');
 
 -- ----------------------------
 -- Table structure for admin_permissions
@@ -324,4 +238,93 @@ CREATE TABLE `users`  (
   UNIQUE INDEX `users_email_unique`(`email`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
-SET FOREIGN_KEY_CHECKS = 1;
+-- ----------------------------
+-- Table structure for p_users
+-- ----------------------------
+DROP TABLE IF EXISTS `p_users`;
+CREATE TABLE `p_users`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '账号',
+  `password` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '登录密码',
+  `nick_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '昵称',
+  `phone_number` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '手机号码',
+  `email` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '邮箱',
+  `created_at` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
+  `updated_at` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '修改时间',
+  `is_forbid` tinyint(4) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否封号',
+  `is_activate` tinyint(4) UNSIGNED NOT NULL COMMENT '是否激活',
+  `remember_token` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '记住密码token',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `phone`(`phone_number`) USING BTREE,
+  UNIQUE INDEX `user_name`(`user_name`) USING BTREE,
+  INDEX `ctime`(`created_at`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of p_users
+-- ----------------------------
+INSERT INTO `p_users` VALUES (2, 'zxm123', '111111', '华源', '11111111111', '123@qq.com', 1548666042, 1548736597, 0, 1, '');
+INSERT INTO `p_users` VALUES (3, 'm1', '123456', 'momo', '12345678910', 'zxm@126.com', 1548750695, 1548754320, 0, 1, '');
+
+-- ----------------------------
+-- Table structure for p_case_comment
+-- ----------------------------
+DROP TABLE IF EXISTS `p_case_comment`;
+CREATE TABLE `p_case_comment`  (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `cid` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '案例ID',
+  `pid` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '图片ID',
+  `uid` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户ID',
+  `stars` tinyint(4) UNSIGNED NULL DEFAULT 0 COMMENT '星数',
+  `content` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '评论',
+  `created_at` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '评论时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `cid`(`cid`) USING BTREE,
+  INDEX `pid`(`pid`) USING BTREE,
+  INDEX `uid`(`uid`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '影象评论表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for p_case_list
+-- ----------------------------
+DROP TABLE IF EXISTS `p_case_list`;
+CREATE TABLE `p_case_list`  (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '标题',
+  `keywords` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '关键词(多个，号隔开)',
+  `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '说明',
+  `author` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '作者',
+  `device` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '成像设备',
+  `created_at` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
+  `updated_at` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '修改时间',
+  `issue` tinyint(4) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否发布',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `title`(`title`) USING BTREE,
+  INDEX `keywords`(`keywords`) USING BTREE,
+  INDEX `utime`(`created_at`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '案例表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for p_case_photo
+-- ----------------------------
+DROP TABLE IF EXISTS `p_case_photo`;
+CREATE TABLE `p_case_photo`  (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `cid` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '案例ID',
+  `img` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '图片地址',
+  `views` int(11) UNSIGNED NULL DEFAULT 0 COMMENT '浏览次数',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '案例影像表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for p_case_star
+-- ----------------------------
+DROP TABLE IF EXISTS `p_case_star`;
+CREATE TABLE `p_case_star`  (
+  `cid` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '案例ID',
+  `pid` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '图片ID',
+  `uid` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户ID',
+  `stars` tinyint(4) UNSIGNED NULL DEFAULT 0 COMMENT '星数',
+  PRIMARY KEY (`pid`, `uid`) USING BTREE,
+  INDEX `cid`(`cid`) USING BTREE
+) ENGINE = MyISAM CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '影象星数表' ROW_FORMAT = Fixed;

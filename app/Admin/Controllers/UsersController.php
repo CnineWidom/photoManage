@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Exceptions\ExcelExpoter;
 use App\Models\Users;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
@@ -38,8 +39,8 @@ class UsersController extends Controller
     public function show($id, Content $content)
     {
          return $content
-             ->header('Detail')
-             ->description('description')
+             ->header('用户')
+             ->description('用户详细信息')
              ->body($this->detail($id));
     }
 
@@ -98,8 +99,31 @@ class UsersController extends Controller
         $grid->created_at('创建时间');
         $grid->updated_at('修改时间');
 
+        //导出
+        $fieldArr = [
+            'id' => 'ID', 
+            'user_name' => '账号',
+            'nick_name' => '昵称',
+            'phone_number' => '手机号',
+            'email' => '邮箱',
+            'is_forbid' => '封号',
+            'is_activate' => '激活',
+            'created_at' => '创建时间',
+            'updated_at' => '修改时间'
+        ];
+        $filterArr = [
+            'is_forbid'=>[
+                'data'=>[0=>'否', 1=>'已封号']
+            ],
+            'is_activate'=>[
+                'data'=>[0=>'否',1=>'已激活']
+            ]
+        ];
+        $excel = new ExcelExpoter();
+        $excel->setAttr($fieldArr, $filterArr);
+        $grid->exporter($excel);
+
         //筛选控制
-                
         $grid->filter(function ($query) {     
             // 去掉默认的id过滤器
             $query->disableIdFilter();
