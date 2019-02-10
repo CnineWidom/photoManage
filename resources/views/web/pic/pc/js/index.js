@@ -93,7 +93,7 @@ function serializeF(obj){
 // 公共函数结束
 // login js 开始
 
-var cookieflag = true;
+
 // 登陆验证格式
 var loginvalidaterule = [
     {
@@ -132,8 +132,9 @@ $(".input").bind('blur',function(){
     $(this).parent('.form_item').find('i').css({"color":"rgba(229,229,229,0.8)"});
 })
 
-if($('#loginflag').val() == "true"){
+if($('#loginflag')){
     
+    if($('#loginflag').val() == 'true'){
     $("#cookie").removeClass('icon-check-box-outline-bl');
     $("#cookie").addClass('icon-checkboxoutline');
 }else{
@@ -141,7 +142,7 @@ if($('#loginflag').val() == "true"){
     $("#cookie").addClass('icon-check-box-outline-bl');
     $("#cookie").removeClass('icon-checkboxoutline');
 }
-
+}
 //checkbox 记住密码点击事件
 $("#cookie").bind('click',function(){
     if($('#loginflag').val() == "false"){
@@ -194,11 +195,6 @@ var registervalidaterule = [
                 itemname:'用户名不能为空',
                 regularitem:/\S/,
                 message:'用户名不能为空'
-            },
-            {   
-                itemname:'手机格式验证',
-                regularitem:/^1[34578]\d{9}$/,
-                message:'手机号格式不正确'
             }
         ]
     },
@@ -228,7 +224,61 @@ var registervalidaterule = [
             }
         ]
     },
-
+    {
+        name:'mail',
+        regular:[
+            {
+                itemname:'邮箱不能为空',
+                regularitem:/\S/,
+                message:'邮箱不能为空'
+            },
+            {
+                itemname:'邮箱格式错误',
+                regularitem:/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/,
+                message:'邮箱格式错误'
+            }
+        ]
+    },
+    {
+        name:'hosipital',
+        regular:[
+            {
+                itemname:'医院不能为空',
+                regularitem:/\S/,
+                message:'医院不能为空'
+            }
+        ]
+    },
+    {
+        name:'position',
+        regular:[
+            {
+                itemname:'职称不能为空',
+                regularitem:/\S/,
+                message:'职称不能为空'
+            }
+        ]
+    },
+    {
+        name:'key1',
+        regular:[
+            {
+                itemname:'密码不能为空',
+                regularitem:/\S/,
+                message:'密码不能为空'
+            }
+        ]
+    },
+    {
+        name:'key2',
+        regular:[
+            {
+                itemname:'请再次输入密码',
+                regularitem:/\S/,
+                message:'请再次输入密码'
+            }
+        ]
+    }
 ];
 
 function getCode(){
@@ -273,9 +323,55 @@ $("#getCodeButton").bind('click',function(){
 });
 
 $("#registerbutton").bind('click',function(){
+    
+    var data;
+    if(serializeF("register_form")){
+        data = serializeF("register_form");
+    }
+   
+    // 验证信息
+    var erroMsg = validateForm(data,registervalidaterule);
+    if(erroMsg){
+        $("#tip").html(erroMsg);
+       return false;
 
+    }else{
+        if($('#key1').val() == $('#key2').val()){
+        $('#register_form').submit();
+        }else{
+            $('#tip').html('两次输入的密码不一致');
+            return false;
+        }
+       
+    }
 });
 
+
+
+
+if($('#registerflag')){
+    
+    if($('#registerflag').val() == 'true'){
+    $("#registerCheck").removeClass('icon-check-box-outline-bl');
+    $("#registerCheck").addClass('icon-checkboxoutline');
+}else{
+    
+    $("#registerCheck").addClass('icon-check-box-outline-bl');
+    $("#registerCheck").removeClass('icon-checkboxoutline');
+}
+}
+//checkbox 记住密码点击事件
+$("#registerCheck").bind('click',function(){
+    if($('#registerflag').val() == "false"){
+        $(this).removeClass('icon-check-box-outline-bl');
+        $(this).addClass('icon-checkboxoutline');
+        $('#registerflag').val("true");
+    }else{
+        $(this).addClass('icon-check-box-outline-bl');
+        $(this).removeClass('icon-checkboxoutline');
+        $('#registerflag').val("false");
+    }
+});
 
 // register js 结束
 
@@ -362,11 +458,66 @@ $('.pic_content_detail_pic_small').each(function(){
 $('.caseDetail_main_content_pic_small li').each(function(j){
     
     var img = $(this).find('img');
-    $(this).bind('click',function(){
+    var src = img.attr('src');
     
+
+    $(this).bind('mouseenter',function(){
+        
+        $(this).parent().find('li').css('border','1px solid rgb(229,229,229)');
+        $(this).css('border','1px solid red');
+        if($(".caseDetail_main_content_pic_big img").attr('src') == src){
+            return ;
+        }
+        $(".caseDetail_main_content_pic_big img").fadeOut('fast');
+        $(".caseDetail_main_content_pic_big img").attr('src',src);
+        $(".caseDetail_main_content_pic_big img").fadeIn('fast');
+
+        
     })
     
 })
+var picContentPages = 0;
+var picContentTatal = 8;
+$('.picture_content_left').bind('click',function(){
+    if(picContentPages == 0){
+        return false;
+    }
+    // if((picContentTatal-picContentPages*4) <= 4){
+    //     return false;
+    // }
+    var left_offest = ((picContentPages-1)*364);
+    $('.caseDetail_main_content_pic_small ul').css('left',left_offest+'px');
+    picContentPages--;
+    if(picContentPages == 0){
+        $(this).fadeOut();
+    }
+    if((picContentTatal-picContentPages*4) > 4){
+        $('.picture_content_right').fadeIn();
+    }
+});
+
+$('.picture_content_right').bind('click',function(){
+    // if(picContentPages == 4){
+    //     return false;
+    // }
+    if((picContentTatal-picContentPages*4) <= 4){
+        return false;
+    }
+    var left_offest = -((picContentPages+1)*364);
+    $('.caseDetail_main_content_pic_small ul').css('left',left_offest+'px');
+    picContentPages++;
+    if(picContentPages != 0){
+        $('.picture_content_left').fadeIn();
+    }
+    if((picContentTatal-picContentPages*4) <= 4){
+        $(this).fadeOut();
+    }
+   
+});
+function navActive(obj){
+    
+}
+
 // 案例详情 结束
 // $('.grid-item').each(function(){
     

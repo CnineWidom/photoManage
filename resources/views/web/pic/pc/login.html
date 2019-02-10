@@ -34,11 +34,11 @@ height:100%;
 				<input type="password" name='password' class='input' id='password_input' placeholder="密码">
 			</div>
 			<!-- cookie是否自动登录 -->
-			<input type="hidden" name='loginflag' id='loginflag' value="true">
+			<input type="hidden" name='loginflag' id='loginflag' value="false">
 			<!-- 此处是验证信息 开始 后端如果需要验证可以再此处添加提示信息，前端已经做了初步的认证，如果后端需要的就在此处添加-->
 			<div id='tip'></div>
 			<!-- 此处是验证信息 结束-->
-			<button id='submitbutton' class="button">登陆</button>
+			<button id='submitbutton' type='button' class="button">登陆</button>
 			<div id='link'>
 				<div style='float:left;font-size:14px'><i class="iconfont icon-check-box-outline-bl" id='cookie' style="cursor:pointer"></i>&nbsp;记住密码</div>
 				<a href="register.html" id='register'>尚未注册</a>

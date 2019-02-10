@@ -5,7 +5,7 @@ h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
-b, u, i, center,input,button,
+b, u, i, center,input,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
@@ -48,6 +48,7 @@ time, mark, audio, video {
     border:1px solid rgba(229,229,229,.5);
     color: white;
     background:rgba(255,255,255,0.1);
+    width: 350px;
 }
 #password{
     margin-top: 15px;
@@ -83,7 +84,7 @@ time, mark, audio, video {
 #link{
     margin-top: 15px;
     height:45px;
-    width: 350px;
+    width: 730px;
     color: rgba(229,229,229,.8);
     /* font-family: PingFangTC-Regular; */
     text-align: right;
@@ -114,7 +115,11 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
     right:11.9%;
     top:18%;
     height:310px;
-    width: 350px;
+    width: 730px;
+    
+}
+#register_form img{
+    
 }
 #register_password_input{
     width: 180px;
@@ -509,7 +514,7 @@ margin-left: 9px
 }
 .caseDetail_main_content_pic{
     float: left;
-    width: 35%;
+    width: 372.2px;
     position: relative;
     /* text-align: center */
     /* background: #000; */
@@ -523,11 +528,11 @@ margin-left: 9px
 }
 .caseDetail_main_content_pic_nav{
     position: absolute;
-    bottom: 120px;
+    bottom: 5px;
     /* left: 50%; */
     /* display:inline-block; */
 
-    top:73.5%;
+    
     left:50%; 
 transform:translate(-50%,-50%);
 -webkit-transform:translate(-50%,-50%);
@@ -550,12 +555,32 @@ transform:translate(-50%,-50%);
     color: white
 }
 .caseDetail_main_content_pic_big{
-    width: 100%;
+    width: 372.2px;
     height: 372.2px;
-    background: rgba(229,229,229,0.3)
+    /* max-height: 372.2px; */
+    /* background: white; */
+    position: relative;
+  
+    overflow: hidden;
+}
+.caseDetail_main_content_pic_big div{
+    position: absolute;
+    /* bottom: 5px; */
+    /* left: 50%; */
+    /* display:inline-block; */
+
+    top:50%;
+    width: 100%;
+    left:50%; 
+transform:translate(-50%,-50%);
+-webkit-transform:translate(-50%,-50%);
+-moz-transform:translate(-50%,-50%);
+-ms-transform:translate(-50%,-50%);
+-o-transform:translate(-50%,-50%);
 }
 .caseDetail_main_content_pic_small{
-    background: rgb(247,249,252);
+    position: relative;
+    background: rgb(242,242,242);
     height:100px;
     width: 100%;
     padding: 11px;
@@ -565,14 +590,21 @@ transform:translate(-50%,-50%);
 .caseDetail_main_content_pic_small ul{
     overflow: hidden;
     width: 600%;
+    position: relative;
+   
 }
 .caseDetail_main_content_pic_small ul li{
     width:80px;
-    height:100%;
+    height:80px;
     /* background: #000; */
     float: left;
     margin-left:11px;
     cursor: pointer; 
+    box-sizing: border-box;
+    border: 1px solid rgb(229,229,229);
+}
+.caseDetail_main_content_pic_small ul li:hover{
+    
 }
 .caseDetail_main_content_pic_small ul li:first-child{
     margin-left:0px; 
