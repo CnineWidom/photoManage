@@ -39,8 +39,8 @@ class UsersController extends Controller
     public function show($id, Content $content)
     {
          return $content
-             ->header('Detail')
-             ->description('description')
+             ->header('用户')
+             ->description('用户详细信息')
              ->body($this->detail($id));
     }
 
