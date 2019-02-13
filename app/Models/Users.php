@@ -2,16 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Users extends Model
+class Users extends Authenticatable
 {
     protected $table = 'p_users';
     //指定id
     protected $primaryKey = 'id';
 
     //允许批量赋值的字段
-    protected $fillable = [];
+    protected $fillable = [
+        'user_name', 'email', 'password','phone_number','is_active'
+    ];
 
     //不允许批量赋值的字段
     protected $guarded = [];
@@ -35,12 +38,12 @@ class Users extends Model
 
     public function getCreatedAtAttribute()
     {
-        return $this->attributes['created_at'] ? date('Y-m-d H:i:s', $this->attributes['created_at']) : '';
+        return $this->attributes['created_at'] ? strtotime(date('Y-m-d H:i:s', $this->attributes['created_at'])) : '';
     }
 
     public function getUpdatedAtAttribute()
     {
-        return $this->attributes['updated_at'] ? date('Y-m-d H:i:s', $this->attributes['updated_at']) : '';
+        return $this->attributes['updated_at'] ? strtotime(date('Y-m-d H:i:s', $this->attributes['updated_at'])) : '';
     }
 
 }
