@@ -23,19 +23,22 @@
             {{ csrf_field() }}
 			<div id='username' class="form_item" style="margin-top:30px">
 				<i class="icon iconfont icon-lufu"></i>
-				<input type="text" name='phone' autocomplete="off" class='input' placeholder="手机号">
+				<input type="text" name='phone_number' autocomplete="off" class='input' placeholder="手机号">
 			</div>
+			@if ($errors)
+			{{ $errors }}
+			@endif
 			<div id='password' class="form_item">
-				<i class="icon iconfont icon-password"></i>			
+				<i class="icon iconfont icon-password"></i>
 				<input type="password" name='password' class='input' id='password_input' placeholder="密码">
 			</div>
 			<input type="hidden" name='loginflag' id='loginflag'>
 			<div id='tip'></div>
 			<button id='button' class="button">登陆</button>
-			<input type="submit" value="dengl ">
+			<input type="submit" value="登录 ">
 			<div id='link'>
 				<div style='float:left;font-size:14px'><i class="iconfont icon-check-box-outline-bl" id='cookie' style="cursor:pointer"></i>&nbsp;记住密码</div>
-				<a href="{{route('pc.doregister')}}" id='register'>尚未注册</a>
+				<a href="/register1" id='register'>尚未注册</a>
 				|
 				<a href="javascript:void(0);">忘记密码？</a>
 			</div>

@@ -14,10 +14,11 @@
 	<link rel="stylesheet" type="text/css" href="css/login.css">
 	<title>pic</title>
 </head>
-<body style="background:url('./assest/bg.jpg');background-position: center center;background-repeat: no-repeat;background-attachment: fixed;background-size: cover;background-color: #464646;">
+<body style="background:url('image/assest/bg.jpg');background-position: center center;background-repeat: no-repeat;background-attachment: fixed;background-size: cover;background-color: #464646;">
 	<!-- 模板页开始 -->	
-	<form action="" id='register_form' type='post' onSubmit="return false">
-			<img src="./assest/logo.png" width="350px">
+	<!-- <form action="" id='register_form' type='post' onSubmit="return false"> -->
+	<form action="{{ route('register') }}" id='register_form' type='post' >
+			<img src="image/assest/logo.png" width="350px">
 			<div  class="form_item" style="margin-top:30px">
 				<i class="icon iconfont icon-lufu"></i>
 				<input type="text" name='username' autocomplete="off" class='input' placeholder="用户名">
@@ -44,7 +45,7 @@
 					<i class="iconfont icon-check-box-outline-bl" id='cookie' style="cursor:pointer"></i>
 					&nbsp;直接登陆
 				</div>
-				<a href="login.html">已有账号</a>
+				<a href="/loginpc">已有账号</a>
 			</div>
 		</form>
 		<!-- 模板页结束 -->
