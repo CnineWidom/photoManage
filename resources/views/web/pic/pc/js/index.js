@@ -3,12 +3,10 @@
 var ajaxUrl = "";
 // 异步ajax
 function ajaxF(){
-    $.ajax({
-
-    })
+    
 }
 
-function ajaxF(url,data,asyncFlag,fn){
+function ajaxF(url,data,asyncFlag){
     $.ajax({
         url:url,
         type:"post",
@@ -132,7 +130,7 @@ $(".input").bind('blur',function(){
     $(this).parent('.form_item').find('i').css({"color":"rgba(229,229,229,0.8)"});
 })
 
-if($('#loginflag')){
+if($('#loginflag').length > 0){
     
     if($('#loginflag').val() == 'true'){
     $("#cookie").removeClass('icon-check-box-outline-bl');
@@ -168,8 +166,8 @@ $('#submitbutton').bind('click',function(){
         $("#tip").html(erroMsg);
         return false;
     }else{
-        window.location.href='./index.html';
         // 请求后台
+        window.location.href='./index.html';
         // $('#login_form').submit();
         // 身份验证成功则跳转到首页
         // 否则返回错误信息提示
@@ -338,7 +336,12 @@ $("#registerbutton").bind('click',function(){
 
     }else{
         if($('#key1').val() == $('#key2').val()){
-        $('#register_form').submit();
+        // $('#register_form').submit();
+            if($('#loginflag').val() == 'true'){
+
+            }else{
+                window.location.href='./login.html';
+            }
         }else{
             $('#tip').html('两次输入的密码不一致');
             return false;
@@ -400,6 +403,12 @@ $('.icon-zuqibing').bind('click',function(){
     }
     
 });
+$('.index_user span').bind('click',function(){
+    window.location.href='./login.html'
+})
+$('.index_user a').bind('click',function(){
+    window.location.href='./caseManager.html'
+})
 $('.index_logo').bind('click',function(){
     window.location.href='./index.html';
 })
@@ -412,9 +421,9 @@ $('.caseDetail_main_nav span').bind('click',function(){
 $('.index_uploadPicture_button').bind('click',function(){
     window.location.href="./uploadPictureTip.html";
 });
-resetPictureSize();
-function resetPictureSize(){
-    $('.pic_content_detail_pic_small img').each(function(){
+resetPictureSize('pic_content_detail_pic_small img','pic_content_detail_pic_big',280,260,1.07,360);
+function resetPictureSize(smallobj,bigobj,width,height,objvs,bigPictureSize){
+    $('.'+smallobj).each(function(){
         var img = $(this);
         var realWidth ;//原始宽度
 		var realHeight ;//原始高度
@@ -425,30 +434,31 @@ function resetPictureSize(){
 		vs = realWidth/realHeight;
 			
 		//缩略图比例230:142(约等于1.62) 280/260
-		if(vs>=1.07){//横图则固定高度
-			$(img).css("width","auto").css("height","260px").css("marginLeft",140-(130*realWidth/realHeight)+"px");
+		if(vs>=objvs){//横图则固定高度
+			$(img).css("width","auto").css("height",height+'px').css("marginLeft",(width/2)-((height/2)*realWidth/realHeight)+"px");
 		}
 		else{//竖图则固定宽度
-			$(img).css("width","280px").css("height","auto").css("marginTop",130-(140*realHeight/realWidth)+"px");
+			$(img).css("width",width+"px").css("height","auto").css("marginTop",(width/2)-((height/2)*realHeight/realWidth)+"px");
         }
         
         if(vs>=1){//横图或正方形
-			$('.pic_content_detail_pic_big').find('img').height(360);
-			$('.pic_content_detail_pic_big').find('img').width('auto');
-			$('.pic_content_detail_pic_big').css({
+            
+ 			$('.'+bigobj).find('img').height(bigPictureSize);
+            $('.'+bigobj).find('img').width('auto');
+            $('.'+bigobj).css({
 				//此处需结合实际情况计算 左偏移：.original实际宽度的二分之一
 				marginLeft: function(){
-					return -(180*realWidth/realHeight);
+					return -((bigPictureSize/2)*realWidth/realHeight);
 				},
 				left:'50%'
 			})
 		}else{//竖图
-			$('.pic_content_detail_pic_big').find('img').width(360);
-			$('.pic_content_detail_pic_big').find('img').height('auto');
-			$('.pic_content_detail_pic_big').css({
+			$('.'+bigobj).find('img').width(bigPictureSize);
+			$('.'+bigobj).find('img').height('auto');
+			$('.'+bigobj).css({
 				//此处需结合实际情况计算 上偏移：.original实际高度的二分之一
 				marginTop: function(){
-					return -(180*realHeight/realWidth);
+					return -((bigPictureSize/2)*realHeight/realWidth);
 				},
 				top:'50%'
             });
@@ -468,27 +478,32 @@ $('.pic_content_detail_pic_small').each(function(){
 
 
 // 案例详情 开始
-$('.caseDetail_main_content_pic_small li').each(function(j){
+if($('.caseDetail_main_content_pic_small'.length > 0)){
+    $('.caseDetail_main_content_pic_small li').each(function(j){
     
-    var img = $(this).find('img');
-    var src = img.attr('src');
-    
-
-    $(this).bind('mouseenter',function(){
         
-        $(this).parent().find('li').css('border','1px solid rgb(229,229,229)');
-        $(this).css('border','1px solid red');
-        if($(".caseDetail_main_content_pic_big img").attr('src') == src){
-            return ;
-        }
-        $(".caseDetail_main_content_pic_big img").fadeOut('fast');
-        $(".caseDetail_main_content_pic_big img").attr('src',src);
-        $(".caseDetail_main_content_pic_big img").fadeIn('fast');
-
+        var src = $(this).css("background");
+        src = src.split("(\"")[1].split("\")")[0];
+        // src = 
+        console.log(src);
+    
+        $(this).bind('mouseenter',function(){
+            
+            $(this).parent().find('li').css('border','1px solid rgb(229,229,229)');
+            $(this).css('border','1px solid red');
+            if($(".caseDetail_main_content_pic_big img").attr('src') == src){
+                return ;
+            }
+            $(".caseDetail_main_content_pic_big img").fadeOut('fast');
+            $(".caseDetail_main_content_pic_big img").attr('src',src);
+            $(".caseDetail_main_content_pic_big img").fadeIn('fast');
+    
+            
+        })
         
     })
-    
-})
+}
+
 var picContentPages = 0;
 var picContentTatal = 8;
 $('.picture_content_left').bind('click',function(){
@@ -530,7 +545,12 @@ $('.picture_content_right').bind('click',function(){
 function navActive(obj){
     
 }
-
+if($('.caseDetail_main_similar_pic').length > 0){
+    var width = $('.caseDetail_main_similar_pic li').width();
+    $('.caseDetail_main_similar_pic li').height(width);
+    
+    // resetPictureSize('caseDetail_content_detail_pic_small img','caseDetail_content_detail_pic_big',width,height,width/height,width*2);
+}
 
 // 案例详情 结束
 // $('.grid-item').each(function(){
@@ -554,55 +574,87 @@ if($('.uploadPicture_main_content_pic_input').length > 0){
         // 选择文件的按钮。可选。
         // 内部根据当前运行是创建，可能是input元素，也可能是flash.
         pick: '.uploadPicture_main_content_pic_button',
-    
+        threads:1,
+        dupliacate:true,
+        resize: false,
+        // crop: true,
         // 只允许选择图片文件。
         accept: {
             title: 'Images',
-            extensions: 'jpg,jpeg,png',
-            mimeTypes: 'image/*'
+            extensions: 'jpg,jpeg,png,gif',
+            mimeTypes: '.jpg,.jpeg,.png,.gif'
         },
         fileNumLimit: 8, //限制上传个数
         fileSingleSizeLimit: 2048000 //限制单个上传图片的大小
     });
+    uploader.on( 'beforeFileQueued' ,function(file){
+        
+        if(file.ext == ""){
+            return false;
+        }else{
+            var state = uploader.getStats();
+            if(state.successNum > 7){
+                alert('单个案例上传上限为8个');
+                return false;
+            }
+        }
+    })
+    
     uploader.on( 'fileQueued', function( file ) {
+
+
+            
+
+            
+            // console.log(state.successNum)
+            // console.log();
+        // console.log(file);
         var $li = $(
-                '<li id="' + file.id + '" class="file-item thumbnail">' +
+                '<li id="' + file.id + '" class="file-item thumbn   ail">' +
                     '<div class="progress previewprogress"><span></span></div>'+
                     '<img>' +
                     '<div class="preview_info" style="color:white;position:absolute;bottom:0px;left:0px;width:178.6px;height:auto;line-height:12px;font-size:12px;text-align:center">' + file.name + '</div>' +
                     '<span class="preview_tip" style=""></span>' +
                 '</li>'
                 ),
+                
             $img = $li.find('img');
     
-    
+            
         // $list为容器jQuery实例
         $('.uploadPicture_main_content_pic_preview ul').append( $li );
     
         // 创建缩略图
         // 如果为非图片文件，可以不用调用此方法。
         // thumbnailWidth x thumbnailHeight 为 100 x 100
-            
+    
         uploader.makeThumb( file, function( error, src ) {
             if ( error ) {
                 $img.replaceWith('<span>不能预览</span>');
-                return;
+                return false;
             }
     
             $img.attr( 'src', src );
         }, 178.6, 178.6 );
+
+        
     });
+ 
+        
+           
+ 
+ 
     uploader.on( 'uploadProgress', function( file, percentage ) {
         var $li = $( '#'+file.id ),
             $percent = $li.find('.progress span');
     
         // 避免重复创建
-        if ( !$percent.length ) {
-            $percent = $('<p class="progress"><span></span></p>')
-                    .appendTo( $li )
-                    .find('span');
-        }
-    
+        // if ( !$percent.length ) {
+        //     $percent = $('<p class="progress"><span></span></p>')
+        //             .appendTo( $li )
+        //             .find('span');
+        // }
+        console.log(percentage);
         $percent.css( 'width', percentage * 100 + '%' );
     });
     
@@ -611,6 +663,7 @@ if($('.uploadPicture_main_content_pic_input').length > 0){
         console.log(response);
         $( '#'+file.id+' .preview_tip').removeClass('preview_tip_error');
         $( '#'+file.id+' .preview_tip').addClass('preview_tip_success');
+        
     });
     
     // 文件上传失败，显示上传出错。
@@ -631,7 +684,7 @@ if($('.uploadPicture_main_content_pic_input').length > 0){
     
     // 完成上传完了，成功或者失败，先删除进度条。
     uploader.on( 'uploadComplete', function( file ) {
-        $( '#'+file.id ).find('.progress').remove();
+        // $( '#'+file.id ).find('.progress').remove();
     });
 }
 

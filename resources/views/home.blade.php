@@ -13,8 +13,12 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    You are logged in!
+                    @foreach($users as $value)
+                        <h2>{{$value->user_name}}</h2>
+                    @endforeach
+                    <form action="">
+                        
+                    </form>
                 </div>
             </div>
         </div>
