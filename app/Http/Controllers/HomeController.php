@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Users;
+use Carbon\Carbon;
+use Encore\Admin\Grid\Model;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        echo 456;
+        return view('web.pic.pc.index');
     }
 }

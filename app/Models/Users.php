@@ -46,4 +46,8 @@ class Users extends Authenticatable
         return $this->attributes['updated_at'] ? strtotime(date('Y-m-d H:i:s', $this->attributes['updated_at'])) : '';
     }
 
+    public function scopePublish(){
+
+    }
+
 }
