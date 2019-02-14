@@ -23,3 +23,4 @@ Route::get('/register1', 'UserloginController@register')->name('pc.doregister');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
