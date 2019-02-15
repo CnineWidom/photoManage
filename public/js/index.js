@@ -155,25 +155,25 @@ $("#cookie").bind('click',function(){
 });
 
 $('#submitbutton').bind('click',function(){
-    var data;
-    if(serializeF("login_form")){
-        data = serializeF("login_form");
-    }
-   
-    // 验证信息
-    var erroMsg = validateForm(data,loginvalidaterule);
-    if(erroMsg){
-        $("#tip").html(erroMsg);
-        return false;
-    }else{
-        // 请求后台
-        window.location.href="login";
-        // $('#login_form').submit();
-        // 身份验证成功则跳转到首页
-        // 否则返回错误信息提示
-        // $("#tip").html("登陆失败，手机或密码错误");
-    }
-    
+    // var data;
+    // if(serializeF("login_form")){
+    //     data = serializeF("login_form");
+    // }
+    //
+    // // 验证信息
+    // var erroMsg = validateForm(data,loginvalidaterule);
+    // if(erroMsg){
+    //     $("#tip").html(erroMsg);
+    //     return false;
+    // }else{
+    //     // 请求后台
+    //     window.location.href="{{login}}";
+    //     // $('#login_form').submit();
+    //     // 身份验证成功则跳转到首页
+    //     // 否则返回错误信息提示
+    //     // $("#tip").html("登陆失败，手机或密码错误");
+    // }
+    $('#login_form').submit();
 })
 // login js 结束
 
@@ -406,9 +406,13 @@ $('.icon-zuqibing').bind('click',function(){
 $('.index_user span').bind('click',function(){
     window.location.href="{{route('login')}}"
 })
-$('.index_user a').bind('click',function(){
-    window.location.href='./caseManager.html'
+$('#logout').bind('click',function () {
+    event.preventDefault();
+    document.getElementById('logout-form').submit();
 })
+// $('.index_user a').bind('click',function(){
+//     window.location.href='./caseManager.html'
+// })
 $('.index_logo').bind('click',function(){
     window.location.href="{{route('index')}}";
 })
