@@ -167,8 +167,8 @@ $('#submitbutton').bind('click',function(){
         return false;
     }else{
         // 请求后台
-        window.location.href='./index.html';
-        // $('#login_form').submit();
+        // window.location.href='./index.html';
+        $('#login_form').submit();
         // 身份验证成功则跳转到首页
         // 否则返回错误信息提示
         // $("#tip").html("登陆失败，手机或密码错误");
@@ -340,7 +340,8 @@ $("#registerbutton").bind('click',function(){
             if($('#loginflag').val() == 'true'){
 
             }else{
-                window.location.href='./login.html';
+                $('#register_form').submit();
+                // window.location.href='./login.html';
             }
         }else{
             $('#tip').html('两次输入的密码不一致');

@@ -18,7 +18,9 @@ time, mark, audio, video {
   border: 0;
   font-size: 100%;
   font: inherit;
-  vertical-align: baseline; }
+  vertical-align: baseline;
+    
+}
 /* 初始化css 结束 */
 
 /* 登陆注册页css开始 */
@@ -902,12 +904,20 @@ margin-top:12px;
     width: 14%
 }
 .footer_copyright{
-    width: 70%;
+    width: 90%;
     height: 60px;
     margin: 0px auto;
+    border-top:1px solid rgba(32,32,32,.2);
     /* background: #666666; */
     /* padding: 18px 0px; */
-    box-sizing: border-box
+    box-sizing: border-box;
+
+}
+.footer_copyright_content{
+    width: 63%;
+    height: 60px;
+    margin: 0px auto;
+    min-width: 921.6px;
 }
 .footer_copyright h5{
     line-height: 60px;
