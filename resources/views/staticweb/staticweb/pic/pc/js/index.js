@@ -486,6 +486,7 @@ function resetPictureSize(smallobj,bigobj,width,height,objvs,bigPictureSize){
 
 $('.pic_content_detail_pic_small').each(function(){
     $(this).hover(function(){
+
         $(this).parent().find('.pic_content_detail_pic_big').show();
         $(this).parent().find('.pic_content_detail_pic_big').hover(function(){
         },function(){
@@ -502,8 +503,9 @@ if($('.caseDetail_main_content_pic_small'.length > 0)){
         
         var src = $(this).css("background");
         src = src.split("(\"")[1].split("\")")[0];
+        
         // src = 
-        console.log(src);
+        // console.log(src);
     
         $(this).bind('mouseenter',function(){
             
@@ -512,10 +514,40 @@ if($('.caseDetail_main_content_pic_small'.length > 0)){
             if($(".caseDetail_main_content_pic_big img").attr('src') == src){
                 return ;
             }
+
             $(".caseDetail_main_content_pic_big img").fadeOut('fast');
             $(".caseDetail_main_content_pic_big img").attr('src',src);
+            var height = $(".caseDetail_main_content_pic_big img").height();
+            var width = $(".caseDetail_main_content_pic_big img").width();
+            console.log(height,width);
+            if(height>width){
+                $(".caseDetail_main_content_pic_big img").height('372.2');
+                $(".caseDetail_main_content_pic_big img").css('width','auto');
+            }else{
+                $(".caseDetail_main_content_pic_big img").height('auto');
+                $(".caseDetail_main_content_pic_big img").css('width','100%');
+            }
             $(".caseDetail_main_content_pic_big img").fadeIn('fast');
     
+            
+        })
+        
+    })
+}
+if($('.caseDetail_main_conment_rate').length>0){
+    $('.caseDetail_main_conment_rate i').each(function(index){
+        // console.log(index);
+        
+        $(this).bind('click',function(){
+            for(var i = 0 ; i <= index ; i++){
+                $('.caseDetail_main_conment_rate i').eq(i).addClass('active_rate');
+
+            }
+
+            for(var i =  4; i > index ; i--){
+                $('.caseDetail_main_conment_rate i').eq(i).removeClass('active_rate');
+
+            }
             
         })
         
@@ -630,6 +662,7 @@ if($('.uploadPicture_main_content_pic_input').length > 0){
         var $li = $(
                 '<li id="' + file.id + '" class="file-item thumbn   ail">' +
                     '<div class="progress previewprogress"><span></span></div>'+
+                    '<div class="preview_delete"><i class="iconfont icon-jiaocha"></i></div>'+
                     '<img>' +
                     '<div class="preview_info" style="color:white;position:absolute;bottom:0px;left:0px;width:178.6px;height:auto;line-height:12px;font-size:12px;text-align:center">' + file.name + '</div>' +
                     '<span class="preview_tip" style=""></span>' +

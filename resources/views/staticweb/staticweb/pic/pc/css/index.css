@@ -353,7 +353,7 @@ text-align: left;
     display: inline-block
 }
 .pic_content_detail_introduction ul li{
-    color: rgba(48, 79, 146, 1);
+    
     font-size: 14px;
     text-align: left;
     
@@ -361,6 +361,9 @@ text-align: left;
     border: 1px solid rgba(48, 79, 146, 1);
     padding:3px 12px;
     margin-left:10px
+}
+.pic_content_detail_introduction ul li a{
+    color: rgba(48, 79, 146, 1);
 }
 .pic_content_detail_introduction ul li:first-child{
     margin-left:0px
@@ -559,9 +562,9 @@ transform:translate(-50%,-50%);
     width: 372.2px;
     height: 372.2px;
     /* max-height: 372.2px; */
-    /* background: white; */
+    background: rgb(242,242,242);
     position: relative;
-  
+    
     overflow: hidden;
 }
 .caseDetail_main_content_pic_big div{
@@ -572,6 +575,7 @@ transform:translate(-50%,-50%);
 
     top:50%;
     width: 100%;
+    text-align: center;
     left:50%; 
 transform:translate(-50%,-50%);
 -webkit-transform:translate(-50%,-50%);
@@ -699,6 +703,10 @@ font-size: 16px;
 }
 /* 案例详情 结束 */
 /* 上传图片 开始 */
+.uploadPicture_textarea{
+    font-size: 12px;
+    color: black
+}
 .uploadpicture_main_title{
 
 opacity: 0.8;
@@ -753,6 +761,7 @@ margin-top:20px
     width: 178.6px;
     height: 178.6px;
     float: left;
+    overflow: hidden;
     position: relative;
 }
 .uploadPicture_main_content_pic_preview ul li:nth-child(2n+2){
@@ -787,6 +796,28 @@ margin-top:20px
 }
 .previewprogress{
 
+}
+.preview_delete{
+    position: absolute;
+    right: -34px;
+    top: -44px;
+    width: 73px;
+    border-radius: 41px;
+    height: 80px;
+    background: rgba(219,219,219,.9);
+    cursor: pointer;
+    display: none
+}
+.icon-jiaocha{
+    line-height: 121px;
+    font-size:14px;
+    /* background: rgb(39,39,39); */
+    color: rgb(39,39,39);
+    margin-left: 16px;
+    
+}
+.uploadPicture_main_content_pic_preview ul li:hover .preview_delete{
+    display: block
 }
 /* 上传图片 结束 */
 /* 常见问题 开始 */
@@ -836,8 +867,14 @@ margin-top:12px;
     min-height: 400px;
     margin-top:60px;
 }
-.caseManager_table{
+/* .caseManager_table{
 
+} */
+.pic_content_detail_introduction input{
+    font-size: 16px !important;
+}
+.caseDetail_main_conment_rate i{
+    cursor: pointer;
 }
 /* 案例详情 结束 */
       /*  footer css 开始 */
