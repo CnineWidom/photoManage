@@ -6,6 +6,7 @@ use App\Models\Users;
 use Carbon\Carbon;
 use Encore\Admin\Grid\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -26,7 +27,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        echo 456;
+        echo Auth::user();
         return view('web.pic.pc.index');
     }
 }

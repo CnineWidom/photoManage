@@ -21,7 +21,7 @@ height:100%;
     width:100%;
     min-width: 1000px;">
 <!-- 模板页开始 -->
-		<form action="home" id='login_form' method="POST">
+		<form action="{{ route('login') }}" id='login_form' method="POST">
 			{{ csrf_field() }}
             {{var_dump($errors)}}
 			<img src="{{URL::asset('/assest/logo.png')}}" width="350px">
@@ -49,6 +49,13 @@ height:100%;
 			</div>
 		</form>
 <!-- 模板页结束 -->
+<form action="{{route('login')}}" method="POST">
+    {{ csrf_field() }}
+    <input type="text" value="name" name="phone_number">
+    <input type="text" value="name" name="password">
+
+    <input type="submit" value="确定" >
+</form>
 		<div id='copyright'>
 			<p>@2019 All Rights Reserved. Ophthalmic Center</p>
 		</div>

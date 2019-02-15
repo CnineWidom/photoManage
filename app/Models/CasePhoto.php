@@ -10,6 +10,22 @@ class CasePhoto extends Model
 
     public function cases()
     {
-        return $this->belongsTo(Cases::class);
+        return $this->belongsTo(Cases::class, 'cid');
+    }
+
+    public function setImgAttribute($img)
+    {
+        if (is_array($img)) {
+            $this->attributes['img'] = json_encode($img);
+        }
+    }
+
+    public function comment()
+    {
+        return $this->hasMany(CaseComment::class, 'pid');
+    }
+    public function star()
+    {
+        return $this->hasMany(CaseStar::class, 'pid');
     }
 }
