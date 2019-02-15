@@ -662,7 +662,7 @@ if($('.uploadPicture_main_content_pic_input').length > 0){
         var $li = $(
                 '<li id="' + file.id + '" class="file-item thumbn   ail">' +
                     '<div class="progress previewprogress"><span></span></div>'+
-                    '<div class="preview_delete"><i class="iconfont icon-jiaocha"></i></div>'+
+                    '<div class="preview_delete"><i class="iconfont icon-jiaocha uploadPicture_icon-jiaocha"></i></div>'+
                     '<img>' +
                     '<div class="preview_info" style="color:white;position:absolute;bottom:0px;left:0px;width:178.6px;height:auto;line-height:12px;font-size:12px;text-align:center">' + file.name + '</div>' +
                     '<span class="preview_tip" style=""></span>' +
@@ -738,6 +738,97 @@ if($('.uploadPicture_main_content_pic_input').length > 0){
         // $( '#'+file.id ).find('.progress').remove();
     });
 }
+$('.uploadPicture_main_content_pic_preview ul').on('click','.file-item .preview_delete',function(){
+    if(confirm('是否删除选定图片？')){
+        $(this).parent().remove();
+    } 
+    
+})
+var keywords = [
+    {
+        id:1,
+        keyword:'脉络膜黑色素瘤',
+    },
+    {
+        id:2,
+        keyword:'渗出性视网膜'
+    },
+    {
+        id:3,
+        keyword:'脱离性恶性肿瘤'
+    },
+    {
+        id:4,
+        keyword:'眼部直视眼全视野成像'
+    },
+    {
+        id:5,
+        keyword:'keyword1'
+    },
+    {
+        id:6,
+        keyword:'keyword2'
+    },
+    {
+        id:7,
+        keyword:'keyword3'
+    }
+];
+if($('.keywordInput').length > 0 ){
+    $('.keywordInput').bind('input',function(){
+        var _this = $(this);
+        $('.keywordInput').show();
+        if($(this).val().length > 0){
+            $('.KeyWordTip').show('fast');
+
+            $('.KeyWordTip_input').text('添加：'+$(this).val());
+            $('.KeyWordTip .KeyWordTip_input').siblings().remove();
+            keywords.forEach(function(item){
+                
+                if(item.keyword.indexOf(_this.val()) != -1){
+                    if(item.keyword == _this.val()){
+                        $('.keywordInput').hide();
+                    }
+                    // var str = _this.val();
+                    str = new RegExp(_this.val(),"g");
+                    
+                    
+                    var formatitem = item.keyword.replace(str,'<span style="color:red">'+_this.val()+'</span>');
+                    var linum = $('.uploadpicture_main_keywords ul li').length+1;
+                    $('.KeyWordTip .KeyWordTip_input').before('<div class="KeyWordTip_input_normal" >'+formatitem+'<input type="hidden" name="key'+linum+'" value='+item.id+'></div>');
+                }   
+                
+            })
+        }else{
+            $('.KeyWordTip').hide('fast');
+        }
+        
+    })
+}
+if($('.KeyWordTip').length > 0){
+    $('.uploadpicture_main_keywords ul').on('click','.uploadKeyword_icon-jiaocha',function(){
+        $(this).parent().remove();
+    });
+    
+    $('.KeyWordTip').on('click','.KeyWordTip_input_normal',function(){
+        var _this = $(this);
+        if(_this.hasClass('KeyWordTip_input')){
+            $('.uploadpicture_main_keywords ul').append(function(){
+                var li = '<li>'+((_this.text()).split('：'))[1]+'&nbsp;<i class="iconfont icon-jiaocha  uploadKeyword_icon-jiaocha" style="font-size:12px;cursor:pointer"></i></li>';
+                return li;
+            });
+        }else{
+            $('.uploadpicture_main_keywords ul').append(function(){
+                var li = '<li>'+_this.text()+_this.find('input').prop('outerHTML')+'&nbsp;<i class="iconfont icon-jiaocha  uploadKeyword_icon-jiaocha" style="font-size:12px;cursor:pointer"></i></li>';
+                return li;
+            });
+        }
+        
+        $('.keywordInput').val('');
+        $('.KeyWordTip').hide('fast');
+    })
+}
+
 
 $('.uploadPictureTip_upload_button').bind('click',function(){
     window.location.href = "./uploadPicture.html";

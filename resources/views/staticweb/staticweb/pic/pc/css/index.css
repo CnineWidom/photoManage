@@ -528,7 +528,7 @@ margin-left: 9px
     width: 65%;
     box-sizing: border-box;
     padding-left: 30px;
-    /* background: red; */
+   
 }
 .caseDetail_main_content_pic_nav{
     position: absolute;
@@ -808,17 +808,43 @@ margin-top:20px
     cursor: pointer;
     display: none
 }
-.icon-jiaocha{
+.uploadPicture_icon-jiaocha{
     line-height: 121px;
     font-size:14px;
     /* background: rgb(39,39,39); */
     color: rgb(39,39,39);
-    margin-left: 16px;
-    
+    margin-left: 16px; 
 }
 .uploadPicture_main_content_pic_preview ul li:hover .preview_delete{
     display: block
 }
+
+.caseDetail_main_content_detail .pic_content_detail_introduction .uploadpicture_main_keywords ul li{
+    height: 20px;
+    padding: 0px 5px;
+    margin-top:5px;
+    background:rgb(242,242,242)
+}
+
+.KeyWordTip{
+    position: absolute;
+    border:1px solid rgba(0,0,0,.3);
+  
+    left: 0px;
+    width: 100%;
+    
+    background: white;
+    box-sizing: border-box;
+    z-index: 99;
+}
+.KeyWordTip .KeyWordTip_input_normal{
+    width: 100%;
+    padding: 5px;
+}
+
+
+
+
 /* 上传图片 结束 */
 /* 常见问题 开始 */
 .normalproblem_main{
@@ -870,9 +896,9 @@ margin-top:12px;
 /* .caseManager_table{
 
 } */
-.pic_content_detail_introduction input{
-    font-size: 16px !important;
-}
+/* .pic_content_detail_introduction input{
+    font-size: 14px !important;
+} */
 .caseDetail_main_conment_rate i{
     cursor: pointer;
 }
