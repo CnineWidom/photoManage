@@ -787,7 +787,7 @@ if($('.keywordInput').length > 0 ){
                 
                 if(item.keyword.indexOf(_this.val()) != -1){
                     if(item.keyword == _this.val()){
-                        $('.keywordInput').hide();
+                        $('.KeyWordTip_input').hide();
                     }
                     // var str = _this.val();
                     str = new RegExp(_this.val(),"g");
@@ -811,7 +811,14 @@ if($('.KeyWordTip').length > 0){
     });
     
     $('.KeyWordTip').on('click','.KeyWordTip_input_normal',function(){
+        var linum = $('.uploadpicture_main_keywords ul li').length+1;
+        if(linum > 5){
+            alert('关键词不能超过5个');
+            $('.keywordInput').val('');
+            return ;
+        }
         var _this = $(this);
+        $('.KeyWordTip_input').show();
         if(_this.hasClass('KeyWordTip_input')){
             $('.uploadpicture_main_keywords ul').append(function(){
                 var li = '<li>'+((_this.text()).split('：'))[1]+'&nbsp;<i class="iconfont icon-jiaocha  uploadKeyword_icon-jiaocha" style="font-size:12px;cursor:pointer"></i></li>';
