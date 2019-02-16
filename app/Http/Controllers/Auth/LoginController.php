@@ -35,6 +35,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
+//        $this->middleware('guest')->except('logout');
         $this->middleware('guest')->except('logout');
     }
 
@@ -79,7 +80,7 @@ class LoginController extends Controller
      */
     protected function attemptLogin(Request $request)
     {
-        $credentials = array_merge($this->credentials($request),['is_activate'=>0]);
+        $credentials = array_merge($this->credentials($request));
         return $this->guard()->attempt(
             $credentials, $request->filled('remember')
         );
