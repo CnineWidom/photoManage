@@ -323,31 +323,30 @@ $("#getCodeButton").bind('click',function(){
 
 $("#registerbutton").bind('click',function(){
     
-    var data;
-    if(serializeF("register_form")){
-        data = serializeF("register_form");
-    }
+    // var data;
+    // if(serializeF("register_form")){
+    //     data = serializeF("register_form");
+    // }
    
-    // 验证信息
-    var erroMsg = validateForm(data,registervalidaterule);
-    if(erroMsg){
-        $("#tip").html(erroMsg);
-       return false;
+    // // 验证信息
+    // var erroMsg = validateForm(data,registervalidaterule);
+    // if(erroMsg){
+    //     $("#tip").html(erroMsg);
+    //     return false;
 
-    }else{
-        if($('#key1').val() == $('#key2').val()){
-        // $('#register_form').submit();
-            if($('#loginflag').val() == 'true'){
-
-            }else{
-                window.location.href="{{route('login')}}";
-            }
-        }else{
-            $('#tip').html('两次输入的密码不一致');
-            return false;
-        }
+    // }else{
+    //     if($('#key1').val() == $('#key2').val()){
+    //         if($('#loginflag').val() == 'true'){
+                // $('#register_form').submit();
+    //         }else{
+               
+    //         }
+    //     }else{
+    //         $('#tip').html('两次输入的密码不一致');
+    //         return false;
+    //     }
        
-    }
+    // }
 });
 
 
@@ -423,7 +422,7 @@ $('.caseDetail_main_nav span').bind('click',function(){
     window.history.back(-1);
 })
 $('.index_uploadPicture_button').bind('click',function(){
-    window.location.href="./uploadPictureTip.html";
+    window.location.href="{{login}}";
 });
 resetPictureSize('pic_content_detail_pic_small img','pic_content_detail_pic_big',280,260,1.07,360);
 function resetPictureSize(smallobj,bigobj,width,height,objvs,bigPictureSize){

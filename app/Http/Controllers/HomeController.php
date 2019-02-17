@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Users;
+use App\Models\Cases;
+use App\Models\CasePhoto;
 use Carbon\Carbon;
 use Encore\Admin\Grid\Model;
 use Illuminate\Http\Request;
@@ -10,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
+    protected $pageCount = 15;
     /**
      * Create a new controller instance.
      *
@@ -27,7 +30,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        echo Auth::user();
-        return view('web.pic.pc.index');
+        $caseList = Cases::take(2)->get();
+        $caseId =Auth::casePhoto()->cid();
+        echo $caseId;
+        return view('web.pic.pc.index',compact($mess));
     }
 }

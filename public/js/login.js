@@ -168,7 +168,7 @@ $("#getCodeButton").bind('click',function(){
 });
 
 $("#registerbutton").bind('click',function(){
-
+    // $('#register_form').submit();
 });
 
 

@@ -14,7 +14,7 @@ class Cases extends Model
      * @var string
      */
     protected $dateFormat = 'U';
-
+    //外键默认为user_id
     //评论
     public function comments()
     {
@@ -25,7 +25,12 @@ class Cases extends Model
     {
         return $this->hasMany(CaseStar::class, 'cid');
     }
-
+    //图片
+    public function casePhoto()
+    {
+        return $this->hasMany('App\Models\casePhoto','cid');
+    }
+    
     public function setPhotosAttribute($photos)
     {
         if (is_array($photos)) {
@@ -47,5 +52,5 @@ class Cases extends Model
     {
         return $this->attributes['updated_at'] ? date('Y-m-d H:i:s', $this->attributes['updated_at']) : '';
     }
-    
+ 
 }

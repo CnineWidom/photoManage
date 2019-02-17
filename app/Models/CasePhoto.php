@@ -28,4 +28,10 @@ class CasePhoto extends Model
     {
         return $this->hasMany(CaseStar::class, 'pid');
     }
+
+    public function casePhoto()
+    {
+        return $this->belongsTo('App\Models\Cases','id');
+    }
+
 }

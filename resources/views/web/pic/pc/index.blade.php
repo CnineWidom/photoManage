@@ -24,7 +24,6 @@
     <title>首页</title>
 </head>
 <body style='background:rgb(250,250,250);background: url(picture/Group.jpg) no-repeat right 50px;background-size: 1120px 1100px;'>
-{{ Session }}
     <div class='layout' style="clear: both;">
         <div class="header" style="width:100%;height:28px;">
             <!-- <img src="" class='index_logo' alt="" > -->
@@ -37,14 +36,18 @@
                     <li><a href="aboutUs.html">关于我们</a></li>
                 </ul>
             </div>
-            <div class='index_user'><a href="javascript:void(0);" style="font-weight:bold">joe_Tsue</a>
-                <a href="" id ='logout' style="
-                opacity: 0.5;color: rgba(42, 42, 42, 1);cursor: pointer;">
-                   &nbsp;&nbsp;[退出]</a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    {{ csrf_field() }}
-                </form>
-            </div>
+            @if (Auth::user()->user_name)
+              <div class='index_user'><a href="javascript:void(0);" style="font-weight:bold">{{Auth::user()->user_name}}</a>
+                  <a href="" id ='logout' style="
+                  opacity: 0.5;color: rgba(42, 42, 42, 1);cursor: pointer;">
+                     &nbsp;&nbsp;[退出]</a>
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                      {{ csrf_field() }}
+                  </form>
+              </div>
+            @else if 
+              <p>123</p>
+            @endif
         </div>
         <div class="share">
             <div style='background: rgba(242,242,242,.2);padding-right: 2px'>
@@ -64,7 +67,7 @@
                     <li class='pic_nav_type_first pic_nav_type_li_active'><a href="javascript:void(0);">最新</a> </li>
                     <li class='pic_nav_type_li'><a href="javascript:void(0);">热门</a></li>
                     <li class='pic_nav_type_li'><a href="javascript:void(0);">浏览</a></li>
-                    <li class='pic_nav_type_li'><a href="javascript:void(0);"><i class='iconfont icon-shuaxin' style="font-size:20px"></i></a></li>
+                    <li class='pic_nav_type_li'><a href="#"><i class='iconfont icon-shuaxin' style="font-size:20px"></i></a></li>
                     <!-- 图片导航a标签href渲染 结束 -->
                 </ul>
             </div>
