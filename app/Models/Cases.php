@@ -14,6 +14,10 @@ class Cases extends Model
      * @var string
      */
     protected $dateFormat = 'U';
+
+    protected $fillable = [
+        'title','keywords','content','author','device','issue'
+    ];
     //外键默认为user_id
     //评论
     public function comments()

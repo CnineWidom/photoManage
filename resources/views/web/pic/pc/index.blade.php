@@ -8,8 +8,8 @@
 
     <meta content='initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width' name='viewport'>
     <link rel="stylesheet" href="http://at.alicdn.com/t/font_1030860_m07hzsg4z3f.css">
-    <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="{{ URL::asset('css/common.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('css/index.css') }}">
     
     <!-- <link rel="stylesheet" type="text/css" href="css/css/normalize.css" /> -->
 
@@ -23,14 +23,14 @@
 	<![endif]-->
     <title>首页</title>
 </head>
-<body style='background:rgb(250,250,250);background: url(picture/Group.jpg) no-repeat right 50px;background-size: 1120px 1100px;'>
+<body style='background:rgb(250,250,250);background: url({{ URL::asset("picture/Group.jpg")}}) no-repeat right 50px;background-size: 1120px 1100px;'>
     <div class='layout' style="clear: both;">
         <div class="header" style="width:100%;height:28px;">
             <!-- <img src="" class='index_logo' alt="" > -->
-            <div class="index_logo"><img src="assest/logoblue.png" alt=""></div>
+            <div class="index_logo"><img src="{{ URL::asset('assest/logoblue.png') }}" alt=""></div>
             <div class="index_nav">
                 <ul>
-                    <li><a href="index.html">首页</a></li>
+                    <li><a href="home">首页</a></li>
                     <li><a href="uploadPictureTip.html">上传</a></li>
                     <li><a href="normalProblem.html">常见问题</a></li>
                     <li><a href="aboutUs.html">关于我们</a></li>
@@ -64,7 +64,7 @@
             <div class='pic_nav_type'>
                 <ul>
                     <!-- 图片导航a标签href渲染 开始 -->
-                    <li class='pic_nav_type_first pic_nav_type_li_active'><a href="javascript:void(0);">最新</a> </li>
+                    <li class='pic_nav_type_first pic_nav_type_li_active'><a href="/home/1">最新</a> </li>
                     <li class='pic_nav_type_li'><a href="javascript:void(0);">热门</a></li>
                     <li class='pic_nav_type_li'><a href="javascript:void(0);">浏览</a></li>
                     <li class='pic_nav_type_li'><a href="#"><i class='iconfont icon-shuaxin' style="font-size:20px"></i></a></li>

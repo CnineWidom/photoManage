@@ -8,9 +8,15 @@ class CasePhoto extends Model
 {
     protected $table = 'p_case_photo';
 
+    //指定id
+    protected $primaryKey = 'id';
+
+    protected $fillable = [
+        'cid','img','views'
+    ];
     public function cases()
     {
-        return $this->belongsTo(Cases::class, 'cid');
+        return $this->belongsTo('App\Models\Cases');
     }
 
     public function setImgAttribute($img)
@@ -29,9 +35,5 @@ class CasePhoto extends Model
         return $this->hasMany(CaseStar::class, 'pid');
     }
 
-    public function casePhoto()
-    {
-        return $this->belongsTo('App\Models\Cases','id');
-    }
 
 }
