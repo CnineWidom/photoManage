@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Encore\Admin\Grid\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -30,9 +31,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $caseList = Cases::take(2)->get();
-        $caseId =Auth::casePhoto()->cid();
-        echo $caseId;
-        return view('web.pic.pc.index',compact($mess));
+//        $caseList = Cases::take(2)->get();
+//         $photo = new Cases;
+//            $listMess =;
+//            dd($listMess);
+//        dd($photoCase);
+//        $caseId =$photo->casePhoto();
+        $sql ="select * from p_case_list c left join p_case_photo as u on c.id=u.cid group by c.id";
+        $listMess = DB::select($sql);
+        dd($listMess );
+
+        return view('web.pic.pc.index');
     }
 }
