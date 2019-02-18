@@ -30,9 +30,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $caseList = Cases::take(2)->get();
-        $caseId =Auth::casePhoto()->cid();
-        echo $caseId;
-        return view('web.pic.pc.index',compact($mess));
+        $sql = 'select * from `p_`';
+        return view('web.pic.pc.index');
     }
 }
