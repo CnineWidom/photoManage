@@ -37,7 +37,7 @@ class HomeController extends Controller
 //            dd($listMess);
 //        dd($photoCase);
 //        $caseId =$photo->casePhoto();
-
+                                      
         $sql ="select * from p_case_list c left join p_case_photo as u on c.id=u.cid group by c.id ";
         $listMess = DB::select($sql)[0];
         switch ($id) {
@@ -47,12 +47,13 @@ class HomeController extends Controller
                 break;
             case 2:
                 $where = 'order by u.views desc';
-                break
+                break;
             default:
                 
                 break;
-            $sql =
         }
+        $sql .= $where;
+        echo $sql;
         return view('web.pic.pc.index',$listMess);
     }
 
