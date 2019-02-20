@@ -25,6 +25,7 @@
 </head>
 <body style='background:rgb(250,250,250);background: url({{ URL::asset("picture/Group.jpg")}}) no-repeat right 50px;background-size: 1120px 1100px;'>
     <div class='layout' style="clear: both;">
+        {{URL::asset("picture/Group.jpg")}}
         <!-- header -->
         <div class="header" style="width:100%;height:28px;">
             <div class="index_logo"><img src="{{ URL::asset('assest/logoblue.png') }}" alt=""></div>
@@ -62,10 +63,11 @@
             </div>
         </div>
         <div>
-            <form action="/home" method="post">
+            <form action="/home/search" method="post">
                 {{ csrf_field() }}
                 <input type="text" name="search" >
                 <input type="submit" value="提交" style="color: #000;">
+                <p style="color:red">{{$errors->first('search')}}</p>
             </form>
         </div>
         <!-- endbanner -->
@@ -323,11 +325,11 @@
                 <div class='footer_title'>导航</div>
                 <div class='footer_nav'>
                     <ul>
-                        <li> <a href="index.html">主页</a> </li>
-                        <li><a href="aboutUs.html">关于我们</a></li>
-                        <li><a href="uploadPictureTip.html">分享</a></li>
-                        <li><a href="havascript:void(0);">联系我们</a></li>
-                        <li><a href="normalProblem.html">常见问题</a></li>
+                        <li> <a href="{{URL::asset('index.html')}}">主页</a> </li>
+                        <li><a href="{{URL::asset('aboutUs.html')}}">关于我们</a></li>
+                        <li><a href="{{URL::asset('uploadPictureTip.html')}}">分享</a></li>
+                        <li><a href="#">联系我们</a></li>
+                        <li><a href="{{URL::asset('normalProblem.html')}}">常见问题</a></li>
                     </ul>
                 </div>
             </div>
@@ -362,21 +364,21 @@
             </div>
         </div>
         <div class="footer_copyright" style="line-height:60px;">
-            <img src="assest/logoblue.png" alt="" style='float: left;'>
+            <img src="{{URL::asset('assest/logoblue.png')}}" alt="" style='float: left;'>
             <h5 style="font-size:16px;float: left;">版权归 © 2019  中山大学眼科中心 所有</h5>
             <h5 style="font-size:16px;float: right;margin-left: 5px;">粤ICP备11021180号</h5>
-            <img src="assest/Bitmap.png" alt="" style='float: right;margin-top: 20px;' width="20">
+            <img src="{{URL::asset('assest/Bitmap.png')}}" alt="" style='float: right;margin-top: 20px;' width="20">
         </div>
     </div>
     
     <!-- <script src='js/index/raf.js'></script> -->
-    <script src='js/jquery.min.js'></script>
+    <script src='{{URL::asset("js/jquery.min.js")}}'></script>
     <!-- <script src='js/index/transit.js'></script> -->
-    <script src='js/index/velocity.js'></script>
+    <script src='{{URL::asset("js/index/velocity.js")}}'></script>
     <!-- <script src='js/index/imgload.adem.js'></script> -->
-    <script src='js/index/stackgrid.adem.js'></script>
+    <script src='{{URL::asset("js/index/stackgrid.adem.js")}}'></script>
     <!-- <script src='js/index/website.js'></script> -->
-    <script src='js/index.js'></script>
+    <script src='{{URL::asset("js/index.js")}}'></script>
     <script>
         (function() {
             var picwidth = $(".pic").width()-75;

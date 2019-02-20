@@ -30,10 +30,14 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id=1)
+    public function index()
     {
 
         $sql = "select * from p_case_list c left join p_case_photo as u on c.id=u.cid group by c.id ";
+        $createRequest=new createRequest;
+        $id = 1;
+        $tiem = $createRequest ->route('id');
+        echo $time;
         switch ($id) {
             //最新
             case 1:
@@ -48,14 +52,17 @@ class HomeController extends Controller
         }
         $sql .= $where;
         $listMess = DB::select($sql);
-        $createRequest=new createRequest;
-        $search = $createRequest->all();
-        echo 112;
-        var_dump($search);
+
+        // var_dump($search);
         $data = [
             'listMess' => $listMess,
 
         ];
         return view('web.pic.pc.index', $data);
+    }
+    public function search(createRequest $request)
+    {
+       $data =$request ->input('search');
+
     }
 }

@@ -24,11 +24,12 @@ class createRequest extends FormRequest
      */
     public function rules()
     {
-        if(\Request::getPathInfo() == 'home/search') {
-            return [
-                'search' => '‘required|max:10'
-            ];
-        }
+        // if(Request::getPathInfo() == 'home/search') {
+        $rules = [
+            'search' => 'required|max:10'
+        ];
+        // }
+        return $rules;
     }
 
     public function  messages()
@@ -40,9 +41,9 @@ class createRequest extends FormRequest
     }
 
 
-    protected function failedValidation(Validator $validator)
-    {
-        $error = $validator->errors()->all();
-        throw new HttpResponseException(response()->json(['msg' => 'error', 'code' => '500', 'data' => $error[0]], 500));
-    }
+    // protected function failedValidation(Validator $validator)
+    // {
+    //     $error = $validator->errors()->all();
+    //     throw new HttpResponseException(response()->json(['msg' => 'error', 'code' => '500', 'data' => $error[0]], 500));
+    // }
 }
