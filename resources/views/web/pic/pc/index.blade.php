@@ -45,8 +45,8 @@
                       {{ csrf_field() }}
                   </form>
               </div>
-            @else if 
-              <p>123</p>
+            @else if
+                <a href="#">登录</a>/<a href="#">注册</a>
             @endif
         </div>
 
@@ -61,10 +61,26 @@
                 <button class='share_button index_uploadPicture_button'>快快分享</button>
             </div>
         </div>
-
+        <div>
+            <form action="/home" method="post">
+                {{ csrf_field() }}
+                <input type="text" name="search" >
+                <input type="submit" value="提交" style="color: #000;">
+            </form>
+        </div>
         <!-- endbanner -->
         <!-- banner1 -->
-
+        @foreach ($listMess as $value)
+            <ul>
+                <li>{{$value->id}}</li>
+                <li>标题：{{$value->title}}</li>
+                <li> 关键字：{{$value->keywords}}</li>
+                <li>内容{{$value->content}}</li>
+                <li>作者：{{$value->author}}</li>
+                <li>成像设备：{{$value->device}}</li>
+                <li>图片：{{$value->img}}</li>
+            </ul>
+        @endforeach
         <div class="pic">
             <div style='display: inline-block;width: 100%'>
 
@@ -79,9 +95,10 @@
                     </ul>
                 </div>
                 <div class='pic_nav_search'>
-                    <form action="">
+                    <form action="/home" method="post">
+                        {{ csrf_field() }}
                         <i class="iconfont icon-sousuo index_search_button" style="float:left;position: absolute;color:rgb(209,209,209);margin-left:9px;cursor: pointer;z-index: 98;"></i>
-                        <input type="text" style='position: absolute;float:left'>
+                        <input type="text" name="search" style='position: absolute;float:left'>
                         <i class="iconfont icon-zuqibing icon-qiejutang_roupianzuqibing showtype"></i>
                     </form>
                 </div>

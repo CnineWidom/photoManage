@@ -7,10 +7,11 @@ use App\Models\Cases;
 use App\Models\CasePhoto;
 use Carbon\Carbon;
 use Encore\Admin\Grid\Model;
-// use Illuminate\Http\Request;
+//use Illuminate\Http\Request;//明面上的方式
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Request;
+//use Illuminate\Support\Facades\Request;
+use App\Http\Requests\createRequest;
 class HomeController extends Controller
 {
     protected $pageCount = 15;
@@ -31,15 +32,8 @@ class HomeController extends Controller
      */
     public function index($id=1)
     {
-//        $caseList = Cases::take(2)->get();
-//         $photo = new Cases;
-//            $listMess =;
-//            dd($listMess);
-//        dd($photoCase);
-//        $caseId =$photo->casePhoto();
-                                      
-        $sql ="select * from p_case_list c left join p_case_photo as u on c.id=u.cid group by c.id ";
-        $listMess = DB::select($sql)[0];
+
+        $sql = "select * from p_case_list c left join p_case_photo as u on c.id=u.cid group by c.id ";
         switch ($id) {
             //最新
             case 1:
@@ -49,12 +43,19 @@ class HomeController extends Controller
                 $where = 'order by u.views desc';
                 break;
             default:
-                
+                $where = 'order by u.views desc';
                 break;
         }
         $sql .= $where;
-        echo $sql;
-        return view('web.pic.pc.index',$listMess);
-    }
+        $listMess = DB::select($sql);
+        $createRequest=new createRequest;
+        $search = $createRequest->all();
+        echo 112;
+        var_dump($search);
+        $data = [
+            'listMess' => $listMess,
 
+        ];
+        return view('web.pic.pc.index', $data);
+    }
 }
