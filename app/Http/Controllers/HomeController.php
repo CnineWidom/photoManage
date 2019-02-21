@@ -30,14 +30,20 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(createRequest $request)
     {
 
         $sql = "select * from p_case_list c left join p_case_photo as u on c.id=u.cid group by c.id ";
-        $createRequest=new createRequest;
         $id = 1;
-        $tiem = $createRequest ->route('id');
-        echo $time;
+//        dd($request);
+        $tiem = $request ->id;
+        if($request->get('search'))
+        {
+            echo $request->get('search');
+        }
+        echo $request->route('id');//注意这个参数 和get的参数是不一样的
+//        echo $tiem;
+//        dd($tiem);
         switch ($id) {
             //最新
             case 1:

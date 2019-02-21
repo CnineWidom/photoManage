@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use http\Env\Request;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Http\FormRequest;
 
 class createRequest extends FormRequest
@@ -22,13 +22,18 @@ class createRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
-        // if(Request::getPathInfo() == 'home/search') {
-        $rules = [
-            'search' => 'required|max:10'
-        ];
-        // }
+        if(Request::getPathInfo() == '/home/search'){
+            $rules = [
+                'search' => 'required|max:10',
+            ];
+        }
+        else{
+            $rules = [
+                'id'=>'max:2'
+            ];
+        }
         return $rules;
     }
 

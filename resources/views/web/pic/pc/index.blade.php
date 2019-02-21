@@ -25,7 +25,6 @@
 </head>
 <body style='background:rgb(250,250,250);background: url({{ URL::asset("picture/Group.jpg")}}) no-repeat right 50px;background-size: 1120px 1100px;'>
     <div class='layout' style="clear: both;">
-        {{URL::asset("picture/Group.jpg")}}
         <!-- header -->
         <div class="header" style="width:100%;height:28px;">
             <div class="index_logo"><img src="{{ URL::asset('assest/logoblue.png') }}" alt=""></div>
@@ -74,7 +73,7 @@
         <!-- banner1 -->
         @foreach ($listMess as $value)
             <ul>
-                <li>{{$value->id}}</li>
+
                 <li>标题：{{$value->title}}</li>
                 <li> 关键字：{{$value->keywords}}</li>
                 <li>内容{{$value->content}}</li>
