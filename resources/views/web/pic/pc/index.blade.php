@@ -109,32 +109,35 @@
                     <img src="{{URL::asset('picture/loading.gif')}}" alt="">
                 </div>
                 <!-- 详细信息循环样例 开始 -->
-                <div class='pic_content_detail_content'>
-                    <div class="pic_content_detail_pic" style="position: relative;">
-                            <div  class="pic_content_detail_pic_big">
-                                <img src="{{URL::asset('picture/2DArtist_Issue_111_Mar15_unlocked_Page_001-680x967.jpg')}}" height="680" width="480"  alt="480">
+                @foreach ($listMess as $value)
+                    <div class='pic_content_detail_content'>
+                        <div class="pic_content_detail_pic" style="position: relative;">
+                                <div  class="pic_content_detail_pic_big">
+                                    <img src="{{$value->img}}" height="680" width="480"  alt="480">
+                                </div>
+                            <div class="pic_content_detail_pic_small">
+                                <img src="{{$value->img}}"  alt="">
                             </div>
-                        <div class="pic_content_detail_pic_small">
-                            <img src="{{URL::asset('picture/2DArtist_Issue_111_Mar15_unlocked_Page_001-680x967.jpg')}}"  alt="">
+                        </div>
+                        <div class="pic_content_detail_introduction">
+                            <h2>{{$value->title}}</h2>
+                            <span class="pic_content_detail_author">{{$value->author}}</span><span class="pic_content_detail_date">{{$value->createdTmp}}</span><br>
+                            <h4>{{$value->content}}
+                                    <br>摄影师：Karen Panzegrau
+                                    <br>成像设备：{{$value->device}}
+                            </h4>
+                            <h4 style="margin-top:20px;margin-bottom:5px">条件/关键词：</h4>
+                             <ul>
+                                @foreach ($value->keywordsTmp as $v)
+                                <li> <a href="">{{$v}}</a> </li>
+<!--                                     <li>渗出性视网膜</li>
+                                    <li>脱离性恶性肿瘤</li>
+                                    <li>眼部直视眼全视野成像</li> -->
+                                @endforeach
+                             </ul>
                         </div>
                     </div>
-                    <div class="pic_content_detail_introduction">
-                        <h2>黄斑变性与重要的玻璃疣</h2>
-                        <span class="pic_content_detail_author">Karen Panzegrau</span><span class="pic_content_detail_date">2018-2-15</span><br>
-                        <h4>一名27岁男性患者的超宽视野视频图像，患者视力丧失约6-8周。以前看过脉络膜痣。建议年度监测。自2014年10月以来没有考试。讨论了近距离放射治疗与去核。近距离放射治疗被确定为治疗。正在进行完全转移性检查。
-                                <br>摄影师：Karen Panzegrau
-                                <br>成像设备：Optos
-                        </h4>
-                        <h4 style="margin-top:20px;margin-bottom:5px">条件/关键词：</h4>
-                         <ul>
-                             <a href="javascript:void(0);"><li> 脉络膜黑色素瘤 </li></a>
-                             <li>渗出性视网膜</li>
-                             <li>脱离性恶性肿瘤</li>
-                             <li>眼部直视眼全视野成像</li>
-                         </ul>
-                    </div>
-                </div>
-                <!-- 详细信息循环样例 结束 -->
+                @endforeach
                 <div class='pic_content_detail_content'>
                     <div class="pic_content_detail_pic" style="position: relative;">
                         <div  class="pic_content_detail_pic_big">
@@ -235,6 +238,7 @@
                         </ul>
                     </div>
                 </div>
+                <!-- 详细信息循环样例 结束 -->
             </div>
             <div class='pic_content pic_content_normal' style="position: relative;">
                 <div class='pic_content_mask'>

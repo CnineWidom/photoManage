@@ -59,7 +59,11 @@ class HomeController extends Controller
         $sql .= $where;
         $listMess = DB::select($sql);
 
-        // var_dump($search);
+        foreach ($listMess as $key => &$value) {
+            $value->keywordsTmp = explode("|",$value->keywords);
+            $value->createdTmp = Date('Y-m-d',$value->created_at);
+        }
+        unset($value);
         $data = [
             'listMess' => $listMess,
 
