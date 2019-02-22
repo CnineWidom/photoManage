@@ -34,16 +34,12 @@ class HomeController extends Controller
     {
 
         $sql = "select * from p_case_list c left join p_case_photo as u on c.id=u.cid group by c.id ";
-        $id = 1;
-//        dd($request);
-        $tiem = $request ->id;
         if($request->get('search'))
         {
             echo $request->get('search');
         }
-        echo $request->route('id');//注意这个参数 和get的参数是不一样的
-//        echo $tiem;
-//        dd($tiem);
+        $id = (int)$request->route('id');//注意这个参数 和get的参数是不一样的
+        echo $id;
         switch ($id) {
             //最新
             case 1:
@@ -53,15 +49,15 @@ class HomeController extends Controller
                 $where = 'order by u.views desc';
                 break;
             default:
-                $where = 'order by u.views desc';
+                $where = 'order by created_at desc';
                 break;
         }
         $sql .= $where;
         $listMess = DB::select($sql);
-
         foreach ($listMess as $key => &$value) {
             $value->keywordsTmp = explode("|",$value->keywords);
             $value->createdTmp = Date('Y-m-d',$value->created_at);
+            $value->photographer = empty($value->photographer) ? $value->author : $value->photographer;
         }
         unset($value);
         $data = [

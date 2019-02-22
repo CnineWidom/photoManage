@@ -39,8 +39,7 @@
             @if (Auth::user()->user_name)
               <div class='index_user'><a href="javascript:void(0);" style="font-weight:bold">{{Auth::user()->user_name}}</a>
                   <a href="" id ='logout' style="
-                  opacity: 0.5;color: rgba(42, 42, 42, 1);cursor: pointer;">
-                     &nbsp;&nbsp;[退出]</a>
+                  opacity: 0.5;color: rgba(42, 42, 42, 1);cursor: pointer;">[退出]</a>
                   <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                       {{ csrf_field() }}
                   </form>
@@ -61,27 +60,8 @@
                 <button class='share_button index_uploadPicture_button'>快快分享</button>
             </div>
         </div>
-        <div>
-            <form action="/home/search" method="post">
-                {{ csrf_field() }}
-                <input type="text" name="search" >
-                <input type="submit" value="提交" style="color: #000;">
-                <p style="color:red">{{$errors->first('search')}}</p>
-            </form>
-        </div>
         <!-- endbanner -->
         <!-- banner1 -->
-        @foreach ($listMess as $value)
-            <ul>
-
-                <li>标题：{{$value->title}}</li>
-                <li> 关键字：{{$value->keywords}}</li>
-                <li>内容{{$value->content}}</li>
-                <li>作者：{{$value->author}}</li>
-                <li>成像设备：{{$value->device}}</li>
-                <li>图片：{{$value->img}}</li>
-            </ul>
-        @endforeach
         <div class="pic">
             <div style='display: inline-block;width: 100%'>
 
@@ -123,7 +103,7 @@
                             <h2>{{$value->title}}</h2>
                             <span class="pic_content_detail_author">{{$value->author}}</span><span class="pic_content_detail_date">{{$value->createdTmp}}</span><br>
                             <h4>{{$value->content}}
-                                    <br>摄影师：Karen Panzegrau
+                                    <br>摄影师：{{$value->photographer}}
                                     <br>成像设备：{{$value->device}}
                             </h4>
                             <h4 style="margin-top:20px;margin-bottom:5px">条件/关键词：</h4>

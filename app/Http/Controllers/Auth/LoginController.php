@@ -33,6 +33,7 @@ class LoginController extends Controller
      *
      * @return void
      */
+
     public function __construct()
     {
 //        $this->middleware('guest')->except('logout');
@@ -84,5 +85,15 @@ class LoginController extends Controller
         return $this->guard()->attempt(
             $credentials, $request->filled('remember')
         );
+    }
+
+    public function logout(Request $request){
+
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+//        return redirect()->back();//可以 回调前一个页面
+        return redirect('login');
     }
 }
