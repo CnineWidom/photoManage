@@ -72,7 +72,6 @@ class HomeController extends Controller
     }
     public function search(createRequest $request)
     {
-       $data =$request ->input('search');
-
+       $data =$request -> input('search');
     }
 }
