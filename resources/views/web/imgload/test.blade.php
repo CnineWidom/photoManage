@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<form action="{{route('login')}}" method="post">
+<form action="{{route('kou')}}" method="post">
     {{csrf_field()}}
     手机号：<input type="text" name='phone_number'>
     密码: <input  type="password" name='password'>

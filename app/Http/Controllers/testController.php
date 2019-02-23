@@ -12,6 +12,7 @@ class testController extends Controller
     }
 
     public  function kou(){
+
         return view('web.imgload.kou');
     }
 }
