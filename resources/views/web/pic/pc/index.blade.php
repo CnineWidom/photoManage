@@ -68,17 +68,17 @@
                 <div class='pic_nav_type'>
                     <ul>
                         <!-- 图片导航a标签href渲染 开始 -->
-                        <li class='pic_nav_type_first pic_nav_type_li_active'><a href="/home/1">最新</a> </li>
-                        <li class='pic_nav_type_li'><a href="/home/2">热门</a></li>
-                        <li class='pic_nav_type_li'><a href="/home/3">浏览</a></li>
+                        <li class='pic_nav_type_li pic_nav_type_li_active'><a href="/home/0">最新</a> </li>
+                        <li class='pic_nav_type_li'><a href="/home/1">热门</a></li>
+                        <li class='pic_nav_type_li'><a href="/home/2">浏览</a></li>
                         <li class='pic_nav_type_li'><a href="#"><i class='iconfont icon-shuaxin' style="font-size:20px"></i></a></li>
                         <!-- 图片导航a标签href渲染 结束 -->
                     </ul>
                 </div>
                 <div class='pic_nav_search'>
-                    <form action="/home" method="post">
+                    <form action="/home/{{$id}}" id='form_search' method="get">
                         {{ csrf_field() }}
-                        <i class="iconfont icon-sousuo index_search_button" style="float:left;position: absolute;color:rgb(209,209,209);margin-left:9px;cursor: pointer;z-index: 98;"></i>
+                        <i class="iconfont icon-sousuo index_search_button" id='search' style="float:left;position: absolute;color:rgb(209,209,209);margin-left:9px;cursor: pointer;z-index: 98;"></i>
                         <input type="text" name="search" style='position: absolute;float:left'>
                         <i class="iconfont icon-zuqibing icon-qiejutang_roupianzuqibing showtype"></i>
                     </form>
@@ -93,10 +93,10 @@
                     <div class='pic_content_detail_content'>
                         <div class="pic_content_detail_pic" style="position: relative;">
                                 <div  class="pic_content_detail_pic_big">
-                                    <img src="{{$value->img}}" height="680" width="480"  alt="480">
+                                    <img src="{{$value->photos}}" height="680" width="480"  alt="480">
                                 </div>
                             <div class="pic_content_detail_pic_small">
-                                <img src="{{$value->img}}"  alt="">
+                                <img src="{{$value->photos}}"  alt="">
                             </div>
                         </div>
                         <div class="pic_content_detail_introduction">
@@ -109,16 +109,13 @@
                             <h4 style="margin-top:20px;margin-bottom:5px">条件/关键词：</h4>
                              <ul>
                                 @foreach ($value->keywordsTmp as $v)
-                                <li> <a href="">{{$v}}</a> </li>
-<!--                                     <li>渗出性视网膜</li>
-                                    <li>脱离性恶性肿瘤</li>
-                                    <li>眼部直视眼全视野成像</li> -->
+                                    <li> <a href="">{{$v}}</a> </li>
                                 @endforeach
                              </ul>
                         </div>
                     </div>
                 @endforeach
-                <div class='pic_content_detail_content'>
+<!--                 <div class='pic_content_detail_content'>
                     <div class="pic_content_detail_pic" style="position: relative;">
                         <div  class="pic_content_detail_pic_big">
                             <img src="{{URL::asset('picture/2DArtist_Issue_111_Mar15_unlocked_Page_001-680x967.jpg')}}" height="680" width="480"  alt="480">
@@ -217,7 +214,7 @@
                             <li>眼部直视眼全视野成像</li>
                         </ul>
                     </div>
-                </div>
+                </div> -->
                 <!-- 详细信息循环样例 结束 -->
             </div>
             <div class='pic_content pic_content_normal' style="position: relative;">
@@ -225,76 +222,30 @@
                     <img src="picture/loading.gif" alt="">
                 </div>
                 <div class='grid-wrapper' >
-                    <div class='grid-item'>
-                        <img src='picture/pic (1).png'>
-                        <div class="index_img_mask">
-                            <div class="index_imgdetail">
-                            </div>
-                        </div>
-                    </div>
                     <!-- 简略图片循环样例 开始 -->
-                    <div class='grid-item'>                        
+                    @foreach ($listMess as $value)
+                    <div class='grid-item'>
                         <img src='picture/pic (2).png'>
                         <a href="./caseDetail.html">
                             <div class="index_img_mask">
                                 <div class="index_imgdetail">
-                                    <h5 class="index_imgdetail_title">Mud-Splatter of Posterior …</h5>
-                                    <h6 class="index_imgdetail_author">Karen Panzegrau </h6>
-                                    <h6 class="index_imgdetail_date">2018-2-15</h6>
+                                    <h5 class="index_imgdetail_title">{{$value->title}}</h5>
+                                    <h6 class="index_imgdetail_author">{{$value->author}} </h6>
+                                    <h6 class="index_imgdetail_date">{{$value->createdTmp}}</h6>
                                     <h6 class="index_imgdetail_rate">
-                                        <i class="iconfont icon-tuanjianrongcopy active_rate"></i>
-                                        <i class="iconfont icon-tuanjianrongcopy active_rate"></i>
-                                        <i class="iconfont icon-tuanjianrongcopy active_rate"></i>
-                                        <i class="iconfont icon-tuanjianrongcopy active_rate"></i>
-                                        <i class="iconfont icon-tuanjianrongcopy normal_rate"></i>
+                                        @foreach ($value->starArr as $v)
+                                            @if($v) <i class="iconfont icon-tuanjianrongcopy active_rate"></i>
+                                            @else <i class="iconfont icon-tuanjianrongcopy normal_rate"></i>
+                                            @endif
+                                        @endforeach
+                                     
                                     </h6>
-                                </div>
+                                </div> 
                             </div>
                         </a>
                     </div>
+                    @endforeach
                     <!-- 简略图片循环样例 结束 -->
-                    <div class='grid-item'>
-                        <img src='picture/pic (3).png'>
-                    </div>
-                    <div class='grid-item'>
-                        <img src='picture/pic (4).png'>
-                    </div>
-                    <div class='grid-item'>
-                        <img src='picture/pic (5).png'>
-                    </div>
-                    <div class='grid-item'>
-                        <img src='picture/pic (6).png'>
-                    </div>
-                    <div class='grid-item'>
-                        <img src='picture/pic (7).png'>
-                    </div>
-                    <div class='grid-item'>
-                        <img src='picture/pic (8).png'>
-                    </div>
-                    <div class='grid-item'>
-                        <img src='picture/pic (9).png'>
-                    </div>
-                    <div class='grid-item'>
-                        <img src='picture/pic (3).png'>
-                    </div>
-                    <div class='grid-item'>
-                        <img src='picture/pic (4).png'>
-                    </div>
-                    <div class='grid-item'>
-                        <img src='picture/pic (5).png'>
-                    </div>
-                    <div class='grid-item'>
-                        <img src='picture/pic (6).png'>
-                    </div>
-                    <div class='grid-item'>
-                        <img src='picture/pic (7).png'>
-                    </div>
-                    <div class='grid-item'>
-                        <img src='picture/pic (8).png'>
-                    </div>
-                    <div class='grid-item'>
-                        <img src='picture/pic (9).png'>
-                    </div>
                 </div>
             </div>
         </div>
@@ -452,6 +403,13 @@
             })
             // $(".grid-item img").lazyload({effect: "fadeIn",threshold :10});
         }).call(this);
+
+        $('#search').click(function(){
+            $('#form_search').submit();
+        })
+        $('.pic_nav_type ul li').removeClass('pic_nav_type_li_active')
+        $(".pic_nav_type ul li:eq({{$id}})").addClass('pic_nav_type_li_active')
     </script>
+
 </body>
 </html>

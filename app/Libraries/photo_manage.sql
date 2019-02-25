@@ -324,6 +324,6 @@ CREATE TABLE `p_case_star`  (
   `cid` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '案例ID',
   `uid` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户ID',
   `stars` tinyint(4) UNSIGNED NULL DEFAULT 0 COMMENT '星数',
-  PRIMARY KEY (`uid`) USING BTREE,
+  PRIMARY KEY (`uid`,`cid`) USING BTREE,
   INDEX `cid`(`cid`) USING BTREE
 ) ENGINE = MyISAM CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '影象星数表' ROW_FORMAT = Fixed;

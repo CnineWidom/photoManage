@@ -22,12 +22,8 @@ Route::post('/home', 'HomeController@index');
 Route::post('/home/search', 'HomeController@index');
 Route::get('/home/{id}', 'HomeController@index');
 
+Route::post();
 
-//测试类
-Route::get('test','testController@index')->name('test');
-Route::post('test','testController@index');
-Route::get('kou','testController@kou')->name('kou');
-Route::post('kou','testController@kou');
 
 
 
