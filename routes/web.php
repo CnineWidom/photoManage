@@ -22,10 +22,7 @@ Route::post('/home', 'HomeController@index');
 Route::post('/home/search', 'HomeController@index');
 Route::get('/home/{id}', 'HomeController@index');
 
-
-//测试类
-Route::get('test','testController@index')->name('test');
-Route::post('test','testController@index');
+Route::get('uploadPicture','uploadController@index')->name('uploadPicture');
 
 
 
