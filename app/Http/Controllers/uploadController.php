@@ -3,12 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Http\Requests\createRequest;
 class uploadController extends Controller
 {
+
+	public function __construct()
+	{
+		$this->middleware('auth',['only'=>['index']]);
+	}
+
 	public function index()
 	{
-//	    echo 456;
 		return view('web.pic.pc.uploadPicture');
+	}
+
+	public function doupload(createRequest $request)
+	{
+		 $title = $request->get('title');
+		 $content = $request->get('content');
+		 $file = $request->get('files');
+		 var_dump($file);
 	}
 }

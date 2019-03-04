@@ -42,7 +42,6 @@ class HomeController extends Controller
             $where .=" AND keywords like '%".$search."%' ";
         }
         $requestType = (int)$request->route('id');//注意这个参数 和get的参数是不一样的
-        echo $requestType;
         switch ($requestType) {
             //最新
             case 0:
@@ -58,7 +57,7 @@ class HomeController extends Controller
         $sql .= $where;
         $listMess = DB::select($sql);
         foreach ($listMess as $key => &$value) {
-            $value->keywordsTmp = explode("|",$value->keywords);
+            $value->keywordsTmp = explode("||",$value->keywords);
             $value->createdTmp = Date('Y-m-d',$value->created_at);
             $value->photographer = empty($value->photographer) ? $value->author : $value->photographer;
             // 获取星数 取平均值 公式 sum(star)/count(uid);

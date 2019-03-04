@@ -58,7 +58,6 @@
                 <h4 class='share_word share_word0'>捕捉视网膜所有物种的范围和种类。搜索您感兴趣的特定条件，或浏览此广泛的集合以了解新的内容。</h4>
                 <h4 class='share_word share_word1'>开始分享您自己的图片。</h4>
                 <button class='share_button index_uploadPicture_button'>快快分享</button>
-                <a href="{{route('uploadPicture')}}">快快分享</a>
             </div>
         </div>
         <!-- endbanner -->
@@ -239,7 +238,6 @@
                                             @else <i class="iconfont icon-tuanjianrongcopy normal_rate"></i>
                                             @endif
                                         @endforeach
-                                     
                                     </h6>
                                 </div> 
                             </div>
