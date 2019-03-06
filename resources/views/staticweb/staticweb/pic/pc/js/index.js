@@ -497,11 +497,11 @@ $('.pic_content_detail_pic_small').each(function(){
 
 
 // 案例详情 开始
-if($('.caseDetail_main_content_pic_small'.length > 0)){
+if($('.caseDetail_main_content_pic_small').length > 0){
     $('.caseDetail_main_content_pic_small li').each(function(j){
     
         
-        var src = $(this).css("background");
+        var src = $(this).css("backgroundImage");
         src = src.split("(\"")[1].split("\")")[0];
         
         // src = 
@@ -519,7 +519,7 @@ if($('.caseDetail_main_content_pic_small'.length > 0)){
             $(".caseDetail_main_content_pic_big img").attr('src',src);
             var height = $(".caseDetail_main_content_pic_big img").height();
             var width = $(".caseDetail_main_content_pic_big img").width();
-            console.log(height,width);
+            // console.log(height,width);
             if(height>width){
                 $(".caseDetail_main_content_pic_big img").height('372.2');
                 $(".caseDetail_main_content_pic_big img").css('width','auto');

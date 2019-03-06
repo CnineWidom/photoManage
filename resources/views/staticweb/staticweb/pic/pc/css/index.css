@@ -965,15 +965,24 @@ margin-top:12px;
     width: 14%
 }
 .footer_copyright{
-    width: 70%;
+    width: 90%;
     height: 60px;
     margin: 0px auto;
+    border-top:1px solid rgba(32,32,32,0.2);
     /* background: #666666; */
     /* padding: 18px 0px; */
-    box-sizing: border-box
+    box-sizing: border-box;
+    min-width: 1069px;
+    position: relative;
 }
 .footer_copyright h5{
     line-height: 60px;
+}
+.footer_copyright_content{
+    width: 78.6%;
+    margin:0px auto;
+    height: 100%;
+    
 }
 /*  footer css 结束 */
 /* .footer_detail_content{
