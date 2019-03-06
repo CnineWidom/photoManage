@@ -323,31 +323,30 @@ $("#getCodeButton").bind('click',function(){
 
 $("#registerbutton").bind('click',function(){
     
-    var data;
-    if(serializeF("register_form")){
-        data = serializeF("register_form");
-    }
+    // var data;
+    // if(serializeF("register_form")){
+    //     data = serializeF("register_form");
+    // }
    
-    // 验证信息
-    var erroMsg = validateForm(data,registervalidaterule);
-    if(erroMsg){
-        $("#tip").html(erroMsg);
-       return false;
+    // // 验证信息
+    // var erroMsg = validateForm(data,registervalidaterule);
+    // if(erroMsg){
+    //     $("#tip").html(erroMsg);
+    //     return false;
 
-    }else{
-        if($('#key1').val() == $('#key2').val()){
-        // $('#register_form').submit();
-            if($('#loginflag').val() == 'true'){
-
-            }else{
-                window.location.href="{{route('login')}}";
-            }
-        }else{
-            $('#tip').html('两次输入的密码不一致');
-            return false;
-        }
+    // }else{
+    //     if($('#key1').val() == $('#key2').val()){
+    //         if($('#loginflag').val() == 'true'){
+                // $('#register_form').submit();
+    //         }else{
+               
+    //         }
+    //     }else{
+    //         $('#tip').html('两次输入的密码不一致');
+    //         return false;
+    //     }
        
-    }
+    // }
 });
 
 
@@ -422,9 +421,10 @@ $('.index_search_button').bind('click',function(){
 $('.caseDetail_main_nav span').bind('click',function(){
     window.history.back(-1);
 })
-$('.index_uploadPicture_button').bind('click',function(){
-    window.location.href="./uploadPictureTip.html";
-});
+
+$('.index_uploadPicture_button').click(function(){
+    window.location.href="uploadPicture";
+})
 resetPictureSize('pic_content_detail_pic_small img','pic_content_detail_pic_big',280,260,1.07,360);
 function resetPictureSize(smallobj,bigobj,width,height,objvs,bigPictureSize){
     $('.'+smallobj).each(function(){
@@ -565,15 +565,18 @@ if($('.caseDetail_main_similar_pic').length > 0){
 // 初始化Web Uploader
 if($('.uploadPicture_main_content_pic_input').length > 0){
     var uploader = WebUploader.create({
-
         // 选完文件后，是否自动上传。
         auto: true,
-    
+        
         // swf文件路径
         swf: 'https://cdn.bootcss.com/webuploader/0.1.1/Uploader.swf',
-    
+        formData: {
+            _token:'{{csrf_token()}}'
+
+        },
         // 文件接收服务端。
-        server: 'http://localhost:8080/CI/index.php/BasicInfo/getpic',
+        // server: 'http://localhost:8080/CI/index.php/BasicInfo/getpic',
+        server: 'api/doupload',
     
         // 选择文件的按钮。可选。
         // 内部根据当前运行是创建，可能是input元素，也可能是flash.

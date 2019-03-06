@@ -23,18 +23,23 @@ height:100%;
 <!-- 模板页开始 -->
 		<form action="{{ route('login') }}" id='login_form' method="POST">
 			{{ csrf_field() }}
-            {{var_dump($errors)}}
 			<img src="{{URL::asset('/assest/logo.png')}}" width="350px">
 			<!-- 用户名 -->
 			<div id='username' class="form_item" style="margin-top:30px">
 				<i class="icon iconfont icon-lufu"></i>
 				<input type="text" name='phone_number' value="{{ old('phone_number') }}" autocomplete="off" class='input' placeholder="手机号">
 			</div>
+			@if ($errors->has('phone_number'))
+				<p>手机号码错误</p>
+			@endif
 			<!-- 密码 -->
 			<div id='password' class="form_item">
-				<i class="icon iconfont icon-password"></i>			
+				<i class="icon iconfont icon-password"></i>
 				<input type="password" name='password' class='input' id='password_input' placeholder="密码">
 			</div>
+			@if ($errors->has('password'))
+			<p>密码错误</p>
+			@endif
 			<!-- cookie是否自动登录 -->
 			<input type="hidden" name='loginflag' id='loginflag' value="false">
 			<!-- 此处是验证信息 开始 后端如果需要验证可以再此处添加提示信息，前端已经做了初步的认证，如果后端需要的就在此处添加-->
@@ -43,19 +48,12 @@ height:100%;
 			<button id='submitbutton' type='button' class="button">登陆</button>
 			<div id='link'>
 				<div style='float:left;font-size:14px'><i class="iconfont icon-check-box-outline-bl" id='cookie' style="cursor:pointer"></i>&nbsp;记住密码</div>
-				<a href="register.html" id='register'>尚未注册</a>
+				<a href="{{route('register')}}" id='register'>尚未注册</a>
 				|
-				<a href="javascript:void(0);">忘记密码？</a>
+				<a href="{{ route('password.request') }}">忘记密码？</a>
 			</div>
 		</form>
 <!-- 模板页结束 -->
-<form action="{{route('login')}}" method="POST">
-    {{ csrf_field() }}
-    <input type="text" value="name" name="phone_number">
-    <input type="text" value="name" name="password">
-
-    <input type="submit" value="确定" >
-</form>
 		<div id='copyright'>
 			<p>@2019 All Rights Reserved. Ophthalmic Center</p>
 		</div>

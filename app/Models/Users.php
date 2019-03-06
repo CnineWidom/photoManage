@@ -13,7 +13,7 @@ class Users extends Authenticatable
 
     //允许批量赋值的字段
     protected $fillable = [
-        'user_name', 'email', 'password','phone_number','is_active'
+        'user_name', 'email', 'password','phone_number','position','hosipital','is_active'
     ];
 
     //不允许批量赋值的字段

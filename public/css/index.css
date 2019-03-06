@@ -927,3 +927,8 @@ margin-top:12px;
     /* height:  */
 /* } */ 
 /* 首页css结束 */
+
+.error_p{
+    font-size: 15px;
+    color: red;
+}

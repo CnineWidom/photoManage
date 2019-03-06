@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\Users;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -39,6 +41,12 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+
+    public function showRegistrationForm()
+    {
+        return view('web.pic.pc.register');
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -48,10 +56,10 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
+            'username' => 'required|string|max:255',
             'phone' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:p_users',
-            'password' => 'required|string|min:6|confirmed',
+            'mail' => 'required|string|email|max:255',
+            'password' => 'required|string|min:6',
         ]);
     }
 
@@ -63,14 +71,26 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $time = time();
         $user = Users::create([
-            'user_name' => $data['name'],
-            'email' => $data['email'],
+            'user_name' => $data['username'],
+            'email' => $data['mail'],
             'password' => bcrypt($data['password']),
             'phone_number' => $data['phone'],
+            'position' => $data['position'],
+            'hosipital' => $data['hosipital'],
             'is_activate' => 1,
         ]);
         return $user;
+    }
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        event(new Registered($user = $this->create($request->all())));
+        if($request->registerflag){
+            $this->guard()->login($user);
+        }
+
+        return $this->registered($request, $user) ? : redirect($this->redirectPath());
     }
 }

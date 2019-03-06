@@ -18,4 +18,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/home', 'HomeController@index');
+Route::post('/home/search', 'HomeController@index');
+Route::get('/home/{id}', 'HomeController@index');
+
+Route::get('uploadPicture','uploadController@index')->name('uploadPicture');
+Route::post('uploadPicture/doupload','uploadController@doupload');
+
+
 

@@ -249,10 +249,12 @@ CREATE TABLE `p_users`  (
   `nick_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '昵称',
   `phone_number` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '手机号码',
   `email` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '邮箱',
+  `position` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '职称',
+  `hosipital`varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '医院',
   `created_at` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
   `updated_at` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '修改时间',
   `is_forbid` tinyint(4) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否封号',
-  `is_activate` tinyint(4) UNSIGNED NOT NULL COMMENT '是否激活',
+  `is_activate` tinyint(4) UNSIGNED NOT NULL DEFAULT 1 COMMENT '是否激活',
   `remember_token` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '记住密码token',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `phone`(`phone_number`) USING BTREE,
@@ -263,8 +265,8 @@ CREATE TABLE `p_users`  (
 -- ----------------------------
 -- Records of p_users
 -- ----------------------------
-INSERT INTO `p_users` VALUES (2, 'zxm123', '111111', '华源', '11111111111', '123@qq.com', 1548666042, 1548736597, 0, 1, '');
-INSERT INTO `p_users` VALUES (3, 'm1', '123456', 'momo', '12345678910', 'zxm@126.com', 1548750695, 1548754320, 0, 1, '');
+INSERT INTO `p_users` VALUES (2, 'zxm123', '111111', '华源', '11111111111', '123@qq.com','','', 1548666042, 1548736597, 0, 1, '');
+INSERT INTO `p_users` VALUES (3, 'm1', '123456', 'momo', '12345678910', 'zxm@126.com','华科医院主任医师','', 1548750695, 1548754320, 0, 1, '');
 
 -- ----------------------------
 -- Table structure for p_case_comment
@@ -294,7 +296,8 @@ CREATE TABLE `p_case_list`  (
   `device` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '成像设备',
   `created_at` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
   `updated_at` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '修改时间',
-  `photos` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '影像',
+  `photos` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '影像',
+  `photographer` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '摄影师',
   `views` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '浏览数',
   `issue` tinyint(4) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否发布',
   PRIMARY KEY (`id`) USING BTREE,
@@ -306,12 +309,12 @@ CREATE TABLE `p_case_list`  (
 -- ----------------------------
 -- Records of p_case_list
 -- ----------------------------
-INSERT INTO `p_case_list` VALUES (11, 'sdf 水电费', '23', '23水电费胜多负少', '说的', '胜多负少', 1549963210, 1549963210, '', 0, 1);
-INSERT INTO `p_case_list` VALUES (12, 'sdf 水电费', '23', '23水电费胜多负少', '说的', '胜多负少', 1549963254, 1549963254, '', 0, 1);
-INSERT INTO `p_case_list` VALUES (13, '梵蒂冈的', '地方', '大范甘迪很反感和发过火', '23', '凡事都给对方', 1549963373, 1549963373, '', 0, 1);
-INSERT INTO `p_case_list` VALUES (14, '梵蒂冈的', '地方', '大范甘迪很反感和发过火', '23', '凡事都给对方', 1549963485, 1549963485, '', 0, 1);
-INSERT INTO `p_case_list` VALUES (15, '胜多负少的', '水电费少说点', '胜多负少胜多负少的胜多负少', '水电费', '2水电费', 1550047701, 1550047701, '', 0, 1);
-INSERT INTO `p_case_list` VALUES (16, '豆腐干豆腐', '的电饭锅', '电饭锅电饭锅的', '地方', '电饭锅', 1550048039, 1550048039, '[\"images\\/\\u5fae\\u4fe1\\u56fe\\u7247_20190121112749.png\",\"images\\/\\u5fae\\u4fe1\\u56fe\\u7247_20190121112756.png\",\"images\\/\\u5fae\\u4fe1\\u56fe\\u7247_20190121112800.png\"]', 0, 1);
+INSERT INTO `p_case_list` VALUES (11, 'sdf 水电费', '23', '23水电费胜多负少', '说的', '胜多负少', 1549963210, 1549963210, '','KUSER', 0, 1);
+INSERT INTO `p_case_list` VALUES (12, 'sdf 水电费', '23', '23水电费胜多负少', '说的', '胜多负少', 1549963254, 1549963254, '','CKANDY', 0, 1);
+INSERT INTO `p_case_list` VALUES (13, '梵蒂冈的', '地方', '大范甘迪很反感和发过火', '23', '凡事都给对方', 1549963373, 1549963373, '','CKANDY', 0, 1);
+INSERT INTO `p_case_list` VALUES (14, '梵蒂冈的', '地方', '大范甘迪很反感和发过火', '23', '凡事都给对方', 1549963485, 1549963485, '','PORD', 0, 1);
+INSERT INTO `p_case_list` VALUES (15, '胜多负少的', '水电费少说点', '胜多负少胜多负少的胜多负少', '水电费', '2水电费', 1550047701, 1550047701,'LURA', '', 0, 1);
+INSERT INTO `p_case_list` VALUES (16, '豆腐干豆腐', '的电饭锅', '电饭锅电饭锅的', '地方', '电饭锅', 1550048039, 1550048039, '[\"images\\/\\u5fae\\u4fe1\\u56fe\\u7247_20190121112749.png\",\"images\\/\\u5fae\\u4fe1\\u56fe\\u7247_20190121112756.png\",\"images\\/\\u5fae\\u4fe1\\u56fe\\u7247_20190121112800.png\"]','TY', 0, 1);
 
 -- ----------------------------
 -- Table structure for p_case_star
@@ -321,6 +324,6 @@ CREATE TABLE `p_case_star`  (
   `cid` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '案例ID',
   `uid` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户ID',
   `stars` tinyint(4) UNSIGNED NULL DEFAULT 0 COMMENT '星数',
-  PRIMARY KEY (`uid`) USING BTREE,
+  PRIMARY KEY (`uid`,`cid`) USING BTREE,
   INDEX `cid`(`cid`) USING BTREE
 ) ENGINE = MyISAM CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '影象星数表' ROW_FORMAT = Fixed;
