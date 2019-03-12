@@ -609,17 +609,27 @@ if($('.caseDetail_main_similar_pic').length > 0){
 
 // 上传图片 开始
 // 初始化Web Uploader
+var uploaddata;
+
+// var uploaddata = {
+//     title:'',//题目
+//     key:[],//关键词数组
+//     content:'',//内容
+//     partners:'',//合作者
+//     photograper:'',//摄影师
+//     equipment:''//设备
+// };
 if($('.uploadPicture_main_content_pic_input').length > 0){
     var uploader = WebUploader.create({
 
         // 选完文件后，是否自动上传。
-        auto: true,
+        auto: false,
     
         // swf文件路径
         swf: 'https://cdn.bootcss.com/webuploader/0.1.1/Uploader.swf',
     
         // 文件接收服务端。
-        server: 'http://localhost:8080/CI/index.php/BasicInfo/getpic',
+        server: 'http://localhost/CI/index.php/Yzf/getUploadData',
     
         // 选择文件的按钮。可选。
         // 内部根据当前运行是创建，可能是input元素，也可能是flash.
@@ -627,6 +637,10 @@ if($('.uploadPicture_main_content_pic_input').length > 0){
         threads:1,
         dupliacate:true,
         resize: false,
+        fileVal: "file",
+        // formdata:{
+        //     data:uploaddata
+        // },
         // crop: true,
         // 只允许选择图片文件。
         accept: {
@@ -649,7 +663,19 @@ if($('.uploadPicture_main_content_pic_input').length > 0){
             }
         }
     })
-    
+    //添加表单验证
+    uploader.on( 'uploadBeforeSend', function( file,data,headers ) {
+        console.log(file);
+        if(serializeF('uploadform')){
+            data = serializeF('uploadform');
+            // headers = {''}
+            // uploaddata = data;
+            // var uploaddata = {
+            //     data:data,
+            //     _token:'name'
+            // }
+        }
+    })
     uploader.on( 'fileQueued', function( file ) {
 
 
@@ -690,7 +716,7 @@ if($('.uploadPicture_main_content_pic_input').length > 0){
 
         
     });
- 
+    
         
            
  
@@ -738,11 +764,16 @@ if($('.uploadPicture_main_content_pic_input').length > 0){
         // $( '#'+file.id ).find('.progress').remove();
     });
 }
+if($('.uploadbtn').length>0){
+    // uploader
+    $('.uploadbtn').click(function(){
+        uploader.upload();
+    }) 
+}
 $('.uploadPicture_main_content_pic_preview ul').on('click','.file-item .preview_delete',function(){
     if(confirm('是否删除选定图片？')){
         $(this).parent().remove();
     } 
-    
 })
 var keywords = [
     {
