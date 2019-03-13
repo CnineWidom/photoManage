@@ -649,7 +649,6 @@ if ($('.uploadPicture_main_content_form').length > 0) {
 
         // 选完文件后，是否自动上传。
         auto: false,
-
         // swf文件路径
         swf: 'https://cdn.bootcss.com/webuploader/0.1.1/Uploader.swf',
 
