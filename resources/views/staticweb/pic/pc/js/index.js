@@ -1,110 +1,108 @@
 // 公共函数开始
 // 缩放屏幕
 var phoneWidth = parseInt(window.screen.width);
-            var phoneHeight = parseInt(window.screen.height);
-            var phoneScale = phoneWidth/1100;//除以的值按手机的物理分辨率
-            var ua = navigator.userAgent;
-            if (/Android (\d+\.\d+)/.test(ua)) {
-            var version = parseFloat(RegExp.$1);
-            // andriod 2.3
-            if (version > 2.3) {
-            document.write('<meta name="viewport" content="width=device-width,initial-scale='+phoneScale+',minimum-scale='+phoneScale+',maximum-scale='+phoneScale+',user-scalable=yes">');
-            // andriod 2.3以上
-            } else {
-            document.write('<meta name="viewport" content="width=device-width,user-scalable=yes">');
-            }
-            // 其他系统
-            } else {
-            document.write('<meta name="viewport" content="width=device-width, initial-scale='+phoneScale+',minimum-scale='+phoneScale+',maximum-scale ='+phoneScale+',user-scalable=yes">');
-            }
+var phoneHeight = parseInt(window.screen.height);
+var phoneScale = phoneWidth / 1100;//除以的值按手机的物理分辨率
+var ua = navigator.userAgent;
+if (/Android (\d+\.\d+)/.test(ua)) {
+    var version = parseFloat(RegExp.$1);
+    // andriod 2.3
+    if (version > 2.3) {
+        document.write('<meta name="viewport" content="width=device-width,initial-scale=' + phoneScale + ',minimum-scale=' + phoneScale + ',maximum-scale=' + phoneScale + ',user-scalable=yes">');
+        // andriod 2.3以上
+    } else {
+        document.write('<meta name="viewport" content="width=device-width,user-scalable=yes">');
+    }
+    // 其他系统
+} else {
+    document.write('<meta name="viewport" content="width=device-width, initial-scale=' + phoneScale + ',minimum-scale=' + phoneScale + ',maximum-scale =' + phoneScale + ',user-scalable=yes">');
+}
 // 后台地址
 var ajaxUrl = "";
 // 异步ajax
-function ajaxF(){
-    
-}
 
-function ajaxF(url,data,asyncFlag){
+
+function ajaxF(url, data) {
     $.ajax({
-        url:url,
-        type:"post",
-        data:data,
-        async:asyncFlag,
-        dataType:'json',
-        success:function(obj){
+        url: url,
+        type: "post",
+        data: data,
+        async: false,
+        dataType: 'json',
+        success: function (obj) {
             console.log(obj);
         },
-        error:function(e){
-            console.log("传输错误："+e);
+        error: function (e) {
+            console.log("传输错误：" + e);
         }
     })
 }
 
 // cookie方法
 // 获取 cookie
-function getCookie(key){
+function getCookie(key) {
     var val = Cookies.get(key);
-    if(val == undefined){
+    if (val == undefined) {
         return "";
     }
     return val;
-} 
+}
 // 添加 cookie
-function addToCookie(key, value){
+function addToCookie(key, value) {
     document.cookie = key + "=" + getCookie(key) + "&" + value;
 }
 //删除cookie
-function delCookie(key){  
+function delCookie(key) {
     Cookies.remove(key);
 }
 // 移除 cookie记录值
-function removeFormCookie(key, value){
-    document.cookie = key + "=" + getCookie(key).replace("&" + value,"");
+function removeFormCookie(key, value) {
+    document.cookie = key + "=" + getCookie(key).replace("&" + value, "");
 }
 
 
 //   表单验证方法
 //   参数实例
-function validateForm(obj,rule){
-     var rulelength = rule.length;
+function validateForm(obj, rule) {
+    var rulelength = rule.length;
     //  循环获取需要验证的数据的key值
-     for(var item in obj){
-         //循环验证规则
-        for(var i = 0 ; i < rulelength ; i++){
+    for (var item in obj) {
+        //循环验证规则
+        for (var i = 0; i < rulelength; i++) {
             //匹配数据与验证规则
-            if(item == rule[i].name){
+            if (item == rule[i].name) {
                 var ruleitemlength = rule[i].regular.length;
                 //循环匹配验证规则的项目
-                for(var j = 0 ; j < ruleitemlength ; j++){
-                    if(reg(rule[i].regular[j].regularitem,obj[item])){ 
-                    }else{
+                for (var j = 0; j < ruleitemlength; j++) {
+                    if (reg(rule[i].regular[j].regularitem, obj[item])) {
+                    } else {
                         return rule[i].regular[j].message;
                     }
                 }
             }
         }
-     }
-     return false;
+    }
+    return false;
 }
 // 正则验证方法
-function reg(regular,str){
+function reg(regular, str) {
     var re = new RegExp(regular);
     return re.test(str);
 }
 
 // 获取表单序列化文件
-function serializeF(obj){
-    var params = $("#"+obj).serializeArray();
+function serializeF(obj) {
+    var params = $("#" + obj).serializeArray();
     console.log(params);
     var values = {};
-    if(params){
-        for( x in params ){
+    if (params) {
+        for (x in params) {
             values[params[x].name] = params[x].value;
-        }   
+        }
         return values;
-    }else{
+    } else {
         return false;
-    }  
+    }
 }
 // 公共函数结束
 // login js 开始
@@ -113,85 +111,108 @@ function serializeF(obj){
 // 登陆验证格式
 var loginvalidaterule = [
     {
-        name:'phone',
-        regular:[
+        name: 'phone',
+        regular: [
             {
-                itemname:'手机号不能为空',
-                regularitem:/\S/,
-                message:'手机号不能为空'
+                itemname: '手机号不能为空',
+                regularitem: /\S/,
+                message: '手机号不能为空'
             },
-            {   
-                itemname:'手机格式验证',
-                regularitem:/^1[34578]\d{9}$/,
-                message:'手机号格式不正确'
+            {
+                itemname: '手机格式验证',
+                regularitem: /^1[34578]\d{9}$/,
+                message: '手机号格式不正确'
             }
         ]
     },
     {
-        name:'password',
-        regular:[
+        name: 'password',
+        regular: [
             {
-                itemname:'密码不能为空',
-                regularitem:/\S/,
-                message:'密码不能为空'
+                itemname: '密码不能为空',
+                regularitem: /\S/,
+                message: '密码不能为空'
             }
         ]
     }
 ];
-
-//input焦点事件
-$(".input").bind('focus',function(){
-    $(this).parent('.form_item').find('i').css({"color":"white"});
-})
-
-$(".input").bind('blur',function(){
-    $(this).parent('.form_item').find('i').css({"color":"rgba(229,229,229,0.8)"});
-})
-
-if($('#loginflag').length > 0){
-    
-    if($('#loginflag').val() == 'true'){
-    $("#cookie").removeClass('icon-check-box-outline-bl');
-    $("#cookie").addClass('icon-checkboxoutline');
-}else{
-    
-    $("#cookie").addClass('icon-check-box-outline-bl');
-    $("#cookie").removeClass('icon-checkboxoutline');
+function loginFormHide(){
+    $(".index_login_form input").val("");
+    $(".mask").fadeOut('fast');
+    $(".index_login_form").fadeOut('fast');
 }
+//input焦点事件
+if($(".index_login_form").length>0){
+    $(".login_input").bind('focus', function () {
+        $(this).parent('.form_item').find('i').css({ "color": "rgb(48,79,146)" });
+    })
+    $(".login_input").bind('blur', function () {
+        $(this).parent('.form_item').find('i').css({ "color": "rgba(48,79,146,0.79)" });
+    })
+
+    $(".mask").click(function(){
+        loginFormHide();
+    })
+    $(".index_login_form_close").click(function(){
+        loginFormHide();
+    })
+}
+
+if($(".register_form").length>0 || $(".login_form").length>0){
+    $(".input").bind('focus', function () {
+        $(this).parent('.form_item').find('i').css({ "color": "white" });
+    })
+    
+    $(".input").bind('blur', function () {
+        $(this).parent('.form_item').find('i').css({ "color": "rgba(229,229,229,0.8)" });
+    })
+}
+
+
+if ($('#loginflag').length > 0) {
+
+    if ($('#loginflag').val() == 'true') {
+        $("#cookie").removeClass('icon-check-box-outline-bl');
+        $("#cookie").addClass('icon-checkboxoutline');
+    } else {
+
+        $("#cookie").addClass('icon-check-box-outline-bl');
+        $("#cookie").removeClass('icon-checkboxoutline');
+    }
 }
 //checkbox 记住密码点击事件
-$("#cookie").bind('click',function(){
-    if($('#loginflag').val() == "false"){
+$("#cookie").bind('click', function () {
+    if ($('#loginflag').val() == "false") {
         $(this).removeClass('icon-check-box-outline-bl');
         $(this).addClass('icon-checkboxoutline');
         $('#loginflag').val("true");
-    }else{
+    } else {
         $(this).addClass('icon-check-box-outline-bl');
         $(this).removeClass('icon-checkboxoutline');
         $('#loginflag').val("false");
     }
 });
 
-$('#submitbutton').bind('click',function(){
+$('#submitbutton').bind('click', function () {
     var data;
-    if(serializeF("login_form")){
+    if (serializeF("login_form")) {
         data = serializeF("login_form");
     }
-   
+
     // 验证信息
-    var erroMsg = validateForm(data,loginvalidaterule);
-    if(erroMsg){
+    var erroMsg = validateForm(data, loginvalidaterule);
+    if (erroMsg) {
         $("#tip").html(erroMsg);
         return false;
-    }else{
+    } else {
         // 请求后台
-        window.location.href='./index.html';
+        window.location.href = './index.html';
         // $('#login_form').submit();
         // 身份验证成功则跳转到首页
         // 否则返回错误信息提示
         // $("#tip").html("登陆失败，手机或密码错误");
     }
-    
+
 })
 // login js 结束
 
@@ -204,191 +225,191 @@ var counterflag = true;
 
 // 注册验证格式
 var registervalidaterule = [
-    {   
-        
-        name:'username',
-        regular:[
-            {   
-                itemname:'用户名不能为空',
-                regularitem:/\S/,
-                message:'用户名不能为空'
-            }
-        ]
-    },
-    {   
-        
-        name:'phone',
-        regular:[
-            {   
-                itemname:'手机号不能为空',
-                regularitem:/\S/,
-                message:'手机号不能为空'
-            },
-            {   
-                itemname:'手机格式验证',
-                regularitem:/^1[34578]\d{9}$/,
-                message:'手机号格式不正确'
+    {
+
+        name: 'username',
+        regular: [
+            {
+                itemname: '用户名不能为空',
+                regularitem: /\S/,
+                message: '用户名不能为空'
             }
         ]
     },
     {
-        name:'code',
-        regular:[
+
+        name: 'phone',
+        regular: [
             {
-                itemname:'验证不能为空',
-                regularitem:/\S/,
-                message:'验证不能为空'
-            }
-        ]
-    },
-    {
-        name:'mail',
-        regular:[
-            {
-                itemname:'邮箱不能为空',
-                regularitem:/\S/,
-                message:'邮箱不能为空'
+                itemname: '手机号不能为空',
+                regularitem: /\S/,
+                message: '手机号不能为空'
             },
             {
-                itemname:'邮箱格式错误',
-                regularitem:/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/,
-                message:'邮箱格式错误'
+                itemname: '手机格式验证',
+                regularitem: /^1[34578]\d{9}$/,
+                message: '手机号格式不正确'
             }
         ]
     },
     {
-        name:'hosipital',
-        regular:[
+        name: 'code',
+        regular: [
             {
-                itemname:'医院不能为空',
-                regularitem:/\S/,
-                message:'医院不能为空'
+                itemname: '验证不能为空',
+                regularitem: /\S/,
+                message: '验证不能为空'
             }
         ]
     },
     {
-        name:'position',
-        regular:[
+        name: 'mail',
+        regular: [
             {
-                itemname:'职称不能为空',
-                regularitem:/\S/,
-                message:'职称不能为空'
+                itemname: '邮箱不能为空',
+                regularitem: /\S/,
+                message: '邮箱不能为空'
+            },
+            {
+                itemname: '邮箱格式错误',
+                regularitem: /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/,
+                message: '邮箱格式错误'
             }
         ]
     },
     {
-        name:'key1',
-        regular:[
+        name: 'hosipital',
+        regular: [
             {
-                itemname:'密码不能为空',
-                regularitem:/\S/,
-                message:'密码不能为空'
+                itemname: '医院不能为空',
+                regularitem: /\S/,
+                message: '医院不能为空'
             }
         ]
     },
     {
-        name:'key2',
-        regular:[
+        name: 'position',
+        regular: [
             {
-                itemname:'请再次输入密码',
-                regularitem:/\S/,
-                message:'请再次输入密码'
+                itemname: '职称不能为空',
+                regularitem: /\S/,
+                message: '职称不能为空'
+            }
+        ]
+    },
+    {
+        name: 'key1',
+        regular: [
+            {
+                itemname: '密码不能为空',
+                regularitem: /\S/,
+                message: '密码不能为空'
+            }
+        ]
+    },
+    {
+        name: 'key2',
+        regular: [
+            {
+                itemname: '请再次输入密码',
+                regularitem: /\S/,
+                message: '请再次输入密码'
             }
         ]
     }
 ];
 
-function getCode(){
-    if(!reg(/\S/,$("#register_password_input").val())){
+function getCode() {
+    if (!reg(/\S/, $("#register_password_input").val())) {
         $("#tip").html("手机不能为空");
-        return ;
+        return;
     }
-    if(!reg(/^1[34578]\d{9}$/,$("#register_password_input").val())){
+    if (!reg(/^1[34578]\d{9}$/, $("#register_password_input").val())) {
         $("#tip").html("手机号格式不正确");
-        return ;    
+        return;
     }
     $("#tip").html("");
-    var _this  = $("#getCodeButton");
-    if(counterflag){
+    var _this = $("#getCodeButton");
+    if (counterflag) {
         // _this.unbind('click',getCode());
         counterflag = false;
-        _this.css({"cursor":"default"});
+        _this.css({ "cursor": "default" });
         // 请求验证码
-        
-        var cal = setInterval(function(){
+
+        var cal = setInterval(function () {
             _this.html(counter + "s重新获取");
             counter = counter - 1;
-            if(counter < 0){
+            if (counter < 0) {
                 counterflag = true;
                 counter = 60;
-                _this.css({"cursor":"pointer"});
+                _this.css({ "cursor": "pointer" });
                 _this.html("获取验证码");
                 clearInterval(cal);
             }
-        },1000);
-    }else{
-        
+        }, 1000);
+    } else {
+
     }
 }
 
-$("#getCodeButton").bind('click',function(){
-    if(counterflag){
-        getCode(); 
-    }else{
-        $(this).unbind('click',getCode());
-    }  
+$("#getCodeButton").bind('click', function () {
+    if (counterflag) {
+        getCode();
+    } else {
+        $(this).unbind('click', getCode());
+    }
 });
 
-$("#registerbutton").bind('click',function(){
-    
+$("#registerbutton").bind('click', function () {
+
     var data;
-    if(serializeF("register_form")){
+    if (serializeF("register_form")) {
         data = serializeF("register_form");
     }
-   
+
     // 验证信息
-    var erroMsg = validateForm(data,registervalidaterule);
-    if(erroMsg){
+    var erroMsg = validateForm(data, registervalidaterule);
+    if (erroMsg) {
         $("#tip").html(erroMsg);
-       return false;
+        return false;
 
-    }else{
-        if($('#key1').val() == $('#key2').val()){
-        // $('#register_form').submit();
-            if($('#loginflag').val() == 'true'){
+    } else {
+        if ($('#key1').val() == $('#key2').val()) {
+            // $('#register_form').submit();
+            if ($('#loginflag').val() == 'true') {
 
-            }else{
-                window.location.href='./login.html';
+            } else {
+                window.location.href = './login.html';
             }
-        }else{
+        } else {
             $('#tip').html('两次输入的密码不一致');
             return false;
         }
-       
+
     }
 });
 
 
 
 
-if($('#registerflag')){
-    
-    if($('#registerflag').val() == 'true'){
-    $("#registerCheck").removeClass('icon-check-box-outline-bl');
-    $("#registerCheck").addClass('icon-checkboxoutline');
-}else{
-    
-    $("#registerCheck").addClass('icon-check-box-outline-bl');
-    $("#registerCheck").removeClass('icon-checkboxoutline');
-}
+if ($('#registerflag')) {
+
+    if ($('#registerflag').val() == 'true') {
+        $("#registerCheck").removeClass('icon-check-box-outline-bl');
+        $("#registerCheck").addClass('icon-checkboxoutline');
+    } else {
+
+        $("#registerCheck").addClass('icon-check-box-outline-bl');
+        $("#registerCheck").removeClass('icon-checkboxoutline');
+    }
 }
 //checkbox 记住密码点击事件
-$("#registerCheck").bind('click',function(){
-    if($('#registerflag').val() == "false"){
+$("#registerCheck").bind('click', function () {
+    if ($('#registerflag').val() == "false") {
         $(this).removeClass('icon-check-box-outline-bl');
         $(this).addClass('icon-checkboxoutline');
         $('#registerflag').val("true");
-    }else{
+    } else {
         $(this).addClass('icon-check-box-outline-bl');
         $(this).removeClass('icon-checkboxoutline');
         $('#registerflag').val("false");
@@ -399,97 +420,101 @@ $("#registerCheck").bind('click',function(){
 
 // index js 开始
 var loadingflag = false;
-$('.icon-zuqibing').bind('click',function(){
+$('.icon-zuqibing').bind('click', function () {
     $(this).toggleClass('icon-qiejutang_roupianzuqibing');
-    if($(this).hasClass('icon-qiejutang_roupianzuqibing')){
+    if ($(this).hasClass('icon-qiejutang_roupianzuqibing')) {
         $(".pic_content_detail").find('.pic_content_mask').show();
-        setTimeout(function(){
+        setTimeout(function () {
 
             $(".pic_content_detail").hide();
             $(".pic_content_normal").show();
             $(".pic_content_detail").find('.pic_content_mask').hide();
-        },1500);
-        
-    }else{
+        }, 1500);
+
+    } else {
 
         $(".pic_content_normal").find('.pic_content_mask').show();
-        setTimeout(function(){
+        setTimeout(function () {
             $(".pic_content_normal").hide();
             $(".pic_content_detail").show();
             $(".pic_content_normal").find('.pic_content_mask').hide();
-        },1500);
+        }, 1500);
     }
-    
+
 });
-$('.index_user span').bind('click',function(){
-    window.location.href='./login.html'
+$('.index_login_span').click(function(){
+    $('.mask').fadeIn('fast');
+    $('.index_login_form').fadeIn('fast');
 })
-$('.index_user a').bind('click',function(){
-    window.location.href='./caseManager.html'
+$('.index_user .index_loginout').bind('click', function () {
+    window.location.href = './login.html'
 })
-$('.index_logo').bind('click',function(){
-    window.location.href='./index.html';
+$('.index_user a').bind('click', function () {
+    window.location.href = './caseManager.html'
 })
-$('.index_search_button').bind('click',function(){
+$('.index_logo').bind('click', function () {
+    window.location.href = './index.html';
+})
+$('.index_search_button').bind('click', function () {
 
 })
-$('.caseDetail_main_nav span').bind('click',function(){
+$('.caseDetail_main_nav span').bind('click', function () {
     window.history.back(-1);
 })
-$('.index_uploadPicture_button').bind('click',function(){
-    window.location.href="./uploadPictureTip.html";
+$('.index_uploadPicture_button').bind('click', function () {
+    window.location.href = "./uploadPictureTip.html";
 });
-resetPictureSize('pic_content_detail_pic_small img','pic_content_detail_pic_big',280,260,1.07,360);
-function resetPictureSize(smallobj,bigobj,width,height,objvs,bigPictureSize){
-    $('.'+smallobj).each(function(){
+resetPictureSize('pic_content_detail_pic_small img', 'pic_content_detail_pic_big', 280, 260, 1.07, 360);
+function resetPictureSize(smallobj, bigobj, width, height, objvs, bigPictureSize) {
+    $('.' + smallobj).each(function () {
         var img = $(this);
-        var realWidth ;//原始宽度
-		var realHeight ;//原始高度
-		var vs ;//图片宽高比
-		
-		realWidth = this.width;
-		realHeight = this.height;
-		vs = realWidth/realHeight;
-			
-		//缩略图比例230:142(约等于1.62) 280/260
-		if(vs>=objvs){//横图则固定高度
-			$(img).css("width","auto").css("height",height+'px').css("marginLeft",(width/2)-((height/2)*realWidth/realHeight)+"px");
-		}
-		else{//竖图则固定宽度
-			$(img).css("width",width+"px").css("height","auto").css("marginTop",(width/2)-((height/2)*realHeight/realWidth)+"px");
+        var realWidth;//原始宽度
+        var realHeight;//原始高度
+        var vs;//图片宽高比
+
+        realWidth = this.width;
+        realHeight = this.height;
+        vs = realWidth / realHeight;
+
+        //缩略图比例230:142(约等于1.62) 280/260
+        if (vs >= objvs) {//横图则固定高度
+            $(img).css("width", "auto").css("height", height + 'px').css("marginLeft", (width / 2) - ((height / 2) * realWidth / realHeight) + "px");
         }
-        
-        if(vs>=1){//横图或正方形
-            
- 			$('.'+bigobj).find('img').height(bigPictureSize);
-            $('.'+bigobj).find('img').width('auto');
-            $('.'+bigobj).css({
-				//此处需结合实际情况计算 左偏移：.original实际宽度的二分之一
-				marginLeft: function(){
-					return -((bigPictureSize/2)*realWidth/realHeight);
-				},
-				left:'50%'
-			})
-		}else{//竖图
-			$('.'+bigobj).find('img').width(bigPictureSize);
-			$('.'+bigobj).find('img').height('auto');
-			$('.'+bigobj).css({
-				//此处需结合实际情况计算 上偏移：.original实际高度的二分之一
-				marginTop: function(){
-					return -((bigPictureSize/2)*realHeight/realWidth);
-				},
-				top:'50%'
+        else {//竖图则固定宽度
+            $(img).css("width", width + "px").css("height", "auto").css("marginTop", (width / 2) - ((height / 2) * realHeight / realWidth) + "px");
+        }
+
+        if (vs >= 1) {//横图或正方形
+
+            $('.' + bigobj).find('img').height(bigPictureSize);
+            $('.' + bigobj).find('img').width('auto');
+            $('.' + bigobj).css({
+                //此处需结合实际情况计算 左偏移：.original实际宽度的二分之一
+                marginLeft: function () {
+                    return -((bigPictureSize / 2) * realWidth / realHeight);
+                },
+                left: '50%'
+            })
+        } else {//竖图
+            $('.' + bigobj).find('img').width(bigPictureSize);
+            $('.' + bigobj).find('img').height('auto');
+            $('.' + bigobj).css({
+                //此处需结合实际情况计算 上偏移：.original实际高度的二分之一
+                marginTop: function () {
+                    return -((bigPictureSize / 2) * realHeight / realWidth);
+                },
+                top: '50%'
             });
         }
-});
+    });
 }
 
-$('.pic_content_detail_pic_small').each(function(){
-    $(this).hover(function(){
+$('.pic_content_detail_pic_small').each(function () {
+    $(this).hover(function () {
 
         $(this).parent().find('.pic_content_detail_pic_big').show();
-        $(this).parent().find('.pic_content_detail_pic_big').hover(function(){
-        },function(){
+        $(this).parent().find('.pic_content_detail_pic_big').hover(function () {
+        }, function () {
             $(this).hide();
         })
     })
@@ -497,136 +522,149 @@ $('.pic_content_detail_pic_small').each(function(){
 
 
 // 案例详情 开始
-if($('.caseDetail_main_content_pic_small'.length > 0)){
-    $('.caseDetail_main_content_pic_small li').each(function(j){
-    
-        
+if ($('.caseDetail_main_content_pic_small'.length > 0)) {
+    $('.caseDetail_main_content_pic_small li').each(function (j) {
+
+
         var src = $(this).css("background");
         src = src.split("(\"")[1].split("\")")[0];
-        
+
         // src = 
         // console.log(src);
-    
-        $(this).bind('mouseenter',function(){
-            
-            $(this).parent().find('li').css('border','1px solid rgb(229,229,229)');
-            $(this).css('border','1px solid red');
-            if($(".caseDetail_main_content_pic_big img").attr('src') == src){
-                return ;
+
+        $(this).bind('mouseenter', function () {
+
+            $(this).parent().find('li').css('border', '1px solid rgb(229,229,229)');
+            $(this).css('border', '1px solid red');
+            if ($(".caseDetail_main_content_pic_big img").attr('src') == src) {
+                return;
             }
 
             $(".caseDetail_main_content_pic_big img").fadeOut('fast');
-            $(".caseDetail_main_content_pic_big img").attr('src',src);
+            $(".caseDetail_main_content_pic_big img").attr('src', src);
             var height = $(".caseDetail_main_content_pic_big img").height();
             var width = $(".caseDetail_main_content_pic_big img").width();
-            console.log(height,width);
-            if(height>width){
+            console.log(height, width);
+            if (height > width) {
                 $(".caseDetail_main_content_pic_big img").height('372.2');
-                $(".caseDetail_main_content_pic_big img").css('width','auto');
-            }else{
+                $(".caseDetail_main_content_pic_big img").css('width', 'auto');
+            } else {
                 $(".caseDetail_main_content_pic_big img").height('auto');
-                $(".caseDetail_main_content_pic_big img").css('width','100%');
+                $(".caseDetail_main_content_pic_big img").css('width', '100%');
             }
             $(".caseDetail_main_content_pic_big img").fadeIn('fast');
-    
-            
+
+
         })
-        
+
     })
 }
-if($('.caseDetail_main_conment_rate').length>0){
-    $('.caseDetail_main_conment_rate i').each(function(index){
+if ($('.caseDetail_main_conment_rate').length > 0) {
+    $('.caseDetail_main_conment_rate i').each(function (index) {
         // console.log(index);
-        
-        $(this).bind('click',function(){
-            for(var i = 0 ; i <= index ; i++){
+
+        $(this).bind('click', function () {
+            for (var i = 0; i <= index; i++) {
                 $('.caseDetail_main_conment_rate i').eq(i).addClass('active_rate');
 
             }
 
-            for(var i =  4; i > index ; i--){
+            for (var i = 4; i > index; i--) {
                 $('.caseDetail_main_conment_rate i').eq(i).removeClass('active_rate');
 
             }
-            
+
         })
-        
+
     })
 }
 
 var picContentPages = 0;
 var picContentTatal = 8;
-$('.picture_content_left').bind('click',function(){
-    if(picContentPages == 0){
+$('.picture_content_left').bind('click', function () {
+    if (picContentPages == 0) {
         return false;
     }
     // if((picContentTatal-picContentPages*4) <= 4){
     //     return false;
     // }
-    var left_offest = ((picContentPages-1)*364);
-    $('.caseDetail_main_content_pic_small ul').css('left',left_offest+'px');
+    var left_offest = ((picContentPages - 1) * 364);
+    $('.caseDetail_main_content_pic_small ul').css('left', left_offest + 'px');
     picContentPages--;
-    if(picContentPages == 0){
+    if (picContentPages == 0) {
         $(this).fadeOut();
     }
-    if((picContentTatal-picContentPages*4) > 4){
+    if ((picContentTatal - picContentPages * 4) > 4) {
         $('.picture_content_right').fadeIn();
     }
 });
 
-$('.picture_content_right').bind('click',function(){
+$('.picture_content_right').bind('click', function () {
     // if(picContentPages == 4){
     //     return false;
     // }
-    if((picContentTatal-picContentPages*4) <= 4){
+    if ((picContentTatal - picContentPages * 4) <= 4) {
         return false;
     }
-    var left_offest = -((picContentPages+1)*364);
-    $('.caseDetail_main_content_pic_small ul').css('left',left_offest+'px');
+    var left_offest = -((picContentPages + 1) * 364);
+    $('.caseDetail_main_content_pic_small ul').css('left', left_offest + 'px');
     picContentPages++;
-    if(picContentPages != 0){
+    if (picContentPages != 0) {
         $('.picture_content_left').fadeIn();
     }
-    if((picContentTatal-picContentPages*4) <= 4){
+    if ((picContentTatal - picContentPages * 4) <= 4) {
         $(this).fadeOut();
     }
-   
+
 });
-function navActive(obj){
-    
+function navActive(obj) {
+
 }
-if($('.caseDetail_main_similar_pic').length > 0){
+if ($('.caseDetail_main_similar_pic').length > 0) {
     var width = $('.caseDetail_main_similar_pic li').width();
     $('.caseDetail_main_similar_pic li').height(width);
-    
+
     // resetPictureSize('caseDetail_content_detail_pic_small img','caseDetail_content_detail_pic_big',width,height,width/height,width*2);
 }
 
 // 案例详情 结束
 // $('.grid-item').each(function(){
-    
+
 // })
 
 // 上传图片 开始
 // 初始化Web Uploader
-if($('.uploadPicture_main_content_pic_input').length > 0){
+// var uploaddata;
+
+// var uploaddata = {
+//     title:'',//题目
+//     key:[],//关键词数组
+//     content:'',//内容
+//     partners:'',//合作者
+//     photograper:'',//摄影师
+//     equipment:''//设备
+// };
+if ($('.uploadPicture_main_content_form').length > 0) {
     var uploader = WebUploader.create({
 
         // 选完文件后，是否自动上传。
-        auto: true,
-    
+        auto: false,
         // swf文件路径
         swf: 'https://cdn.bootcss.com/webuploader/0.1.1/Uploader.swf',
-    
+
         // 文件接收服务端。
-        server: 'http://localhost:8080/CI/index.php/BasicInfo/getpic',
-    
+        server: 'http://localhost/CI/index.php/Yzf/getPars',
+
         // 选择文件的按钮。可选。
         // 内部根据当前运行是创建，可能是input元素，也可能是flash.
         pick: '.uploadPicture_main_content_pic_button',
-        threads:1,
-        dupliacate:true,
+        threads: 1,
+        dupliacate: true,
         resize: false,
+        fileVal: "file",
+        formdata: {
+            
+        },
         // crop: true,
         // 只允许选择图片文件。
         accept: {
@@ -637,68 +675,84 @@ if($('.uploadPicture_main_content_pic_input').length > 0){
         fileNumLimit: 8, //限制上传个数
         fileSingleSizeLimit: 2048000 //限制单个上传图片的大小
     });
-    uploader.on( 'beforeFileQueued' ,function(file){
-        
-        if(file.ext == ""){
+    uploader.on('beforeFileQueued', function (file) {
+
+        if (file.ext == "") {
             return false;
-        }else{
+        } else {
             var state = uploader.getStats();
-            if(state.successNum > 7){
-                alert('单个案例上传上限为8个');
+            console.log(state.queueNum);
+            if (state.queueNum > 0) {
+                alert('单个案例支持一个图片上传');
                 return false;
             }
         }
     })
-    
-    uploader.on( 'fileQueued', function( file ) {
-
-
+    //添加表单验证
+    uploader.on('uploadBeforeSend', function (file, data, headers) {
+        if (serializeF('uploadform')) { 
+            var uploaddata = serializeF('uploadform');
+            //参数
+            data.token = "SDFSD23FDSG4AK";
+            data.title = uploaddata.title;
+            data.content = uploaddata.content;
+            data.partners = uploaddata.partners;
+            data.photograper = uploaddata.photograper;
+            data.equipment = uploaddata.equipment;
+            data.key = JSON.stringify(uploadkey);
+        }
             
+        
+    })
+    uploader.on('fileQueued', function (file) {
 
-            
-            // console.log(state.successNum)
-            // console.log();
+
+
+
+
+        // console.log(state.successNum)
+        // console.log();
         // console.log(file);
         var $li = $(
-                '<li id="' + file.id + '" class="file-item thumbn   ail">' +
-                    '<div class="progress previewprogress"><span></span></div>'+
-                    '<div class="preview_delete"><i class="iconfont icon-jiaocha uploadPicture_icon-jiaocha"></i></div>'+
-                    '<img>' +
-                    '<div class="preview_info" style="color:white;position:absolute;bottom:0px;left:0px;width:178.6px;height:auto;line-height:12px;font-size:12px;text-align:center">' + file.name + '</div>' +
-                    '<span class="preview_tip" style=""></span>' +
-                '</li>'
-                ),
-                
+            '<li id="' + file.id + '" class="file-item thumbn   ail">' +
+            '<div class="progress previewprogress"><span></span></div>' +
+            '<div class="preview_delete"><i class="iconfont icon-jiaocha uploadPicture_icon-jiaocha"></i></div>' +
+            '<img>' +
+            '<div class="preview_info" style="color:white;position:absolute;bottom:0px;left:0px;width:178.6px;height:auto;line-height:12px;font-size:12px;text-align:center">' + file.name + '</div>' +
+            '<span class="preview_tip" style=""></span>' +
+            '</li>'
+        ),
+
             $img = $li.find('img');
-    
-            
+
+
         // $list为容器jQuery实例
-        $('.uploadPicture_main_content_pic_preview ul').append( $li );
-    
+        $('.uploadPicture_main_content_pic_preview ul').append($li);
+
         // 创建缩略图
         // 如果为非图片文件，可以不用调用此方法。
         // thumbnailWidth x thumbnailHeight 为 100 x 100
-    
-        uploader.makeThumb( file, function( error, src ) {
-            if ( error ) {
+
+        uploader.makeThumb(file, function (error, src) {
+            if (error) {
                 $img.replaceWith('<span>不能预览</span>');
                 return false;
             }
-    
-            $img.attr( 'src', src );
-        }, 178.6, 178.6 );
 
-        
+            $img.attr('src', src);
+        }, 178.6, 178.6);
+
+
     });
- 
-        
-           
- 
- 
-    uploader.on( 'uploadProgress', function( file, percentage ) {
-        var $li = $( '#'+file.id ),
+
+
+
+
+
+    uploader.on('uploadProgress', function (file, percentage) {
+        var $li = $('#' + file.id),
             $percent = $li.find('.progress span');
-    
+
         // 避免重复创建
         // if ( !$percent.length ) {
         //     $percent = $('<p class="progress"><span></span></p>')
@@ -706,131 +760,214 @@ if($('.uploadPicture_main_content_pic_input').length > 0){
         //             .find('span');
         // }
         console.log(percentage);
-        $percent.css( 'width', percentage * 100 + '%' );
+        $percent.css('width', percentage * 100 + '%');
     });
-    
+
     // 文件上传成功，给item添加成功class, 用样式标记上传成功。
-    uploader.on( 'uploadSuccess', function( file , response) {
+    uploader.on('uploadSuccess', function (file, response) {
         console.log(response);
-        $( '#'+file.id+' .preview_tip').removeClass('preview_tip_error');
-        $( '#'+file.id+' .preview_tip').addClass('preview_tip_success');
-        
+        $('#' + file.id + ' .preview_tip').removeClass('preview_tip_error');
+        $('#' + file.id + ' .preview_tip').addClass('preview_tip_success');
+
     });
-    
+
     // 文件上传失败，显示上传出错。
-    uploader.on( 'uploadError', function( file ,erroMsg) {
+    uploader.on('uploadError', function (file, erroMsg) {
         // var $li = $( '#'+file.id ),
         //     $error = $li.find('div.error');
         console.log(erroMsg);
-        $( '#'+file.id+' .preview_tip').removeClass('preview_tip_success');
-        $( '#'+file.id+' .preview_tip').addClass('preview_tip_error');
+        $('#' + file.id + ' .preview_tip').removeClass('preview_tip_success');
+        $('#' + file.id + ' .preview_tip').addClass('preview_tip_error');
 
         // // 避免重复创建
         // if ( !$error.length ) {
         //     $error = $('<div class="error"></div>').appendTo( $li );
         // }
-        
+
         // $error.text('上传失败');
     });
-    
+
     // 完成上传完了，成功或者失败，先删除进度条。
-    uploader.on( 'uploadComplete', function( file ) {
+    uploader.on('uploadComplete', function (file) {
         // $( '#'+file.id ).find('.progress').remove();
     });
 }
-$('.uploadPicture_main_content_pic_preview ul').on('click','.file-item .preview_delete',function(){
-    if(confirm('是否删除选定图片？')){
+if ($('.uploadbtn').length > 0) {
+    // uploader
+    $('.uploadbtn').click(function () {
+        var state = uploader.getStats();
+        if(state.queueNum == 0){
+            alert('请上传图片');
+        }
+       
+
+        if (serializeF('uploadform')) { 
+            var uploaddata = serializeF('uploadform');
+            //非空验证
+            if(uploaddata.title == ""){
+                alert("题目不能为空");
+                return false;
+            }
+            if(uploaddata.content == ""){
+                alert("描述不能为空");
+                return false;
+            }
+        }
+        uploader.upload();
+    })
+}
+$('.uploadPicture_main_content_pic_preview ul').on('click', '.file-item .preview_delete', function () {
+    if (confirm('是否删除选定图片？')) {
         $(this).parent().remove();
-    } 
-    
+    }
 })
 var keywords = [
     {
-        id:1,
-        keyword:'脉络膜黑色素瘤',
+        id: 1,
+        keyword: '脉络膜黑色素瘤',
     },
     {
-        id:2,
-        keyword:'渗出性视网膜'
+        id: 2,
+        keyword: '渗出性视网膜'
     },
     {
-        id:3,
-        keyword:'脱离性恶性肿瘤'
+        id: 3,
+        keyword: '脱离性恶性肿瘤'
     },
     {
-        id:4,
-        keyword:'眼部直视眼全视野成像'
+        id: 4,
+        keyword: '眼部直视眼全视野成像'
     },
     {
-        id:5,
-        keyword:'keyword1'
+        id: 5,
+        keyword: 'keyword1'
     },
     {
-        id:6,
-        keyword:'keyword2'
+        id: 6,
+        keyword: 'keyword2'
     },
     {
-        id:7,
-        keyword:'keyword3'
+        id: 7,
+        keyword: 'keyword3'
     }
 ];
-if($('.keywordInput').length > 0 ){
-    $('.keywordInput').bind('input',function(){
+var uploadkey = [];
+if ($('.keywordInput').length > 0) {
+    $('.keywordInput').bind('input', function () {
         var _this = $(this);
         $('.keywordInput').show();
-        if($(this).val().length > 0){
+        if ($(this).val().length > 0) {
             $('.KeyWordTip').show('fast');
 
-            $('.KeyWordTip_input').text('添加：'+$(this).val());
+            $('.KeyWordTip_input').text('添加：' + $(this).val());
             $('.KeyWordTip .KeyWordTip_input').siblings().remove();
-            keywords.forEach(function(item){
-                
-                if(item.keyword.indexOf(_this.val()) != -1){
-                    if(item.keyword == _this.val()){
+            keywords.forEach(function (item) {
+
+                if (item.keyword.indexOf(_this.val()) != -1) {
+                    if (item.keyword == _this.val()) {
                         $('.keywordInput').hide();
                     }
                     // var str = _this.val();
-                    str = new RegExp(_this.val(),"g");
-                    
-                    
-                    var formatitem = item.keyword.replace(str,'<span style="color:red">'+_this.val()+'</span>');
-                    var linum = $('.uploadpicture_main_keywords ul li').length+1;
-                    $('.KeyWordTip .KeyWordTip_input').before('<div class="KeyWordTip_input_normal" >'+formatitem+'<input type="hidden" name="key'+linum+'" value='+item.id+'></div>');
-                }   
-                
+                    str = new RegExp(_this.val(), "g");
+
+
+                    var formatitem = item.keyword.replace(str, '<span style="color:red">' + _this.val() + '</span>');
+                    var linum = $('.uploadpicture_main_keywords ul li').length + 1;
+                    $('.KeyWordTip .KeyWordTip_input').before('<div class="KeyWordTip_input_normal" >' + formatitem + '<input type="hidden" name="key' + linum + '" value=' + item.id + '></div>');
+                }
+
             })
-        }else{
+        } else {
             $('.KeyWordTip').hide('fast');
         }
-        
+
     })
 }
-if($('.KeyWordTip').length > 0){
-    $('.uploadpicture_main_keywords ul').on('click','.uploadKeyword_icon-jiaocha',function(){
+if ($('.KeyWordTip').length > 0) {
+    $('.uploadpicture_main_keywords ul').on('click', '.uploadKeyword_icon-jiaocha', function () {
+        var index1 = $(".uploadKeyword_icon-jiaocha").index(this);
+        console.log(index1)
+        uploadkey.splice(index1,1);
+        console.log(uploadkey)  
         $(this).parent().remove();
-    });
-    
-    $('.KeyWordTip').on('click','.KeyWordTip_input_normal',function(){
-        var _this = $(this);
-        if(_this.hasClass('KeyWordTip_input')){
-            $('.uploadpicture_main_keywords ul').append(function(){
-                var li = '<li>'+((_this.text()).split('：'))[1]+'&nbsp;<i class="iconfont icon-jiaocha  uploadKeyword_icon-jiaocha" style="font-size:12px;cursor:pointer"></i></li>';
-                return li;
-            });
-        }else{
-            $('.uploadpicture_main_keywords ul').append(function(){
-                var li = '<li>'+_this.text()+_this.find('input').prop('outerHTML')+'&nbsp;<i class="iconfont icon-jiaocha  uploadKeyword_icon-jiaocha" style="font-size:12px;cursor:pointer"></i></li>';
-                return li;
-            });
-        }
+        //移除数组
         
+    });
+
+    $('.KeyWordTip').on('click', '.KeyWordTip_input_normal', function () {
+        var _this = $(this);
+        if (_this.hasClass('KeyWordTip_input')) {
+            if(uploadkey){
+                if(uploadkey.length > 4){
+                    alert("关键词不能超过5个");
+                    $('.keywordInput').val('');
+                    $('.KeyWordTip').hide('fast');
+                    return ;
+                }
+                
+                    for(var i = 0 ; i < uploadkey.length ; i++){
+                        if(((_this.text()).split('：'))[1] == uploadkey[i].keyword){
+                            alert("你已经有次关键词");
+                            $('.KeyWordTip').hide('fast');
+                            return ;
+                        }
+                    }
+          
+                
+            }
+
+            $('.uploadpicture_main_keywords ul').append(function () {
+                var li = '<li>' + ((_this.text()).split('：'))[1] + '&nbsp;<i class="iconfont icon-jiaocha  uploadKeyword_icon-jiaocha" style="font-size:12px;cursor:pointer"></i></li>';
+                return li;
+            });
+            
+
+            var inputdata = {
+                id: '',
+                keyword: ((_this.text()).split('：'))[1]
+            }
+            
+            uploadkey.push(inputdata);
+            
+            
+        } else {
+            if(uploadkey){
+                if(uploadkey.length > 4){
+                    alert("关键词不能超过5个");
+                    $('.keywordInput').val('');
+                    $('.KeyWordTip').hide('fast');
+                    return ;
+                }
+                
+                    for(var i = 0 ; i < uploadkey.length ; i++){
+                        if(_this.text() == uploadkey[i].keyword){
+                            alert("你已经有次关键词");
+                            $('.KeyWordTip').hide('fast');
+                            return ;
+                        }
+                    }
+              
+            }
+            $('.uploadpicture_main_keywords ul').append(function () {
+                var li = '<li>' + _this.text() + _this.find('input').prop('outerHTML') + '&nbsp;<i class="iconfont icon-jiaocha  uploadKeyword_icon-jiaocha" style="font-size:12px;cursor:pointer"></i></li>';
+                return li;
+            });
+            var inputdata = {
+                id: _this.find('input').val(),
+                keyword: _this.text()   
+            }
+
+            uploadkey.push(inputdata);
+            
+        }
+
         $('.keywordInput').val('');
         $('.KeyWordTip').hide('fast');
     })
 }
 
 
-$('.uploadPictureTip_upload_button').bind('click',function(){
+$('.uploadPictureTip_upload_button').bind('click', function () {
     window.location.href = "./uploadPicture.html";
 })
 
