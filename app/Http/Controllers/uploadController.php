@@ -19,9 +19,9 @@ class uploadController extends Controller
 
 	public function doupload(createRequest $request)
 	{
-		 $title = $request->get('title');
-		 $content = $request->get('content');
-		 $file = $request->get('files');
-		 var_dump($file);
+		 // $title = $request->get('title');
+		 // $content = $request->get('content');
+		 $file = $request->all();
+		 dd($file);
 	}
 }

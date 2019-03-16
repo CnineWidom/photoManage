@@ -30,14 +30,14 @@ class createRequest extends FormRequest
             ];
         }
         // 前台上传图片
-        if(Request::getPathInfo() == '/uploadPicture/doupload'){
-            $rules = [
-                'title' => 'required|max:25|string',
-                'keyword' => 'max:30',
-                'content' => 'required|between:10,200',
-                'author' => 'required',
-            ];
-        }
+        // if(Request::getPathInfo() == '/uploadPicture/doupload'){
+        //     $rules = [
+        //         'title' => 'required|max:25|string',
+        //         'keyword' => 'max:30',
+        //         'content' => 'required|between:10,200',
+        //         'author' => 'required',
+        //     ];
+        // }
         else{
             $rules = [
                 'id'=>'max:2'

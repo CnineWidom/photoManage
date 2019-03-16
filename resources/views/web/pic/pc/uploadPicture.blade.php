@@ -133,6 +133,13 @@
             </div>
         </div>
     </div>
+
+    <form action="uploadPicture/doupload" method="post"  enctype="multipart/form-data">
+        {{csrf_field()}}
+        <input type="file" name="files" id="">
+        <input type="submit" value="提交">
+    </form>
+
     <div class="footer">
         <div class="footer_detail">
                 <div class='footer_detail_content footer_detail_content1'>
@@ -190,10 +197,120 @@
 <script src='{{URL::asset("js/jquery.min.js")}}'></script>
 <script src="https://cdn.bootcss.com/webuploader/0.1.1/webuploader.min.js"></script>
 <script>
-    // if(typeof FileReader==='undefined'){
-    //     alert("抱歉，你的浏览器不支持 FileReader,将不支持图片预览");
-    //     $('.uploadPicture_main_content_pic_input').setAttribute('disabled','disabled');
-    
-    // }
+    if($('.uploadPicture_main_content_pic_input').length > 0){
+        var uploader = WebUploader.create({
+            // 选完文件后，是否自动上传。
+            auto: true,
+            
+            // swf文件路径
+            swf: 'https://cdn.bootcss.com/webuploader/0.1.1/Uploader.swf',
+            formData: {
+                _token:'{{csrf_token()}}'
+
+            },
+            // 文件接收服务端。
+            // server: 'http://localhost:8080/CI/index.php/BasicInfo/getpic',
+            server: 'uploadPicture/doupload',
+        
+            // 选择文件的按钮。可选。
+            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+            pick: '.uploadPicture_main_content_pic_button',
+            threads:1,
+            dupliacate:true,
+            resize: false,
+            // crop: true,
+            // 只允许选择图片文件。
+            accept: {
+                title: 'Images',
+                extensions: 'jpg,jpeg,png,gif',
+                mimeTypes: '.jpg,.jpeg,.png,.gif'
+            },
+            fileNumLimit: 8, //限制上传个数
+            fileSingleSizeLimit: 2048000 //限制单个上传图片的大小
+        });
+        uploader.on( 'beforeFileQueued' ,function(file){
+            
+            if(file.ext == ""){
+                return false;
+            }else{
+                var state = uploader.getStats();
+                if(state.successNum > 7){
+                    alert('单个案例上传上限为8个');
+                    return false;
+                }
+            }
+        })
+        
+        uploader.on( 'fileQueued', function( file ) {
+            var $li = $(
+                '<li id="' + file.id + '" class="file-item thumbn   ail">' +
+                    '<div class="progress previewprogress"><span></span></div>'+
+                    '<img>' +
+                    '<div class="preview_info" style="color:white;position:absolute;bottom:0px;left:0px;width:178.6px;height:auto;line-height:12px;font-size:12px;text-align:center">' + file.name + '</div>' +
+                    '<span class="preview_tip" style=""></span>' +
+                '</li>'
+            ),
+            $img = $li.find('img');
+            // $list为容器jQuery实例
+            $('.uploadPicture_main_content_pic_preview ul').append( $li );
+            // 创建缩略图
+            // 如果为非图片文件，可以不用调用此方法。
+            // thumbnailWidth x thumbnailHeight 为 100 x 100
+        
+            uploader.makeThumb( file, function( error, src ) {
+                if ( error ) {
+                    $img.replaceWith('<span>不能预览</span>');
+                    return false;
+                }
+
+                $img.attr( 'src', src );
+            }, 178.6, 178.6 );
+
+
+        });
+
+        uploader.on( 'uploadProgress', function( file, percentage ) {
+            var $li = $( '#'+file.id ),
+                $percent = $li.find('.progress span');
+        
+            // 避免重复创建
+            // if ( !$percent.length ) {
+            //     $percent = $('<p class="progress"><span></span></p>')
+            //             .appendTo( $li )
+            //             .find('span');
+            // }
+            console.log(percentage);
+            $percent.css( 'width', percentage * 100 + '%' );
+        });
+        
+        // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+        uploader.on( 'uploadSuccess', function( file , response) {
+            console.log(response);
+            $( '#'+file.id+' .preview_tip').removeClass('preview_tip_error');
+            $( '#'+file.id+' .preview_tip').addClass('preview_tip_success');
+            
+        });
+        
+        // 文件上传失败，显示上传出错。
+        uploader.on( 'uploadError', function( file ,erroMsg) {
+            // var $li = $( '#'+file.id ),
+            //     $error = $li.find('div.error');
+            console.log(erroMsg);
+            $( '#'+file.id+' .preview_tip').removeClass('preview_tip_success');
+            $( '#'+file.id+' .preview_tip').addClass('preview_tip_error');
+
+            // // 避免重复创建
+            // if ( !$error.length ) {
+            //     $error = $('<div class="error"></div>').appendTo( $li );
+            // }
+            
+            // $error.text('上传失败');
+        });
+        
+        // 完成上传完了，成功或者失败，先删除进度条。
+        uploader.on( 'uploadComplete', function( file ) {
+            // $( '#'+file.id ).find('.progress').remove();
+        });
+    }
 </script>
-<script src='{{URL::asset("js/index.js?4554")}}'></script>
+<script src='{{URL::asset("js/index.js?454")}}'></script>
