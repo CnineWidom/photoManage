@@ -672,8 +672,8 @@ if ($('.uploadPicture_main_content_form').length > 0) {
             extensions: 'jpg,jpeg,png,gif',
             mimeTypes: '.jpg,.jpeg,.png,.gif'
         },
-        fileNumLimit: 8, //限制上传个数
-        fileSingleSizeLimit: 2048000 //限制单个上传图片的大小
+        fileNumLimit: 12, //限制上传个数
+        fileSingleSizeLimit: 20480000 //限制单个上传图片的大小
     });
     uploader.on('beforeFileQueued', function (file) {
 
@@ -681,9 +681,9 @@ if ($('.uploadPicture_main_content_form').length > 0) {
             return false;
         } else {
             var state = uploader.getStats();
-            console.log(state.queueNum);
-            if (state.queueNum > 0) {
-                alert('单个案例支持一个图片上传');
+            
+            if (state.queueNum > 8) {
+                alert('仅支持上传9张图片');
                 return false;
             }
         }
@@ -693,6 +693,9 @@ if ($('.uploadPicture_main_content_form').length > 0) {
         if (serializeF('uploadform')) { 
             var uploaddata = serializeF('uploadform');
             //参数
+            var state = uploader.getStats();
+            var num = state.queueNum;
+            data.num = num;
             data.token = "SDFSD23FDSG4AK";
             data.title = uploaddata.title;
             data.content = uploaddata.content;
@@ -765,7 +768,8 @@ if ($('.uploadPicture_main_content_form').length > 0) {
 
     // 文件上传成功，给item添加成功class, 用样式标记上传成功。
     uploader.on('uploadSuccess', function (file, response) {
-        console.log(response);
+        // console.log(response);
+
         $('#' + file.id + ' .preview_tip').removeClass('preview_tip_error');
         $('#' + file.id + ' .preview_tip').addClass('preview_tip_success');
 
@@ -775,7 +779,7 @@ if ($('.uploadPicture_main_content_form').length > 0) {
     uploader.on('uploadError', function (file, erroMsg) {
         // var $li = $( '#'+file.id ),
         //     $error = $li.find('div.error');
-        console.log(erroMsg);
+        alert(erroMsg);
         $('#' + file.id + ' .preview_tip').removeClass('preview_tip_success');
         $('#' + file.id + ' .preview_tip').addClass('preview_tip_error');
 
@@ -813,6 +817,7 @@ if ($('.uploadbtn').length > 0) {
                 return false;
             }
         }
+
         uploader.upload();
     })
 }
