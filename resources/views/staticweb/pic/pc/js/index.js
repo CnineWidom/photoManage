@@ -772,7 +772,15 @@ if ($('.uploadPicture_main_content_form').length > 0) {
 
         $('#' + file.id + ' .preview_tip').removeClass('preview_tip_error');
         $('#' + file.id + ' .preview_tip').addClass('preview_tip_success');
-
+        var state = uploader.getStats();
+        var num = state.queueNum;
+        if(num != "0"){
+            $('.upload_pic_num').text("(还有"+(num)+"张)");
+        }else{
+            $('.upload_pic_num').text("");
+            $('.upload_pic_tip_word').html("上传成功<br/>正在跳转");
+        }
+        
     });
 
     // 文件上传失败，显示上传出错。
@@ -816,8 +824,14 @@ if ($('.uploadbtn').length > 0) {
                 alert("描述不能为空");
                 return false;
             }
+            
+            if(uploadkey.length == 0){
+                 alert("关键词不能为空");
+                 return false;
+            }   
+      
         }
-
+        $(".mask").css("display","block")
         uploader.upload();
     })
 }
