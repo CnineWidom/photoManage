@@ -526,7 +526,7 @@ if ($('.caseDetail_main_content_pic_small'.length > 0)) {
     $('.caseDetail_main_content_pic_small li').each(function (j) {
 
 
-        var src = $(this).css("background");
+        var src = $(this).css("backgroundImage");
         src = src.split("(\"")[1].split("\")")[0];
 
         // src = 
@@ -565,19 +565,22 @@ if ($('.caseDetail_main_conment_rate').length > 0) {
 
         $(this).bind('click', function () {
             for (var i = 0; i <= index; i++) {
+                $('.caseDetail_main_conment_rate i').eq(i).removeClass('normal_rate');
                 $('.caseDetail_main_conment_rate i').eq(i).addClass('active_rate');
 
             }
 
             for (var i = 4; i > index; i--) {
                 $('.caseDetail_main_conment_rate i').eq(i).removeClass('active_rate');
-
+                $('.caseDetail_main_conment_rate i').eq(i).addClass('normal_rate');
             }
 
         })
 
     })
 }
+
+
 
 var picContentPages = 0;
 var picContentTatal = 8;
@@ -985,10 +988,28 @@ if ($('.KeyWordTip').length > 0) {
     })
 }
 
+if($('#upload_pic_tip_icon').length > 0){
+    $('#upload_pic_tip_icon').click(function(){
+        if($('#upload_pic_tip_icon').hasClass('icon-check-box-outline-bl')){
+            $("#upload_pic_tip_icon").removeClass('icon-check-box-outline-bl');
+            $("#upload_pic_tip_icon").addClass('icon-checkboxoutline');
+        }else{
+            $("#upload_pic_tip_icon").removeClass('icon-checkboxoutline');
+            $("#upload_pic_tip_icon").addClass('icon-check-box-outline-bl');
+        }
+        
+    })
+    $('.uploadPictureTip_upload_button').bind('click', function () {
+        if($('#upload_pic_tip_icon').hasClass('icon-check-box-outline-bl')){
+            alert('请先阅读使用条款并勾选后再上传');
+        }else{
+            window.location.href = "./uploadPicture.html";
+        }
+       
+        
+    })
+}
 
-$('.uploadPictureTip_upload_button').bind('click', function () {
-    window.location.href = "./uploadPicture.html";
-})
 
 // 上传图片 结束
 // index js 结束
