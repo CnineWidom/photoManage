@@ -22,7 +22,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -83,8 +83,14 @@ class HomeController extends Controller
         ];
         return view('web.pic.pc.index', $data);
     }
+
     public function search(createRequest $request)
     {
        $data =$request -> input('search');
+    }
+
+    public function test()
+    {
+        return view('web.pic.pc.test');
     }
 }
