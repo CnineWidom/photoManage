@@ -95,18 +95,7 @@ time, mark, audio, video {
     font-size:14px;
     color: rgba(229,229,229,.8)
 }
-input::-webkit-input-placeholder{
-    color:rgba(229,229,229,.5);
-}
-input::-moz-placeholder{   /* Mozilla Firefox 19+ */
-    color:rgba(229,229,229,.5);
-}
-input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
-    color:rgba(229,229,229,.5);
-}
-input:-ms-input-placeholder{  /* Internet Explorer 10-11 */ 
-    color:rgba(229,229,229,.5);
-}
+
 /* login css 结束 */
 
 /* register css 开始 */
@@ -489,7 +478,7 @@ text-align: left;
         color: rgb(48,79,146);
     }
     .index_imgdetail_rate .normal_rate{
-        color: rgb(102,102,102);
+        color: rgb(179,179,179);
     }
 /* 首页css 结束*/
 
@@ -889,13 +878,38 @@ margin-top:12px;
 
 /* 案例详情 开始 */
 .caseManager_table{
-    width: 100%;
-    min-height: 400px;
+    
+    /* border-collapse: collapse; */
     margin-top:60px;
 }
-/* .caseManager_table{
-
-} */
+.caseManager_table td{
+    vertical-align:middle;
+    
+}
+.caseManager_table tr:nth-child(2n){
+    background: rgb(239,239,239)
+}
+.caseManager_table tr:nth-child(2n+1){
+    background: rgb(229,229,229)
+}
+.caseManager_table tr:nth-child(n+2) td{
+    padding:9px 9px;
+    /* border-left:1px solid rgb(199,199,199); */
+  
+}
+.caseManager_table tr:nth-child(n+2) td:last-child{
+    border-right:1px solid rgb(242,242,242);
+}
+.caseManager_table tr:nth-child(n+2) td:first-child{
+    border-left:1px solid rgb(242,242,242);
+}
+.caseManager_table tr:nth-child(n+2){
+    border-bottom:1px solid rgb(199,199,199)!important;
+   
+}
+.caseManager_table tr:nth-child(n+2):hover{
+    background: rgb(48,79,146,0.3)
+}
 /* .pic_content_detail_introduction input{
     font-size: 14px !important;
 } */

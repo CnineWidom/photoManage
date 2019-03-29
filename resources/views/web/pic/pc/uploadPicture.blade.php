@@ -133,13 +133,6 @@
             </div>
         </div>
     </div>
-
-    {{--<form action="uploadPicture/doupload" method="post" enctype="multipart/form-data">--}}
-        {{--{{csrf_field()}}--}}
-        {{--<input type="file" name="files" id="">--}}
-        {{--<input type="submit" value="提交">--}}
-    {{--</form>--}}
-    
     <div class="footer">
         <div class="footer_detail">
                 <div class='footer_detail_content footer_detail_content1'>
@@ -200,18 +193,15 @@
     if($('.uploadPicture_main_content_pic_input').length > 0){
         var uploader = WebUploader.create({
             // 选完文件后，是否自动上传。
-            auto: false,
-
+            auto: true,
             // swf文件路径
             swf: 'https://cdn.bootcss.com/webuploader/0.1.1/Uploader.swf',
             formData: {
-                _token:"{{csrf_token()}}",
-
+                _token:'{{csrf_token()}}'
             },
             // 文件接收服务端。
             // server: 'http://localhost:8080/CI/index.php/BasicInfo/getpic',
             server: 'uploadPicture/doupload',
-
             // 选择文件的按钮。可选。
             // 内部根据当前运行是创建，可能是input元素，也可能是flash.
             pick: '.uploadPicture_main_content_pic_button',
@@ -229,7 +219,6 @@
             fileSingleSizeLimit: 2048000 //限制单个上传图片的大小
         });
         uploader.on( 'beforeFileQueued' ,function(file){
-
             if(file.ext == ""){
                 return false;
             }else{
@@ -240,23 +229,18 @@
                 }
             }
         })
-
         uploader.on( 'fileQueued', function( file ) {
             var $li = $(
                 '<li id="' + file.id + '" class="file-item thumbn   ail">' +
-                '<div class="progress previewprogress"><span></span></div>'+
-                '<img>' +
-                '<div class="preview_info" style="color:white;position:absolute;bottom:0px;left:0px;width:178.6px;height:auto;line-height:12px;font-size:12px;text-align:center">' + file.name + '</div>' +
-                '<span class="preview_tip" style=""></span>' +
+                    '<div class="progress previewprogress"><span></span></div>'+
+                    '<img>' +
+                    '<div class="preview_info" style="color:white;position:absolute;bottom:0px;left:0px;width:178.6px;height:auto;line-height:12px;font-size:12px;text-align:center">' + file.name + '</div>' +
+                    '<span class="preview_tip" style=""></span>' +
                 '</li>'
-                ),
-
-                $img = $li.find('img');
-
-
+            ),
+            $img = $li.find('img');
             // $list为容器jQuery实例
             $('.uploadPicture_main_content_pic_preview ul').append( $li );
-
             // 创建缩略图
             // 如果为非图片文件，可以不用调用此方法。
             // thumbnailWidth x thumbnailHeight 为 100 x 100
@@ -273,14 +257,9 @@
 
         });
 
-
-
-
-
         uploader.on( 'uploadProgress', function( file, percentage ) {
             var $li = $( '#'+file.id ),
                 $percent = $li.find('.progress span');
-
             // 避免重复创建
             // if ( !$percent.length ) {
             //     $percent = $('<p class="progress"><span></span></p>')
@@ -290,15 +269,12 @@
             console.log(percentage);
             $percent.css( 'width', percentage * 100 + '%' );
         });
-
         // 文件上传成功，给item添加成功class, 用样式标记上传成功。
         uploader.on( 'uploadSuccess', function( file , response) {
             console.log(response);
             $( '#'+file.id+' .preview_tip').removeClass('preview_tip_error');
             $( '#'+file.id+' .preview_tip').addClass('preview_tip_success');
-
         });
-
         // 文件上传失败，显示上传出错。
         uploader.on( 'uploadError', function( file ,erroMsg) {
             // var $li = $( '#'+file.id ),
@@ -311,15 +287,13 @@
             // if ( !$error.length ) {
             //     $error = $('<div class="error"></div>').appendTo( $li );
             // }
-
+            
             // $error.text('上传失败');
         });
-
         // 完成上传完了，成功或者失败，先删除进度条。
         uploader.on( 'uploadComplete', function( file ) {
             // $( '#'+file.id ).find('.progress').remove();
         });
     }
-
 </script>
-<script src='{{URL::asset("js/index.js?4554")}}'></script>
+<script src='{{URL::asset("js/index.js?454")}}'></script>

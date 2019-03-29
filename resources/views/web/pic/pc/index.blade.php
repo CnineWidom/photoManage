@@ -37,13 +37,14 @@
                 </ul>
             </div>
             @if (Auth::user()->user_name)
-              <div class='index_user'><a href="javascript:void(0);" style="font-weight:bold">{{Auth::user()->user_name}}</a>
-                  <a href="" id ='logout' style="
-                  opacity: 0.5;color: rgba(42, 42, 42, 1);cursor: pointer;">[退出]</a>
-                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                <div class='index_user'>
+                    <a href="javascript:void(0);" style="font-weight:bold">{{Auth::user()->user_name}}
+                    </a>
+                    <a href="" id ='logout' style="opacity: 0.5;color: rgba(42, 42, 42, 1);cursor: pointer;">[退出]</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                       {{ csrf_field() }}
-                  </form>
-              </div>
+                    </form>
+                </div>
             @else if
                 <a href="#">登录</a>/<a href="#">注册</a>
             @endif

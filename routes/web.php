@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
@@ -24,6 +24,8 @@ Route::get('/home/{id}', 'HomeController@index');
 
 Route::get('uploadPicture','uploadController@index')->name('uploadPicture');
 Route::post('uploadPicture/doupload','uploadController@doupload');
+
+Route::get('test','HomeController@test');
 
 
 

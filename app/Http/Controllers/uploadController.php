@@ -17,22 +17,12 @@ class uploadController extends Controller
 		return view('web.pic.pc.uploadPicture');
 	}
 
-//	public function doupload(createRequest $request)
-//	{
-////		 $title = $request->get('title');
-////		 $content = $request->get('content');
-////		 $file = $request->file();
-//		 $res = $request->all();
-//		 var_dump($res);
-//	}
-    public function doupload(createRequest $request)
-    {
-//        header("Content-Type: text/html; charset=utf-8");
-//		 $title = $request->get('title');
-//		 $content = $request->get('content');
-//		 $file = $request->file();
-        $data = $request->all();
-        $res = $request->file('files');
-        dd($data);
-    }
+	public function doupload(createRequest $request)
+	{
+		 // $title = $request->get('title');
+		 // $content = $request->get('content');
+		 $file = $request->all();
+		 dd($file);
+	}
+
 }
