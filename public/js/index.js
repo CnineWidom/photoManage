@@ -449,9 +449,9 @@ $('.index_login_span').click(function(){
 $('.index_user .index_loginout').bind('click', function () {
     window.location.href = './login.html'
 })
-$('.index_user a').bind('click', function () {
-    window.location.href = './caseManager.html'
-})
+// $('.index_user a').bind('click', function () {
+//     window.location.href = './caseManager.html'
+// })
 $('.index_logo').bind('click', function () {
     window.location.href = './index.html';
 })
@@ -461,8 +461,9 @@ $('.index_search_button').bind('click', function () {
 $('.caseDetail_main_nav span').bind('click', function () {
     window.history.back(-1);
 })
-$('.index_uploadPicture_button').bind('click', function () {
-    window.location.href = "./uploadPictureTip.html";
+
+$('.index_uploadPicture_button').bind('click',function(){
+    window.location.href="uploadPicture";
 });
 resetPictureSize('pic_content_detail_pic_small img', 'pic_content_detail_pic_big', 280, 260, 1.07, 360);
 function resetPictureSize(smallobj, bigobj, width, height, objvs, bigPictureSize) {

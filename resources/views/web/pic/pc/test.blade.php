@@ -27,49 +27,52 @@
             <div class='pic_nav_type'>
                 <ul>
                     <!-- 图片导航a标签href渲染 开始 -->
-                    <li class='pic_nav_type_first pic_nav_type_li_active'><a href="javascript:void(0);">最新</a> </li>
-                    <li class='pic_nav_type_li'><a href="javascript:void(0);">热门</a></li>
-                    <li class='pic_nav_type_li'><a href="javascript:void(0);">浏览</a></li>
-                    <li class='pic_nav_type_li'><a href="javascript:void(0);"><i class='iconfont icon-shuaxin' style="font-size:20px"></i></a></li>
+                    <li class='pic_nav_type_li pic_nav_type_li_active'><a href="/home/0">最新</a> </li>
+                    <li class='pic_nav_type_li'><a href="/home/1">热门</a></li>
+                    <li class='pic_nav_type_li'><a href="/home/2">浏览</a></li>
+                    <li class='pic_nav_type_li'><a href="#"><i class='iconfont icon-shuaxin' style="font-size:20px"></i></a></li>
                     <!-- 图片导航a标签href渲染 结束 -->
                 </ul>
             </div>
             <div class='pic_nav_search'>
-                <i class="iconfont icon-sousuo index_search_button" style="float:left;position: absolute;color:rgb(209,209,209);margin-left:9px;cursor: pointer;z-index: 98;"></i>
-                <input type="text" style='position: absolute;float:left'>
-                  <i class="iconfont icon-zuqibing icon-qiejutang_roupianzuqibing showtype"></i>
-                </div>
+                <form action="/home/{{$id}}" id='form_search' method="get">
+                    {{ csrf_field() }}
+                    <i class="iconfont icon-sousuo index_search_button" id='search' style="float:left;position: absolute;color:rgb(209,209,209);margin-left:9px;cursor: pointer;z-index: 98;"></i>
+                    <input type="text" name="search" style='position: absolute;float:left'>
+                    <i class="iconfont icon-zuqibing icon-qiejutang_roupianzuqibing showtype"></i>
+                </form>
             </div>
             <div class='pic_content pic_content_detail' style="display:none;position: relative;">
                 <div class='pic_content_mask'>
                   <img src="picture/loading.gif" alt="">
                 </div>
-                <!-- 详细信息循环样例 开始 -->      
-                <div class='pic_content_detail_content'>
-                    <div class="pic_content_detail_pic" style="position: relative;">
-                    <div  class="pic_content_detail_pic_big">
-                        <img src="picture/pic (5).png" height="680" width="480"  alt="480">
+                <!-- 详细信息循环样例 开始 -->
+                @foreach ($listMess as $value)
+                    <div class='pic_content_detail_content'>
+                        <div class="pic_content_detail_pic" style="position: relative;">
+                            <div  class="pic_content_detail_pic_big">
+                                <img src="{{$value->photos}}" height="680" width="480"  alt="480">
+                            </div>
+                            <div class="pic_content_detail_pic_small">
+                                <img src="{{$value->photos}}"  alt="">
+                            </div>
+                        </div>
+                        <div class="pic_content_detail_introduction">
+                            <h2>{{$value->title}}</h2>
+                            <span class="pic_content_detail_author">{{$value->author}}</span><span class="pic_content_detail_date">{{$value->createdTmp}}</span><br>
+                            <h4>{{$value->content}}
+                                <br>摄影师：{{$value->photographer}}
+                                <br>成像设备：{{$value->device}}
+                            </h4>
+                            <h4 style="margin-top:20px;margin-bottom:5px">条件/关键词：</h4>
+                            <ul>
+                                @foreach ($value->keywordsTmp as $v)
+                                    <li> <a href="">{{$v}}</a> </li>
+                                @endforeach
+                            </ul>
+                        </div>
                     </div>
-                    <div class="pic_content_detail_pic_small">
-                        <img src="picture/pic (5).png"  alt="">
-                    </div>
-                  </div>
-                  <div class="pic_content_detail_introduction">
-                    <h2>黄斑变性与重要的玻璃疣</h2>
-                    <span class="pic_content_detail_author">Karen Panzegrau</span><span class="pic_content_detail_date">2018-2-15</span><br>
-                    <h4>一名27岁男性患者的超宽视野视频图像，患者视力丧失约6-8周。以前看过脉络膜痣。建议年度监测。自2014年10月以来没有考试。讨论了近距离放射治疗与去核。近距离放射治疗被确定为治疗。正在进行完全转移性检查。
-                    <br>摄影师：Karen Panzegrau
-                    <br>成像设备：Optos
-                    </h4>
-                    <h4 style="margin-top:20px;margin-bottom:5px">条件/关键词：</h4>
-                    <ul>
-                      <a href="javascript:void(0);"><li> 脉络膜黑色素瘤 </li></a>
-                      <li>渗出性视网膜</li>
-                      <li>脱离性恶性肿瘤</li>
-                      <li>眼部直视眼全视野成像</li>                       
-                    </ul>       
-                  </div>
-                </div>
+            @endforeach
                 <!-- 详细信息循环样例 结束 -->
                 <div class='pic_content_detail_content'>
                     <div class="pic_content_detail_pic" style="position: relative;">

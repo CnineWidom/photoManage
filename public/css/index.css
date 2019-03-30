@@ -31,7 +31,9 @@ time, mark, audio, video {
     width: 350px;
     /* background: red; */
 }
-
+.index_login_span,.index_register_span{
+    cursor: pointer;
+}
 #logo{
     height: 50px;
     border:1px solid white;

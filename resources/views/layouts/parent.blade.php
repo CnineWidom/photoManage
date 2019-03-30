@@ -8,8 +8,8 @@
 	<meta content='initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width' name='viewport'>
 	@section('styleCss')
 	    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1030860_kpunaqreyg.css">
-	    <link rel="stylesheet" href="{{ URL::asset('css/common.css') }}">
-	    <link rel="stylesheet" href="{{ URL::asset('css/index.css') }}">
+	    <link rel="stylesheet" href="{{ URL::asset('css/common.css?190330') }}">
+	    <link rel="stylesheet" href="{{ URL::asset('css/index.css?190330') }}">
 	@show
 	<title>@yield('title')</title>
 </head>
@@ -20,8 +20,8 @@
 	            <div class="index_logo"><img src="{{ URL::asset('assest/logoblue.png') }}" alt=""></div>
 	            <div class="index_nav">
 	                <ul>
-	                    <li><a href="home">首页</a></li>
-	                    <li><a href="uploadPictureTip.html">上传</a></li>
+	                    <li><a href="test">首页</a></li>
+	                    <li><a href="uploadPicture">上传</a></li>
 	                    <li><a href="normalProblem.html">常见问题</a></li>
 	                    <li><a href="aboutUs.html">关于我们</a></li>
 	                </ul>
@@ -36,8 +36,8 @@
 	                  	</form>
 	                @else
 					<span >
-						<span class='index_login_span'>登录</span> | 
-						<span class='index_register_span'>注册</span>
+						<span class='index_login_span'>登录</span> |
+						<span class='index_register_span'> <a href="{{route('register')}}" style="color:rgb(39,39,39)">注册</a></span>
 					</span>
 					@endif
 				</div>
@@ -45,7 +45,7 @@
 	    @show
 
 	    @section('modal')
-	    	<div class="mask" style='position: absolute;width: 100%;top:0px;left:0px;height:2069px;background:rgb(0,0,0,.39);z-index: 89;display:none'>
+	    	<div class="mask" style='position: absolute;width: 100%;top:0px;left:0px;height:2069px;background:rgb(0,0,0,0.39);z-index: 89;display:none'>
     		</div>
 		    <form class='index_login_form' action="{{ route('login') }}" id='login_form' method="POST" style="position:fixed;top:10%;height: 582.4px;width:976px;display:none;background:white;left:50%;margin-left:-488px;z-index: 99">
 		    	{{ csrf_field() }}
@@ -58,7 +58,7 @@
 		              <!-- 用户名 -->
 		            <div id='username' class="form_item" style="margin-top:50px;width:100%;border: 1px solid rgb(48,79,146,0.49)">
 		                <i class="icon iconfont icon-lufu" style='color:rgba(48,79,146,0.79)'></i>
-		                <input type="text" name='phone' autocomplete="off" class='login_input input' style="width:399px;color: rgb(39,39,39)" placeholder="手机号">
+		                <input type="text" name='phone_number' autocomplete="off" class='login_input input' style="width:399px;color: rgb(39,39,39)" placeholder="手机号">
 		            </div>
 		            @if ($errors->has('phone_number'))
 						<p>手机号码错误</p>
@@ -76,6 +76,7 @@
 		            <!-- 此处是验证信息 开始 后端如果需要验证可以再此处添加提示信息，前端已经做了初步的认证，如果后端需要的就在此处添加-->
 		            <div id='tip'></div>
 		            <!-- 此处是验证信息 结束-->
+
 		            <button type='submit' class="button" style="width:100%">登陆</button>
 		            <div id='link' style="color:black;width:100%">
 		                <div style='float:left;font-size:14px'>
@@ -103,7 +104,7 @@
                         <div class='footer_title'>导航</div>
                         <div class='footer_nav'>
                             <ul>
-                                <li> <a href="index.html">主页</a> </li>
+                                <li> <a href="test">主页</a> </li>
                                 <li><a href="aboutUs.html">关于我们</a></li>
                                 <li><a href="uploadPictureTip.html">分享</a></li>
                                 <li><a href="havascript:void(0);">联系我们</a></li>
@@ -157,5 +158,5 @@
 	<script src='{{URL::asset("js/jquery.min.js")}}'></script>
 	<script src='{{URL::asset("js/index/velocity.js")}}'></script>
 	<script src='{{URL::asset("js/index/stackgrid.adem.js")}}'></script>
-	<script src='{{URL::asset("js/index.js?123")}}'></script>
+	<script src='{{URL::asset("js/index.js?1903301")}}'></script>
 @show
