@@ -446,9 +446,9 @@ $('.index_login_span').click(function(){
     $('.mask').fadeIn('fast');
     $('.index_login_form').fadeIn('fast');
 })
-$('.index_user .index_loginout').bind('click', function () {
-    window.location.href = './login.html'
-})
+// $('.index_user .index_loginout').bind('click', function () {
+//     window.location.href = './login.html'
+// })
 // $('.index_user a').bind('click', function () {
 //     window.location.href = './caseManager.html'
 // })
@@ -463,7 +463,7 @@ $('.caseDetail_main_nav span').bind('click', function () {
 })
 
 $('.index_uploadPicture_button').bind('click',function(){
-    window.location.href="uploadPicture";
+    window.location.href="/uploadPicture";
 });
 resetPictureSize('pic_content_detail_pic_small img', 'pic_content_detail_pic_big', 280, 260, 1.07, 360);
 function resetPictureSize(smallobj, bigobj, width, height, objvs, bigPictureSize) {

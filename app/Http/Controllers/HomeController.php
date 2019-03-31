@@ -73,24 +73,12 @@ class HomeController extends Controller
             $value ->starArr =  $starArr;
         }
         unset($value);
-        // var_dump( $listMess);
-
-
         $data = [
             'listMess' => $listMess,
             'id' => $requestType
 
         ];
-        return view('web.pic.pc.index', $data);
-    }
-
-    public function search(createRequest $request)
-    {
-       $data =$request -> input('search');
-    }
-
-    public function test()
-    {
-        return view('web.pic.pc.test');
+        // return view('web.pic.pc.index', $data);
+        return view('web.pic.pc.test',$data);
     }
 }

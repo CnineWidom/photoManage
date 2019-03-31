@@ -21,16 +21,15 @@
 	            <div class="index_nav">
 	                <ul>
 	                    <li><a href="test">首页</a></li>
-	                    <li><a href="uploadPicture">上传</a></li>
+	                    <li><a href="{{ route('upload') }}">上传</a></li>
 	                    <li><a href="normalProblem.html">常见问题</a></li>
 	                    <li><a href="aboutUs.html">关于我们</a></li>
 	                </ul>
 	            </div>
 	            <div class='index_user'>
-					@if(Auth::user()->user_name)
+					@auth
 						<a href="javascript:void(0);" style="font-weight:bold">{{Auth::user()->user_name}}</a>  
-						<a class='index_loginout' style="opacity: 0.5;color: rgba(42, 42, 42, 1);
-					cursor: pointer;">&nbsp;&nbsp;[退出]</a>
+						<a href="logout" id ='logout' class='index_loginout' style="opacity: 0.5;color: rgba(42, 42, 42, 1);cursor: pointer;">&nbsp;&nbsp;[退出]</a>
 						<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
 	                      {{ csrf_field() }}
 	                  	</form>
@@ -39,7 +38,7 @@
 						<span class='index_login_span'>登录</span> |
 						<span class='index_register_span'> <a href="{{route('register')}}" style="color:rgb(39,39,39)">注册</a></span>
 					</span>
-					@endif
+					@endauth
 				</div>
 		    </div>
 	    @show
@@ -158,5 +157,5 @@
 	<script src='{{URL::asset("js/jquery.min.js")}}'></script>
 	<script src='{{URL::asset("js/index/velocity.js")}}'></script>
 	<script src='{{URL::asset("js/index/stackgrid.adem.js")}}'></script>
-	<script src='{{URL::asset("js/index.js?1903301")}}'></script>
+	<script src='{{URL::asset("js/index.js?1903302")}}'></script>
 @show

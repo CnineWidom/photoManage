@@ -1000,6 +1000,9 @@ margin-top:12px;
     height: 100%;
     
 }
+.footer_detail li {
+    cursor: pointer;
+} 
 /*  footer css 结束 */
 /* .footer_detail_content{
     /* height:  */
