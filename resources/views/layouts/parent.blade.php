@@ -49,6 +49,9 @@
 		    <form class='index_login_form' action="{{ route('login') }}" id='login_form' method="POST" style="position:fixed;top:10%;height: 582.4px;width:976px;display:none;background:white;left:50%;margin-left:-488px;z-index: 99">
 		    	{{ csrf_field() }}
 		        <!-- <form action="http://localhost:8080/CI/index.php/BasicInfo/getsubmit" id='login_form' method="POST"> -->
+		        @if ($loginType === -1)
+		    		<p style="color:red">{{$msg}}</p>
+				@endif
 		        <div style="position:absolute;right:29px;top:29px;cursor: pointer;">
 		            <i class='iconfont icon-jiaocha index_login_form_close' style='color:rgba(109,109,109,0.5);font-size:32px;'></i>
 		        </div>
@@ -157,5 +160,12 @@
 	<script src='{{URL::asset("js/jquery.min.js")}}'></script>
 	<script src='{{URL::asset("js/index/velocity.js")}}'></script>
 	<script src='{{URL::asset("js/index/stackgrid.adem.js")}}'></script>
-	<script src='{{URL::asset("js/index.js?1903302")}}'></script>
+	<script src='{{URL::asset("js/index.js?1903102")}}'></script>
+	<script>
+		var islogin = {{ $loginType }}
+        if (islogin === -1 ){
+        	$('.mask').fadeIn('fast');
+    		$('.index_login_form').fadeIn('fast');
+        }
+	</script>
 @show
