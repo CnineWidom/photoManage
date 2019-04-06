@@ -782,6 +782,7 @@ if ($('.uploadPicture_main_content_form').length > 0) {
         }else{
             $('.upload_pic_num').text("");
             $('.upload_pic_tip_word').html("上传成功<br/>正在跳转");
+            
         }
         
     });
