@@ -31,7 +31,9 @@ time, mark, audio, video {
     width: 350px;
     /* background: red; */
 }
-
+.index_login_span,.index_register_span{
+    cursor: pointer;
+}
 #logo{
     height: 50px;
     border:1px solid white;
@@ -998,6 +1000,9 @@ margin-top:12px;
     height: 100%;
     
 }
+.footer_detail li {
+    cursor: pointer;
+} 
 /*  footer css 结束 */
 /* .footer_detail_content{
     /* height:  */

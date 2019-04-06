@@ -5,7 +5,8 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class Handler extends ExceptionHandler
 {
     /**
@@ -47,9 +48,17 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $exception)
+    public function render($request, Exception $e)
     {
-        return parent::render($request, $exception);
+        // return parent::render($request, $exception);
+        switch($e){
+            //使用类型运算符 instanceof 判断异常(实例)是否为 ModelNotFoundException
+            case ($e instanceof NotFoundHttpException):
+                //进行异常处理
+                return response()->view('error.404');
+            break;
+            default:
+                return parent::render($request, $e);
+        }
     }
-
 }

@@ -32,8 +32,10 @@ class HomeController extends Controller
      */
     public function index(createRequest $request)
     {
+        $session =$request->session()->all();
+        $loginType = $session['warn']['code'];
+        $msg = $session['warn']['message'];
 
-        // $sql = "select * from p_case_list c left join p_case_photo as u on c.id=u.cid ";
         $sql = "select * from p_case_list";
         $where = ' where `issue` = 1 ';
         if($request->get('search'))
@@ -73,24 +75,14 @@ class HomeController extends Controller
             $value ->starArr =  $starArr;
         }
         unset($value);
-        // var_dump( $listMess);
-
 
         $data = [
             'listMess' => $listMess,
-            'id' => $requestType
-
+            'id' => $requestType, 
+            'loginType' => $loginType,
+            'msg' => $msg
         ];
-        return view('web.pic.pc.index', $data);
-    }
-
-    public function search(createRequest $request)
-    {
-       $data =$request -> input('search');
-    }
-
-    public function test()
-    {
-        return view('web.pic.pc.test');
+        // return view('web.pic.pc.index', $data);
+        return view('web.pic.pc.test',$data);
     }
 }
