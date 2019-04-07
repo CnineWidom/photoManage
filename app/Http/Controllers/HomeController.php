@@ -5,15 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Users;
 use App\Models\Cases;
 use App\Models\CasePhoto;
-use Carbon\Carbon;
 use Encore\Admin\Grid\Model;
 //use Illuminate\Http\Request;//明面上的方式
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 //use Illuminate\Support\Facades\Request;
 use App\Http\Requests\createRequest;
+
+
 class HomeController extends Controller
 {
+    public $loginType = 1;
+    public $msg = '';
+
     protected $pageCount = 15;
     /**
      * Create a new controller instance.
@@ -32,10 +36,7 @@ class HomeController extends Controller
      */
     public function index(createRequest $request)
     {
-        $session =$request->session()->all();
-        $loginType = $session['warn']['code'];
-        $msg = $session['warn']['message'];
-
+        $this->getAuthLogin($request);
         $sql = "select * from p_case_list";
         $where = ' where `issue` = 1 ';
         if($request->get('search'))
@@ -59,6 +60,7 @@ class HomeController extends Controller
         $sql .= $where;
         $listMess = DB::select($sql);
         foreach ($listMess as $key => &$value) {
+            $value->baseId = base64_encode($value->id);
             $value->keywordsTmp = explode("||",$value->keywords);
             $value->createdTmp = Date('Y-m-d',$value->created_at);
             $value->photographer = empty($value->photographer) ? $value->author : $value->photographer;
@@ -75,14 +77,23 @@ class HomeController extends Controller
             $value ->starArr =  $starArr;
         }
         unset($value);
-
         $data = [
             'listMess' => $listMess,
-            'id' => $requestType, 
-            'loginType' => $loginType,
-            'msg' => $msg
+            'id' => $requestType,
+            'loginType' => $this->loginType,
+            'msg' => $this->msg
         ];
         // return view('web.pic.pc.index', $data);
         return view('web.pic.pc.test',$data);
+    }
+
+    public function getAuthLogin($request)
+    {
+        $session =$request->session()->all();
+        if(!empty($session['warn'])) {
+            $this ->loginType = $session['warn']['code'];
+            $this ->msg = $session['warn']['message'];
+            flash($this ->msg)->error()->important();
+        }
     }
 }

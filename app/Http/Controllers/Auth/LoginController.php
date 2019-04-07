@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -26,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/test';
 
     /**
      * Create a new controller instance.
@@ -36,7 +37,6 @@ class LoginController extends Controller
 
     public function __construct()
     {
-//        $this->middleware('guest')->except('logout');
         $this->middleware('guest')->except('logout');
     }
 
@@ -49,11 +49,11 @@ class LoginController extends Controller
         // the IP address of the client making these requests into this application.
         if ($this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
-
             return $this->sendLockoutResponse($request);
         }
 
         if ($this->attemptLogin($request)) {
+            // flash('欢迎回来','success');
             return $this->sendLoginResponse($request);
         }
 
@@ -82,18 +82,15 @@ class LoginController extends Controller
     protected function attemptLogin(Request $request)
     {
         $credentials = array_merge($this->credentials($request));
-        return $this->guard()->attempt(
+
+        $flag =  $this->guard()->attempt(
             $credentials, $request->filled('remember')
         );
+        return $flag;
     }
 
     public function logout(Request $request){
-
-        $this->guard()->logout();
-
-        $request->session()->invalidate();
-
-//        return redirect()->back();//可以 回调前一个页面
-        return redirect('login');
+        Auth::logout();
+        return redirect('test');
     }
 }
