@@ -61,11 +61,4 @@ class createRequest extends FormRequest
            'author.required' => '作者不能空',
        ];
     }
-
-
-    // protected function failedValidation(Validator $validator)
-    // {
-    //     $error = $validator->errors()->all();
-    //     throw new HttpResponseException(response()->json(['msg' => 'error', 'code' => '500', 'data' => $error[0]], 500));
-    // }
 }

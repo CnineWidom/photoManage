@@ -21,7 +21,6 @@ class AuthBySelf extends Middleware
      */
     public function handle($request, Closure $next)
     {
-        // $token = Cookie::get('TOKEN');
         $user = Auth::user();
         //登录状态
         if(!empty($user)){
@@ -30,7 +29,6 @@ class AuthBySelf extends Middleware
             // Redirect::action("HomeController@index", [0]);
             // return Redirect::to('user/login')->with('message', 'Login Failed');
         }else{
-            // $arr =backArr(0);
             return Redirect::to('test')->with('warn', $this->backArr(0));
         }
     }
@@ -40,7 +38,7 @@ class AuthBySelf extends Middleware
         if($flag)
         {
             $arr = [
-                '0'=>['code'=>-1,'message'=>'请先登录']
+                '0'=>['code'=>-1,'message'=>'请先登录'],
             ];
         }
         return $arr[$code];
