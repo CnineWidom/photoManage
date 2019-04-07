@@ -706,6 +706,7 @@ if ($('.uploadPicture_main_content_form').length > 0) {
             data.photograper = uploaddata.photograper;
             data.equipment = uploaddata.equipment;
             data.key = JSON.stringify(uploadkey);
+            data.id = uploadid;
         }
             
         
@@ -772,7 +773,7 @@ if ($('.uploadPicture_main_content_form').length > 0) {
     // 文件上传成功，给item添加成功class, 用样式标记上传成功。
     uploader.on('uploadSuccess', function (file, response) {
         // console.log(response);
-
+        uploadid = response.id;
         $('#' + file.id + ' .preview_tip').removeClass('preview_tip_error');
         $('#' + file.id + ' .preview_tip').addClass('preview_tip_success');
         var state = uploader.getStats();
@@ -782,7 +783,6 @@ if ($('.uploadPicture_main_content_form').length > 0) {
         }else{
             $('.upload_pic_num').text("");
             $('.upload_pic_tip_word').html("上传成功<br/>正在跳转");
-            
         }
         
     });
@@ -875,6 +875,8 @@ var keywords = [
     }
 ];
 var uploadkey = [];
+var uploadid = 0;
+var uploadnum = 0;
 if ($('.keywordInput').length > 0) {
     $('.keywordInput').bind('input', function () {
         var _this = $(this);
