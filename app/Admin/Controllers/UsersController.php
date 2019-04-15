@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Exceptions\ExcelExpoter;
+use App\Admin\Extensions\ExcelExpoter;
 use App\Models\Users;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
@@ -117,7 +117,7 @@ class UsersController extends Controller
             ],
             'is_activate'=>[
                 'data'=>[0=>'否',1=>'已激活']
-            ]
+            ],
         ];
         $excel = new ExcelExpoter();
         $excel->setAttr($fieldArr, $filterArr);
@@ -132,15 +132,6 @@ class UsersController extends Controller
             $query->equal('phone_number', '手机号')->mobile();
 
         });
-
-        //行内操作控制
-        $grid->actions(function ($actions) {
-            //$actions->disableDelete();//删除
-            //$actions->disableEdit();//修改
-            $actions->disableView();//查看
-        });
-
-        
 
         return $grid;
     }

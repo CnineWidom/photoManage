@@ -7,7 +7,7 @@ if (!function_exists('photoMPwd')) {
      * @return string
      */
     function photoMPwd($pwd){
-        return $pwd;//bcrypt($pwd);
+        return bcrypt($pwd);
     }
 }
 

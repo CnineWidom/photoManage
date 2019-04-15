@@ -15,4 +15,5 @@ Route::group([
     $router->resource('users', UsersController::class);
     $router->resource('cases', CasesController::class);
 
+    $router->any('release', 'CommonActionController@release');
 });

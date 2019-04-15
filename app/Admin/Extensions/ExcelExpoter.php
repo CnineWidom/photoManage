@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Exceptions;
+namespace App\Admin\Extensions;
 
 use Encore\Admin\Grid;
 use Encore\Admin\Grid\Exporters\AbstractExporter;
@@ -57,7 +57,7 @@ class ExcelExpoter extends AbstractExporter
         $formate = $myfilter[$keyName]['formate'];
         $data = $myfilter[$keyName]['data'];
         if($formate){
-            switch ($keyName) {
+            switch ($formate) {
                 case 'dateTime' :
                     $value = date('Y-m-d H:i:s', array_get($item, $keyName));
                     break;

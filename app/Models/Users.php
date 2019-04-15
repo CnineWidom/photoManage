@@ -38,12 +38,12 @@ class Users extends Authenticatable
 
     public function getCreatedAtAttribute()
     {
-        return $this->attributes['created_at'] ? strtotime(date('Y-m-d H:i:s', $this->attributes['created_at'])) : '';
+        return $this->attributes['created_at'] ? date('Y-m-d H:i:s', $this->attributes['created_at']) : '';
     }
 
     public function getUpdatedAtAttribute()
     {
-        return $this->attributes['updated_at'] ? strtotime(date('Y-m-d H:i:s', $this->attributes['updated_at'])) : '';
+        //return $this->attributes['updated_at'] ? date('Y-m-d H:i:s', $this->attributes['updated_at']) : '';
     }
 
     public function scopePublish(){
