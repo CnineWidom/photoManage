@@ -35,7 +35,8 @@
                     </ul>
                 </div>
                 <div class='pic_nav_search'>
-                    <form action="{{ route('work')}}" id='form_search' method="get">
+                    <form action="{{ route('work')}}" id='form_search' method="post">
+		    			{{ csrf_field() }}
                         <i class="iconfont icon-sousuo index_search_button" style="float:left;position: absolute;color:rgb(209,209,209);margin-left:9px;cursor: pointer;z-index: 98;"></i>
                         <input type="text" name="search" style='position: absolute;float:left'>
                         <i class="iconfont icon-zuqibing icon-qiejutang_roupianzuqibing showtype"></i>

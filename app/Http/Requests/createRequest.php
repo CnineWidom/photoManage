@@ -29,16 +29,15 @@ class createRequest extends FormRequest
                 'search' => 'required|max:10',
             ];
         }
-        // 前台上传图片
-
-         if(Request::getPathInfo() == '/uploadPicture/doupload'){
-             $rules = [
-                 'title' => 'required|max:25|string',
-                 'keyword' => 'max:30',
-                 'content' => 'required|between:10,200',
-                 'author' => 'required',
-             ];
-         }
+        if(Request::getPathInfo() == '/uploadPicture/doupload'){
+            $rules = [
+                'title' => 'required|max:25|string',
+                'keyword' => 'required|string',
+                'content' => 'required|between:10,200',
+                'author' => 'required',
+                'file' =>'required'
+            ];
+        }
         else{
             $rules = [
                 'id'=>'max:2'
@@ -56,7 +55,7 @@ class createRequest extends FormRequest
            'title.max' => '最多只能输入25字符',
            'title.string' => '标题只能是字符串',
            'keyword.max' =>'关键字最多只能30个',
-           'content.between' => '内容在30-200个字符之间',
+           'content.between' => '内容在310-200个字符之间',
            'content.required' => '内容不能为空',
            'author.required' => '作者不能空',
        ];

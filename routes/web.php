@@ -23,6 +23,7 @@ Route::get('home/{id}', 'HomeController@index')->name('home');
 Route::get('uploadPicture','uploadController@index')->name('upload');
 Route::post('uploadPicture/doupload','uploadController@doupload');
 Route::get('test/{id?}','HomeController@index')->name('work');
+Route::post('test','HomeController@index');
 
 // Route::get('detail/{id?}','');
 

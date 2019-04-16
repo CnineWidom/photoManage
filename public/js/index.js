@@ -695,14 +695,13 @@ if ($('.uploadPicture_main_content_form').length > 0) {
             //参数
             var state = uploader.getStats();
             var num = state.queueNum;
-            data.num = num;
-            data.token = "SDFSD23FDSG4AK";
+            // data.num = num;
             data.title = uploaddata.title;
             data.content = uploaddata.content;
-            data.partners = uploaddata.partners;
-            data.photograper = uploaddata.photograper;
-            data.equipment = uploaddata.equipment;
-            data.key = JSON.stringify(uploadkey);
+            data.author= uploaddata.author;
+            // data.photographer = uploaddata.photographer;
+            // data.device = uploaddata.device;
+            data.keyword = JSON.stringify(uploadkey);
             data._token = token_csrf;
         }
     })
@@ -761,14 +760,14 @@ if ($('.uploadPicture_main_content_form').length > 0) {
             $('.upload_pic_num').text("");
             $('.upload_pic_tip_word').html("上传成功<br/>正在跳转");
         }
-        
     });
 
     // 文件上传失败，显示上传出错。
     uploader.on('uploadError', function (file, erroMsg) {
         // var $li = $( '#'+file.id ),
         //     $error = $li.find('div.error');
-        alert(erroMsg);
+        // alert(erroMsg);
+        console.log(erroMsg)
         $('#' + file.id + ' .preview_tip').removeClass('preview_tip_success');
         $('#' + file.id + ' .preview_tip').addClass('preview_tip_error');
 

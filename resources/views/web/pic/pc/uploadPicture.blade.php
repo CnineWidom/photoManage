@@ -60,7 +60,7 @@
                             <textarea placeholder-class="uploadPicture_textarea" name='content' type="text"placeholder="提供可增强上传文件的教育性质的详细信息。&#13;&#10;请勿在说明中包含任何患者识别信息。&#13;&#10;避免过度使用患者，其他医疗保健专业人员和媒体成员可能不太熟悉的首字母缩略词。"
                             style="width:100%;margin-top:10px;height:105px;padding-left:5px;font-size:16px;color:rgb(39,39,39);padding-right:5px;box-sizing:border-box;border: 1px solid rgba(0, 0, 0, .3);resize: none"></textarea>
 
-                            <h3 class='uploadpicture_main_title' >合作者 &nbsp;&nbsp;&nbsp;<span>示例：John Smith,
+                            <h3 class='uploadpicture_main_title' >作者 &nbsp;&nbsp;&nbsp;<span>示例：John Smith,
                                     University of Minnesota, Delaware Street Clinic</span></h3>
                             <input type="text" name='author' style="width:100%;margin-top:10px;height:25px;padding-left:5px;font-size:16px;color:rgb(39,39,39);padding-right:5px;box-sizing:border-box;border: 1px solid rgba(0, 0, 0, .3);">
 

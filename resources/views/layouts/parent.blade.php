@@ -6,6 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
 
 	<meta content='initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width' name='viewport'>
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<link rel="stylesheet" href="{{ URL::asset('css/common.css?190330') }}">
 	<link rel="stylesheet" href="{{ URL::asset('css/index.css?1903301') }}">
 	@section('styleCss')
@@ -171,7 +172,7 @@
 
 @section('script')
 	<script src='{{URL::asset("js/index/velocity.js")}}'></script>
-	<script src='{{URL::asset("js/index.js?1904073")}}'></script>
+	<script src='{{URL::asset("js/index.js?1904075")}}'></script>
 @show
 
 <script>
