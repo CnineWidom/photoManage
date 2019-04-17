@@ -708,8 +708,6 @@ if ($('.uploadPicture_main_content_form').length > 0) {
             data.key = JSON.stringify(uploadkey);
             data.id = uploadid;
         }
-            
-        
     })
     uploader.on('fileQueued', function (file) {
 

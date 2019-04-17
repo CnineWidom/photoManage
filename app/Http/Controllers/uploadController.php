@@ -50,8 +50,15 @@ class uploadController extends Controller
             $newFileName = $this->newFileName.$name.$this->markBack;
             $newFileNameByTmp = $this->newFileNameByTmp.$name.$this->markBack;
 
+            $dir = $newFileName;
+            echo $dir;
+            if (!file_exists($dir)){
+	            mkdir($dir,'0755',TRUE);
+	            echo 1;
+	        }
+	        exit;
             $img = $image->make($tmpFileName)->resize(300,300);
-            $img->save($path.$newFileName);
+            $img->save($dir);
             if($this->useWalkMark){
                 $img->text($this->markText,140,140,function ($font){
                     $font->file('C:/Windows/Fonts/STXINWEI.TTF');//使用本地ttf文件 使用laravel自带的话会出现中文乱码

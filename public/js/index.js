@@ -703,6 +703,7 @@ if ($('.uploadPicture_main_content_form').length > 0) {
             // data.device = uploaddata.device;
             data.keyword = JSON.stringify(uploadkey);
             data._token = token_csrf;
+            data.id = uploadid;
         }
     })
     uploader.on('fileQueued', function (file) {
@@ -767,6 +768,7 @@ if ($('.uploadPicture_main_content_form').length > 0) {
         // var $li = $( '#'+file.id ),
         //     $error = $li.find('div.error');
         // alert(erroMsg);
+        uploadid = response.id;
         console.log(erroMsg)
         $('#' + file.id + ' .preview_tip').removeClass('preview_tip_success');
         $('#' + file.id + ' .preview_tip').addClass('preview_tip_error');
@@ -848,6 +850,8 @@ var keywords = [
     }
 ];
 var uploadkey = [];
+var uploadid = 0;
+
 if ($('.keywordInput').length > 0) {
     $('.keywordInput').bind('input', function () {
         var _this = $(this);
