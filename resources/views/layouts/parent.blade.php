@@ -6,14 +6,24 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
 
 	<meta content='initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width' name='viewport'>
+	<meta name="csrf-token" content="{{ csrf_token() }}">
+	<link rel="stylesheet" href="{{ URL::asset('css/common.css?190330') }}">
+	<link rel="stylesheet" href="{{ URL::asset('css/index.css?1903301') }}">
 	@section('styleCss')
 	    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1030860_kpunaqreyg.css">
-	    <link rel="stylesheet" href="{{ URL::asset('css/common.css?190330') }}">
-	    <link rel="stylesheet" href="{{ URL::asset('css/index.css?190330') }}">
+	    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	@show
 	<title>@yield('title')</title>
 </head>
-<body style='background:rgb(250,250,250);background: url({{ URL::asset("picture/Group.jpg")}}) no-repeat right 50px;background-size: 1120px 1100px;'>
+<style>
+.body{
+    background-color:rgb(250,250,250);
+    background: url({{ URL::asset("picture/Group.jpg")}}) no-repeat right 50px ;
+	background-size: 1120px 1100px;
+}
+</style>
+
+<body class= '@yield("body")'>
 	<div class='layout' style="clear: both;">
 		@section('siderbar')
 			<div class="header" style="width:100%;height:28px;">
@@ -29,10 +39,11 @@
 	            <div class='index_user'>
 					@auth
 						<a href="javascript:void(0);" style="font-weight:bold">{{Auth::user()->user_name}}</a>  
-						<a href="logout" id ='logout' class='index_loginout' style="opacity: 0.5;color: rgba(42, 42, 42, 1);cursor: pointer;">&nbsp;&nbsp;[退出]</a>
-						<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-	                      {{ csrf_field() }}
-	                  	</form>
+						<a href="{{ route('logout') }}" class='index_loginout' onclick="event.preventDefault();document.getElementById('logout-form').submit();"
+						style="opacity: 0.5;color: rgba(42, 42, 42, 1);cursor: pointer;">[退出]</a>
+	                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
 	                @else
 					<span >
 						<span class='index_login_span'>登录</span> |
@@ -48,7 +59,6 @@
     		</div>
 		    <form class='index_login_form' action="{{ route('login') }}" id='login_form' method="POST" style="position:fixed;top:10%;height: 582.4px;width:976px;display:none;background:white;left:50%;margin-left:-488px;z-index: 99">
 		    	{{ csrf_field() }}
-		        <!-- <form action="http://localhost:8080/CI/index.php/BasicInfo/getsubmit" id='login_form' method="POST"> -->
 		        <div style="position:absolute;right:29px;top:29px;cursor: pointer;">
 		            <i class='iconfont icon-jiaocha index_login_form_close' style='color:rgba(109,109,109,0.5);font-size:32px;'></i>
 		        </div>
@@ -85,16 +95,15 @@
 		                |
 		                <a href="{{ route('password.request') }}" style="color:rgb(39,39,39)">忘记密码？</a>
 		            </div>
+		            @include('flash::message')
 		        </div>
 		        <!-- </form> -->
 		    </form>
 	    @show
 
-
 	    @section('content')
 			<p>主要内容存放</p>
 	    @show
-
 	</div>
 	<div class="footer">
 		@section('footer')
@@ -153,9 +162,24 @@
 	</div>
 </body>
 </html>
-@section('script')
-	<script src='{{URL::asset("js/jquery.min.js")}}'></script>
-	<script src='{{URL::asset("js/index/velocity.js")}}'></script>
-	<script src='{{URL::asset("js/index/stackgrid.adem.js")}}'></script>
-	<script src='{{URL::asset("js/index.js?1903302")}}'></script>
+<script src='{{URL::asset("js/jquery.min.js")}}'></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src='{{URL::asset("js/index/stackgrid.adem.js")}}'></script>
+
+@section('uploadjs')
+	<script src="https://cdn.bootcss.com/webuploader/0.1.1/webuploader.min.js"></script>
 @show
+
+@section('script')
+	<script src='{{URL::asset("js/index/velocity.js")}}'></script>
+	<script src='{{URL::asset("js/index.js?1904075")}}'></script>
+@show
+
+<script>
+	$('#flash-overlay-modal').modal();
+	var islogin = {{ $loginType }}
+    if (islogin === -1 ){
+    	$('.mask').fadeIn('fast');
+		$('.index_login_form').fadeIn('fast');
+    }
+</script>

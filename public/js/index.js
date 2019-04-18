@@ -649,15 +649,15 @@ if ($('.caseDetail_main_similar_pic').length > 0) {
 //     equipment:''//设备
 // };
 if ($('.uploadPicture_main_content_form').length > 0) {
+    console.log(token_csrf);
     var uploader = WebUploader.create({
-
         // 选完文件后，是否自动上传。
         auto: false,
         // swf文件路径
         swf: 'https://cdn.bootcss.com/webuploader/0.1.1/Uploader.swf',
 
         // 文件接收服务端。
-        server: 'http://localhost/CI/index.php/Yzf/getPars',
+        server: 'http://photomanage.com/uploadPicture/doupload',
 
         // 选择文件的按钮。可选。
         // 内部根据当前运行是创建，可能是input元素，也可能是flash.
@@ -666,9 +666,7 @@ if ($('.uploadPicture_main_content_form').length > 0) {
         dupliacate: true,
         resize: false,
         fileVal: "file",
-        formdata: {
-            
-        },
+        formdata: {},
         // crop: true,
         // 只允许选择图片文件。
         accept: {
@@ -680,12 +678,10 @@ if ($('.uploadPicture_main_content_form').length > 0) {
         fileSingleSizeLimit: 20480000 //限制单个上传图片的大小
     });
     uploader.on('beforeFileQueued', function (file) {
-
         if (file.ext == "") {
             return false;
         } else {
             var state = uploader.getStats();
-            
             if (state.queueNum > 8) {
                 alert('仅支持上传9张图片');
                 return false;
@@ -699,27 +695,18 @@ if ($('.uploadPicture_main_content_form').length > 0) {
             //参数
             var state = uploader.getStats();
             var num = state.queueNum;
-            data.num = num;
-            data.token = "SDFSD23FDSG4AK";
+            // data.num = num;
             data.title = uploaddata.title;
             data.content = uploaddata.content;
-            data.partners = uploaddata.partners;
-            data.photograper = uploaddata.photograper;
-            data.equipment = uploaddata.equipment;
-            data.key = JSON.stringify(uploadkey);
+            data.author= uploaddata.author;
+            // data.photographer = uploaddata.photographer;
+            // data.device = uploaddata.device;
+            data.keyword = JSON.stringify(uploadkey);
+            data._token = token_csrf;
+            data.id = uploadid;
         }
-            
-        
     })
     uploader.on('fileQueued', function (file) {
-
-
-
-
-
-        // console.log(state.successNum)
-        // console.log();
-        // console.log(file);
         var $li = $(
             '<li id="' + file.id + '" class="file-item thumbn   ail">' +
             '<div class="progress previewprogress"><span></span></div>' +
@@ -730,16 +717,12 @@ if ($('.uploadPicture_main_content_form').length > 0) {
             '</li>'
         ),
 
-            $img = $li.find('img');
-
-
+        $img = $li.find('img');
         // $list为容器jQuery实例
         $('.uploadPicture_main_content_pic_preview ul').append($li);
-
         // 创建缩略图
         // 如果为非图片文件，可以不用调用此方法。
         // thumbnailWidth x thumbnailHeight 为 100 x 100
-
         uploader.makeThumb(file, function (error, src) {
             if (error) {
                 $img.replaceWith('<span>不能预览</span>');
@@ -748,13 +731,7 @@ if ($('.uploadPicture_main_content_form').length > 0) {
 
             $img.attr('src', src);
         }, 178.6, 178.6);
-
-
     });
-
-
-
-
 
     uploader.on('uploadProgress', function (file, percentage) {
         var $li = $('#' + file.id),
@@ -784,14 +761,15 @@ if ($('.uploadPicture_main_content_form').length > 0) {
             $('.upload_pic_num').text("");
             $('.upload_pic_tip_word').html("上传成功<br/>正在跳转");
         }
-        
     });
 
     // 文件上传失败，显示上传出错。
     uploader.on('uploadError', function (file, erroMsg) {
         // var $li = $( '#'+file.id ),
         //     $error = $li.find('div.error');
-        alert(erroMsg);
+        // alert(erroMsg);
+        uploadid = response.id;
+        console.log(erroMsg)
         $('#' + file.id + ' .preview_tip').removeClass('preview_tip_success');
         $('#' + file.id + ' .preview_tip').addClass('preview_tip_error');
 
@@ -815,25 +793,22 @@ if ($('.uploadbtn').length > 0) {
         if(state.queueNum == 0){
             alert('请上传图片');
         }
-       
-
         if (serializeF('uploadform')) { 
-            var uploaddata = serializeF('uploadform');
-            //非空验证
-            if(uploaddata.title == ""){
-                alert("题目不能为空");
-                return false;
-            }
-            if(uploaddata.content == ""){
-                alert("描述不能为空");
-                return false;
-            }
-            
-            if(uploadkey.length == 0){
-                 alert("关键词不能为空");
-                 return false;
-            }   
-      
+            // var uploaddata = serializeF('uploadform');
+            // //非空验证
+            // if(uploaddata.title == ""){
+            //     alert("题目不能为空");
+            //     return false;
+            // }else if(uploaddata.content == ""){
+            //     alert("描述不能为空");
+            //     return false;
+            // }else if(uploadkey.length == 0){
+            //      alert("关键词不能为空");
+            //      return false;
+            // }
+            // else{
+            //     $('#uploadform').submit()
+            // }
         }
         $(".mask").css("display","block")
         uploader.upload();
@@ -875,6 +850,8 @@ var keywords = [
     }
 ];
 var uploadkey = [];
+var uploadid = 0;
+
 if ($('.keywordInput').length > 0) {
     $('.keywordInput').bind('input', function () {
         var _this = $(this);

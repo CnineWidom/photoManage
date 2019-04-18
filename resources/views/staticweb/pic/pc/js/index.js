@@ -706,9 +706,8 @@ if ($('.uploadPicture_main_content_form').length > 0) {
             data.photograper = uploaddata.photograper;
             data.equipment = uploaddata.equipment;
             data.key = JSON.stringify(uploadkey);
+            data.id = uploadid;
         }
-            
-        
     })
     uploader.on('fileQueued', function (file) {
 
@@ -772,7 +771,7 @@ if ($('.uploadPicture_main_content_form').length > 0) {
     // 文件上传成功，给item添加成功class, 用样式标记上传成功。
     uploader.on('uploadSuccess', function (file, response) {
         // console.log(response);
-
+        uploadid = response.id;
         $('#' + file.id + ' .preview_tip').removeClass('preview_tip_error');
         $('#' + file.id + ' .preview_tip').addClass('preview_tip_success');
         var state = uploader.getStats();
@@ -811,30 +810,29 @@ if ($('.uploadbtn').length > 0) {
     // uploader
     $('.uploadbtn').click(function () {
         var state = uploader.getStats();
-        if(state.queueNum == 0){
-            alert('请上传图片');
-        }
-       
+        // if(state.queueNum == 0){
+        //     alert('请上传图片');
+        // }
 
-        if (serializeF('uploadform')) { 
-            var uploaddata = serializeF('uploadform');
-            //非空验证
-            if(uploaddata.title == ""){
-                alert("题目不能为空");
-                return false;
-            }
-            if(uploaddata.content == ""){
-                alert("描述不能为空");
-                return false;
-            }
+        // if (serializeF('uploadform')) { 
+        //     var uploaddata = serializeF('uploadform');
+        //     //非空验证
+        //     if(uploaddata.title == ""){
+        //         alert("题目不能为空");
+        //         return false;
+        //     }
+        //     if(uploaddata.content == ""){
+        //         alert("描述不能为空");
+        //         return false;
+        //     }
             
-            if(uploadkey.length == 0){
-                 alert("关键词不能为空");
-                 return false;
-            }   
+        //     if(uploadkey.length == 0){
+        //          alert("关键词不能为空");
+        //          return false;
+        //     }   
       
-        }
-        $(".mask").css("display","block")
+        // }
+        // $(".mask").css("display","block")
         uploader.upload();
     })
 }
@@ -874,6 +872,8 @@ var keywords = [
     }
 ];
 var uploadkey = [];
+var uploadid = 0;
+var uploadnum = 0;
 if ($('.keywordInput').length > 0) {
     $('.keywordInput').bind('input', function () {
         var _this = $(this);
