@@ -58,8 +58,8 @@ class CasesController extends Controller
     public function edit($id, Content $content)
     {
         return $content
-            ->header('Edit')
-            ->description('description')
+            ->header('编辑')
+            ->description('编辑案例')
             ->body($this->form()->edit($id));
     }
 
@@ -160,7 +160,7 @@ class CasesController extends Controller
 
         $grid->filter(function($filter){
             // 去掉默认的id过滤器
-            $filter->disableIdFilter();
+            //$filter->disableIdFilter();
             // 在这里添加字段过滤器
             $filter->like('title', '标题')->placeholder('支持模糊查询');
             $filter->equal('author', '作者');
@@ -172,6 +172,7 @@ class CasesController extends Controller
         $grid->tools(function ($tools) {
             $tools->append(new Release());
             $tools->batch(function ($batch) {
+                $batch->disableDelete();
                 $batch->add('发布', new ReleasePost(1));
                 $batch->add('下线', new ReleasePost(0));
             });
@@ -217,6 +218,16 @@ class CasesController extends Controller
          // 两个时间显示
         $form->display('created_at', '创建时间');
         $form->display('updated_at', '修改时间');
+
+        //表单按钮控制
+        $form->tools(function (Form\Tools $tools) {
+            // 去掉`列表`按钮
+            //$tools->disableList();
+            // 去掉`删除`按钮
+            //$tools->disableDelete();
+            // 去掉`查看`按钮
+            $tools->disableView();
+        });
 
         return $form;
     }

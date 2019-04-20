@@ -54,8 +54,8 @@ class UsersController extends Controller
     public function edit($id, Content $content)
     {
         return $content
-            ->header('修改')
-            ->description('修改用户信息')
+            ->header('编辑')
+            ->description('编辑用户信息')
             ->body($this->form('edit')->edit($id));
     }
 
@@ -68,7 +68,7 @@ class UsersController extends Controller
     public function create(Content $content)
     {
         return $content
-            ->header('新增用户')
+            ->header('新增')
             ->description('新增激活用户')
             ->body($this->form('create'));
     }
@@ -126,7 +126,7 @@ class UsersController extends Controller
         //筛选控制
         $grid->filter(function ($query) {     
             // 去掉默认的id过滤器
-            $query->disableIdFilter();
+            //$query->disableIdFilter();
             $query->like('user_name', '账号')->placeholder('支持模糊查询');
             $query->like('nick_name', '昵称')->placeholder('支持模糊查询');
             $query->equal('phone_number', '手机号')->mobile();
