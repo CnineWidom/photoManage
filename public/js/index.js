@@ -206,7 +206,7 @@ $('#submitbutton').bind('click', function () {
         return false;
     } else {
         // 请求后台
-        window.location.href = './index.html';
+        window.location.href = '/home';
         // $('#login_form').submit();
         // 身份验证成功则跳转到首页
         // 否则返回错误信息提示
@@ -379,7 +379,7 @@ $("#registerbutton").bind('click', function () {
             if ($('#loginflag').val() == 'true') {
 
             } else {
-                window.location.href = './login.html';
+                // window.location.href = './login.html';
             }
         } else {
             $('#tip').html('两次输入的密码不一致');
@@ -453,7 +453,7 @@ $('.index_login_span').click(function(){
 //     window.location.href = './caseManager.html'
 // })
 $('.index_logo').bind('click', function () {
-    window.location.href = './index.html';
+    window.location.href = '/index';
 })
 $('.index_search_button').bind('click', function () {
 
@@ -772,13 +772,6 @@ if ($('.uploadPicture_main_content_form').length > 0) {
         console.log(erroMsg)
         $('#' + file.id + ' .preview_tip').removeClass('preview_tip_success');
         $('#' + file.id + ' .preview_tip').addClass('preview_tip_error');
-
-        // // 避免重复创建
-        // if ( !$error.length ) {
-        //     $error = $('<div class="error"></div>').appendTo( $li );
-        // }
-
-        // $error.text('上传失败');
     });
 
     // 完成上传完了，成功或者失败，先删除进度条。
@@ -981,7 +974,7 @@ if($('#upload_pic_tip_icon').length > 0){
         if($('#upload_pic_tip_icon').hasClass('icon-check-box-outline-bl')){
             alert('请先阅读使用条款并勾选后再上传');
         }else{
-            window.location.href = "./uploadPicture.html";
+            window.location.href = "/uploadPicture";
         }
        
         

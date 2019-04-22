@@ -2,13 +2,11 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
-
 	<meta content='initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width' name='viewport'>
 	<meta name="csrf-token" content="{{ csrf_token() }}">
-	<link rel="stylesheet" href="{{ URL::asset('css/common.css?190330') }}">
-	<link rel="stylesheet" href="{{ URL::asset('css/index.css?1903301') }}">
+	<link rel="stylesheet" href="{{ URL::asset('css/common.css?190331') }}">
+	<link rel="stylesheet" href="{{ URL::asset('css/index.css?1903303') }}">
 	@section('styleCss')
 	    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1030860_kpunaqreyg.css">
 	    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -18,8 +16,11 @@
 <style>
 .body{
     background-color:rgb(250,250,250);
-    background: url({{ URL::asset("picture/Group.jpg")}}) no-repeat right 50px ;
+    background: url('{{ URL::asset("picture/Group.jpg")}}') no-repeat right 50px ;
 	background-size: 1120px 1100px;
+}
+.body2{
+	background:url({{ URL::asset("assest/pic2.png")}})  repeat-y left 20%;
 }
 </style>
 
@@ -30,10 +31,10 @@
 	            <div class="index_logo"><img src="{{ URL::asset('assest/logoblue.png') }}" alt=""></div>
 	            <div class="index_nav">
 	                <ul>
-	                    <li><a href="test">首页</a></li>
-	                    <li><a href="{{ route('upload') }}">上传</a></li>
-	                    <li><a href="normalProblem.html">常见问题</a></li>
-	                    <li><a href="aboutUs.html">关于我们</a></li>
+	                    <li><a href="{{ route('work') }}">首页</a></li>
+	                    <li><a href="{{ route('tip') }}">上传</a></li>
+	                    <li><a href="{{ route('normalproblem') }}">常见问题</a></li>
+	                    <li><a href="{{ route('aboutUs') }}">关于我们</a></li>
 	                </ul>
 	            </div>
 	            <div class='index_user'>
@@ -112,11 +113,11 @@
                         <div class='footer_title'>导航</div>
                         <div class='footer_nav'>
                             <ul>
-                                <li> <a href="test">主页</a> </li>
+                                <li> <a href="{{route('work')}}">主页</a> </li>
                                 <li><a href="aboutUs.html">关于我们</a></li>
                                 <li><a href="uploadPictureTip.html">分享</a></li>
                                 <li><a href="havascript:void(0);">联系我们</a></li>
-                                <li><a href="normalProblem.html">常见问题</a></li>
+                                <li><a href="{{route('normalproblem')}}">常见问题</a></li>
                             </ul>
                         </div>
                     </div>
@@ -152,10 +153,10 @@
         	</div>    
 	        <div class="footer_copyright" style="line-height:60px;">
 	        	<div class='footer_copyright_content' >
-		            <img src="assest/logoblue.png" alt="" style='float: left;'>
+		            <img src='{{ URL::asset("assest/logoblue.png")}}' alt="" style='float: left;'>
 		            <h5 style="font-size:16px;float: left;">版权归 © 2019  中山大学眼科中心 所有</h5>
 		            <h5 style="font-size:16px;float: right;margin-left: 5px;">粤ICP备11021180号</h5>
-		            <img src="assest/Bitmap.png" alt="" style='float: right;margin-top: 20px;' width="20">
+		            <img src='{{ URL::asset("assest/Bitmap.png")}}' alt="" style='float: right;margin-top: 20px;' width="20">
 	          </div>
 	        </div>
 		@show
@@ -172,7 +173,7 @@
 
 @section('script')
 	<script src='{{URL::asset("js/index/velocity.js")}}'></script>
-	<script src='{{URL::asset("js/index.js?1904075")}}'></script>
+	<script src='{{URL::asset("js/index.js?1904078")}}'></script>
 @show
 
 <script>

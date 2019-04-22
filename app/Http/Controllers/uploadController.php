@@ -8,7 +8,7 @@ use Intervention\Image\ImageManager;
 
 class uploadController extends Controller
 {
-	    //水印路径
+	//水印路径
     private $newFileNameByTmp = '/uploads/images/userTmp/';
     private $newFileName = '/uploads/images/user/';
 
@@ -26,9 +26,20 @@ class uploadController extends Controller
 	//判断是否登录状态
 	public $loginType = 1;
 
+	//缩小或者放大的倍率
+	private $power = 1;
+
 	public function __construct()
 	{
 		$this->middleware('myAuth',['only'=>['index']]);
+	}
+
+	public function tipIndx()
+	{
+		$data=[
+            'loginType' => $this->loginType
+        ];
+		return view('web.pic.pc.uploadPictureTip',$data);
 	}
 
 	public function index()
@@ -39,57 +50,38 @@ class uploadController extends Controller
 		return view('web.pic.pc.uploadPicture',$data);
 	}
 
-	public function doupload(createRequest $request,ImageManager $image)
+	public function doupload(Request $request)
 	{
 		$res= $request->all();
 		$file = $request->file('file');
+
 		if(!empty($file)){
-			$tmpFileName = $file->getPathname();
-            $path = public_path();
-            $name = md5(base64_decode(time()));
-            $newFileName = $this->newFileName.$name.$this->markBack;
-            $newFileNameByTmp = $this->newFileNameByTmp.$name.$this->markBack;
-
-            $dir = $newFileName;
-            echo $dir;
-            if (!file_exists($dir)){
-	            mkdir($dir,'0755',TRUE);
-	            echo 1;
+			if (!file_exists($path.$this->newFileNameByTmp)||!file_exists($path.$this->newFileName)){
+	            mkdir($path.$this->newFileNameByTmp,'0777',TRUE);
+	            mkdir($path.$newFileName,'0777',TRUE);
 	        }
-	        exit;
-            $img = $image->make($tmpFileName)->resize(300,300);
-            $img->save($dir);
-            if($this->useWalkMark){
-                $img->text($this->markText,140,140,function ($font){
-                    $font->file('C:/Windows/Fonts/STXINWEI.TTF');//使用本地ttf文件 使用laravel自带的话会出现中文乱码
-//                    $font->file(2);
-                    $font->size(40);
-                    $font->color('#fff');
-                    $font->align('center');
-                });
-            }
-            else{
-                $img->insert($this->markPicPath);
-            }
-
-            $img->save($path.$newFileNameByTmp);
 		}
-		// dd($res);
-		// echo json_encode($res['title']);
-		 // $title = $request->get('title');
-		 // $content = $request->get('content');
-		 // $file = $request->all();
-		 // dd($file);
 	}
 
-	public function saveImage($image,$newFileName,$newFileNameByTmp,$path)
+	public function saveImage(ImageManager $image,$file)
 	{
-		$img = $image->make($tmpFileName)->resize(300,300);
+		$path = public_path();
+		$sizeArr = $this->retrunSize($file);
+        $width = $sizeArr[0];
+        $height = $sizeArr[1];
+
+        $tmpFileName = $file->getPathname();
+        $name =md5(base64_decode(time()));
+
+        $newFileName = $this->newFileName.$name.$this->markBack;
+        $newFileNameByTmp = $this->newFileNameByTmp.$name.$this->markBack;
+        $img = $image->make($tmpFileName)->resize($width,$height);
         $img->save($path.$newFileName);
+
         if($this->useWalkMark){
-            $img->text($this->markText,140,140,function ($font){
-                $font->file('C:/Windows/Fonts/STXINWEI.TTF');//使用本地ttf文件 使用laravel自带的话会出现中文乱码
-//                    $font->file(2);
+            $img->text($this->markText,$width*0.2,$height*0.4,function ($font){
+                $font->file('C:/Windows/Fonts/simkai.ttf');//使用本地ttf文件 使用laravel自带的话会出现中文乱码
+                // $font->file(2);
                 $font->size(40);
                 $font->color('#fff');
                 $font->align('center');
@@ -99,16 +91,15 @@ class uploadController extends Controller
             $img->insert($this->markPicPath);
         }
         $img->save($path.$newFileNameByTmp);
+	}
 
-        $imgReplacePath = $path.$imageRes->image_load;
-        $imgReplacePathTmp = str_replace('user','userTmp',$imgReplacePath);
-        if(file_exists($imgReplacePath))
-        {
-            unlink($imgReplacePath);
-            unlink($imgReplacePathTmp);
-        }
-        $data['image_load'] = $newFileName;
-        $res['image'] = $newFileName;
-        return true;
+	public function retrunSize($file)
+	{
+		$str=getimagesize($file)[3];
+		list($width,$height) = explode(' ', str_replace('"', '', $str));
+		$width = $this->power*(int)explode('=', $width)[1];
+		$height = $this->power*(int)explode('=', $height)[1];
+		$arr = [$width,$height];
+		return $arr;
 	}
 }
