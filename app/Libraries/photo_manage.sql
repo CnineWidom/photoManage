@@ -11,7 +11,7 @@
  Target Server Version : 50719
  File Encoding         : 65001
 
- Date: 26/01/2019 15:52:57
+ Date: 20/04/2019 15:42:14
 */
 
 SET NAMES utf8mb4;
@@ -32,22 +32,23 @@ CREATE TABLE `admin_menu`  (
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of admin_menu
 -- ----------------------------
 INSERT INTO `admin_menu` VALUES (1, 0, 1, 'Index', 'fa-university', '/', NULL, NULL, '2019-01-26 15:43:27');
-INSERT INTO `admin_menu` VALUES (2, 0, 4, '系统管理', 'fa-tasks', NULL, NULL, NULL, '2019-01-28 12:02:47');
-INSERT INTO `admin_menu` VALUES (3, 2, 5, '后台账号', 'fa-users', 'auth/users', NULL, NULL, '2019-01-28 12:02:47');
-INSERT INTO `admin_menu` VALUES (4, 2, 6, '权限组', 'fa-database', 'auth/roles', NULL, NULL, '2019-01-28 12:02:47');
-INSERT INTO `admin_menu` VALUES (5, 2, 7, '权限', 'fa-ban', 'auth/permissions', NULL, NULL, '2019-01-28 12:02:47');
-INSERT INTO `admin_menu` VALUES (6, 2, 8, '菜单', 'fa-bars', 'auth/menu', NULL, NULL, '2019-01-28 12:02:47');
-INSERT INTO `admin_menu` VALUES (7, 2, 9, '后台日志', 'fa-history', 'auth/logs', NULL, NULL, '2019-01-28 12:02:47');
+INSERT INTO `admin_menu` VALUES (2, 0, 7, '系统管理', 'fa-tasks', NULL, NULL, NULL, '2019-04-18 17:36:07');
+INSERT INTO `admin_menu` VALUES (3, 2, 9, '后台账号', 'fa-users', 'auth/users', NULL, NULL, '2019-04-18 17:36:07');
+INSERT INTO `admin_menu` VALUES (4, 2, 10, '权限组', 'fa-database', 'auth/roles', NULL, NULL, '2019-04-18 17:36:07');
+INSERT INTO `admin_menu` VALUES (5, 2, 11, '权限', 'fa-ban', 'auth/permissions', NULL, NULL, '2019-04-18 17:36:07');
+INSERT INTO `admin_menu` VALUES (6, 2, 8, '菜单', 'fa-bars', 'auth/menu', NULL, NULL, '2019-04-18 17:36:07');
+INSERT INTO `admin_menu` VALUES (7, 2, 12, '后台日志', 'fa-history', 'auth/logs', NULL, NULL, '2019-04-18 17:36:07');
 INSERT INTO `admin_menu` VALUES (8, 0, 2, '用户管理', 'fa-user', NULL, NULL, '2019-01-28 11:31:54', '2019-01-28 12:02:47');
 INSERT INTO `admin_menu` VALUES (9, 8, 3, '用户列表', 'fa-users', '/users', NULL, '2019-01-28 11:32:51', '2019-01-28 12:02:47');
 INSERT INTO `admin_menu` VALUES (10, 0, 4, '案例管理', 'fa-file-photo-o', NULL, NULL, '2019-02-02 15:02:40', '2019-02-02 15:03:44');
 INSERT INTO `admin_menu` VALUES (11, 10, 5, '案例列表', 'fa-bars', '/cases', NULL, '2019-02-02 15:03:32', '2019-02-02 15:03:44');
+INSERT INTO `admin_menu` VALUES (12, 10, 6, '评论列表', 'fa-edit', 'comment', NULL, '2019-04-18 15:48:06', '2019-04-18 17:36:07');
 
 -- ----------------------------
 -- Table structure for admin_operation_log
@@ -64,7 +65,7 @@ CREATE TABLE `admin_operation_log`  (
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `admin_operation_log_user_id_index`(`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 87 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for admin_permissions
@@ -139,6 +140,7 @@ CREATE TABLE `admin_role_users`  (
 -- Records of admin_role_users
 -- ----------------------------
 INSERT INTO `admin_role_users` VALUES (1, 1, NULL, NULL);
+INSERT INTO `admin_role_users` VALUES (1, 2, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for admin_roles
@@ -186,12 +188,13 @@ CREATE TABLE `admin_users`  (
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `admin_users_username_unique`(`username`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of admin_users
 -- ----------------------------
-INSERT INTO `admin_users` VALUES (1, 'admin', '$2y$10$ozNcHgYMnaecu.LIDj7lrOX8cBo/YajTmAU7d4UkB5QIpvQwh0/Pm', 'Administrator', NULL, 'rfKdCv4f6QLdyu3EXaFwBRwQVavDfaQAwOSmO9ZvGlW0oESAjRpgqeY5hDHH', '2019-01-26 11:29:28', '2019-01-26 11:29:28');
+INSERT INTO `admin_users` VALUES (1, 'admin', '$2y$10$ozNcHgYMnaecu.LIDj7lrOX8cBo/YajTmAU7d4UkB5QIpvQwh0/Pm', 'Administrator', NULL, 'C5jp2G0xnRgqrctXEwz039oVRMvrcbAYxS3ohjr6o1k4YSs7ui6rd4sf1cfb', '2019-01-26 11:29:28', '2019-01-26 11:29:28');
+INSERT INTO `admin_users` VALUES (2, 'testadmin', '$2y$10$fsMp0mbo3o2QMRaSeJpJ/.58j7fKxnp2Ni3utDXY1dj00lNvrAkJm', '测试账号', 'images/e5ab0e9d5db4710667f1560654ead221.jpg', NULL, '2019-01-29 17:02:25', '2019-01-29 17:08:49');
 
 -- ----------------------------
 -- Table structure for migrations
@@ -210,6 +213,127 @@ CREATE TABLE `migrations`  (
 INSERT INTO `migrations` VALUES (1, '2014_10_12_000000_create_users_table', 1);
 INSERT INTO `migrations` VALUES (2, '2014_10_12_100000_create_password_resets_table', 1);
 INSERT INTO `migrations` VALUES (3, '2016_01_04_173148_create_admin_tables', 1);
+
+-- ----------------------------
+-- Table structure for p_case_comment
+-- ----------------------------
+DROP TABLE IF EXISTS `p_case_comment`;
+CREATE TABLE `p_case_comment`  (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `cid` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '案例ID',
+  `uid` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户ID',
+  `content` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '评论',
+  `created_at` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '评论时间',
+  `is_filter` tinyint(4) UNSIGNED NULL DEFAULT 0 COMMENT '是否过滤',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `cid`(`cid`) USING BTREE,
+  INDEX `uid`(`uid`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '影象评论表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of p_case_comment
+-- ----------------------------
+INSERT INTO `p_case_comment` VALUES (1, 17, 2, '啊实打实多', 1552562049, 0);
+INSERT INTO `p_case_comment` VALUES (2, 17, 3, '电饭锅电饭锅', 1552562048, 0);
+INSERT INTO `p_case_comment` VALUES (3, 17, 4, '电饭锅电饭锅电饭锅', 1552562249, 1);
+
+-- ----------------------------
+-- Table structure for p_case_list
+-- ----------------------------
+DROP TABLE IF EXISTS `p_case_list`;
+CREATE TABLE `p_case_list`  (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '标题',
+  `keywords` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '关键词(多个，号隔开)',
+  `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '说明',
+  `author` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '作者',
+  `device` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '成像设备',
+  `created_at` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
+  `updated_at` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '修改时间',
+  `photos` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '影像',
+  `views` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '浏览数',
+  `issue` tinyint(4) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否发布',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `title`(`title`) USING BTREE,
+  INDEX `keywords`(`keywords`) USING BTREE,
+  INDEX `utime`(`created_at`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 18 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '案例表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of p_case_list
+-- ----------------------------
+INSERT INTO `p_case_list` VALUES (17, '血常规社认为', 'sdf.sdf.sdf', '是大佛is几点封山的', '水电费水电费', '胜多负少的', 1550910462, 1555324761, '[\"images\\/d99d17d8b3db079bc8154f12b2d63a43.png\",\"images\\/7b686295f60ed30095227bb9a4ef3df0.png\",\"images\\/a455d09c12455330be4b25d4e1932126.png\"]', 0, 0);
+INSERT INTO `p_case_list` VALUES (11, 'sdf 水电费', '23', '23水电费胜多负少', '说的', '胜多负少', 1549963210, 1555324645, '', 0, 1);
+INSERT INTO `p_case_list` VALUES (12, 'sdf 水电费', '23', '23水电费胜多负少', '说的', '胜多负少', 1549963254, 1555324645, '', 0, 1);
+INSERT INTO `p_case_list` VALUES (13, '梵蒂冈的', '地方', '大范甘迪很反感和发过火', '23', '凡事都给对方', 1549963373, 1555324645, '', 0, 1);
+INSERT INTO `p_case_list` VALUES (14, '梵蒂冈的', '地方', '大范甘迪很反感和发过火', '23', '凡事都给对方', 1549963485, 1555324645, '', 0, 1);
+INSERT INTO `p_case_list` VALUES (15, '胜多负少的', '水电费少说点', '胜多负少胜多负少的胜多负少', '水电费', '2水电费', 1550047701, 1555324761, '', 0, 0);
+INSERT INTO `p_case_list` VALUES (16, '豆腐干豆腐', '的电饭锅', '电饭锅电饭锅的', '地方', '电饭锅', 1550048039, 1555324761, '[\"images\\/\\u5fae\\u4fe1\\u56fe\\u7247_20190121112749.png\",\"images\\/\\u5fae\\u4fe1\\u56fe\\u7247_20190121112756.png\",\"images\\/\\u5fae\\u4fe1\\u56fe\\u7247_20190121112800.png\"]', 0, 0);
+
+-- ----------------------------
+-- Table structure for p_case_photo
+-- ----------------------------
+DROP TABLE IF EXISTS `p_case_photo`;
+CREATE TABLE `p_case_photo`  (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `cid` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '案例ID',
+  `img` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '图片地址',
+  `views` int(11) UNSIGNED NULL DEFAULT 0 COMMENT '浏览次数',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '案例影像表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of p_case_photo
+-- ----------------------------
+INSERT INTO `p_case_photo` VALUES (1, 2, 'images/timg.jpg', 0);
+INSERT INTO `p_case_photo` VALUES (2, 2, 'images/xunguang-4.jpg', 0);
+
+-- ----------------------------
+-- Table structure for p_case_star
+-- ----------------------------
+DROP TABLE IF EXISTS `p_case_star`;
+CREATE TABLE `p_case_star`  (
+  `cid` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '案例ID',
+  `uid` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户ID',
+  `stars` tinyint(4) UNSIGNED NULL DEFAULT 0 COMMENT '星数',
+  PRIMARY KEY (`uid`) USING BTREE,
+  INDEX `cid`(`cid`) USING BTREE
+) ENGINE = MyISAM CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '影象星数表' ROW_FORMAT = Fixed;
+
+-- ----------------------------
+-- Records of p_case_star
+-- ----------------------------
+INSERT INTO `p_case_star` VALUES (17, 2, 4);
+INSERT INTO `p_case_star` VALUES (17, 3, 5);
+
+-- ----------------------------
+-- Table structure for p_users
+-- ----------------------------
+DROP TABLE IF EXISTS `p_users`;
+CREATE TABLE `p_users`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '账号',
+  `password` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '登录密码',
+  `nick_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '昵称',
+  `phone_number` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '手机号码',
+  `email` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '邮箱',
+  `created_at` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
+  `updated_at` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '修改时间',
+  `is_forbid` tinyint(4) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否封号',
+  `is_activate` tinyint(4) UNSIGNED NOT NULL COMMENT '是否激活',
+  `remember_token` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '记住密码token',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `phone`(`phone_number`) USING BTREE,
+  UNIQUE INDEX `user_name`(`user_name`) USING BTREE,
+  INDEX `ctime`(`created_at`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of p_users
+-- ----------------------------
+INSERT INTO `p_users` VALUES (2, 'zxm123', '$2y$10$De3VDhyHr9VfglHs.WmDZ.I8IfL8IF2kUVrzik2JvqUiIAiJgVu6u', '华源', '111111111112', '123@qq.com', 1548666042, 1555572507, 0, 1, '');
+INSERT INTO `p_users` VALUES (3, 'm1', '123456', 'momo', '12345678910', 'zxm@126.com', 1548750695, 1548754320, 0, 1, '');
+INSERT INTO `p_users` VALUES (4, 'zxm1', '$2y$10$u689hQw/baK89JMqY277PeLssEBWuHZnavKSluN3Pofq34oxHzTue', 'zxm', '11111111112', 'zxm@126.com', 1550906912, 1550906912, 0, 1, '');
 
 -- ----------------------------
 -- Table structure for password_resets
@@ -238,92 +362,4 @@ CREATE TABLE `users`  (
   UNIQUE INDEX `users_email_unique`(`email`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
--- ----------------------------
--- Table structure for p_users
--- ----------------------------
-DROP TABLE IF EXISTS `p_users`;
-CREATE TABLE `p_users`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '账号',
-  `password` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '登录密码',
-  `nick_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '昵称',
-  `phone_number` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '手机号码',
-  `email` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '邮箱',
-  `position` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '职称',
-  `hosipital`varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '医院',
-  `created_at` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
-  `updated_at` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '修改时间',
-  `is_forbid` tinyint(4) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否封号',
-  `is_activate` tinyint(4) UNSIGNED NOT NULL DEFAULT 1 COMMENT '是否激活',
-  `remember_token` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '记住密码token',
-  PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `phone`(`phone_number`) USING BTREE,
-  UNIQUE INDEX `user_name`(`user_name`) USING BTREE,
-  INDEX `ctime`(`created_at`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of p_users
--- ----------------------------
-INSERT INTO `p_users` VALUES (2, 'zxm123', '111111', '华源', '11111111111', '123@qq.com','','', 1548666042, 1548736597, 0, 1, '');
-INSERT INTO `p_users` VALUES (3, 'm1', '123456', 'momo', '12345678910', 'zxm@126.com','华科医院主任医师','', 1548750695, 1548754320, 0, 1, '');
-
--- ----------------------------
--- Table structure for p_case_comment
--- ----------------------------
-DROP TABLE IF EXISTS `p_case_comment`;
-CREATE TABLE `p_case_comment` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `cid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '案例ID',
-  `uid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `content` varchar(500) CHARACTER SET utf8mb4 NOT NULL COMMENT '评论',
-  `created_at` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '评论时间',
-  PRIMARY KEY (`id`),
-  KEY `cid` (`cid`),
-  KEY `uid` (`uid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='影象评论表';
-
--- ----------------------------
--- Table structure for p_case_list
--- ----------------------------
-DROP TABLE IF EXISTS `p_case_list`;
-CREATE TABLE `p_case_list`  (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '标题',
-  `keywords` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '关键词(多个，号隔开)',
-  `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '说明',
-  `author` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '作者',
-  `device` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '成像设备',
-  `created_at` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
-  `updated_at` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '修改时间',
-  `photos` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '影像',
-  `photographer` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '摄影师',
-  `views` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '浏览数',
-  `issue` tinyint(4) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否发布',
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `title`(`title`) USING BTREE,
-  INDEX `keywords`(`keywords`) USING BTREE,
-  INDEX `utime`(`created_at`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 17 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '案例表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of p_case_list
--- ----------------------------
-INSERT INTO `p_case_list` VALUES (11, 'sdf 水电费', '23', '23水电费胜多负少', '说的', '胜多负少', 1549963210, 1549963210, '','KUSER', 0, 1);
-INSERT INTO `p_case_list` VALUES (12, 'sdf 水电费', '23', '23水电费胜多负少', '说的', '胜多负少', 1549963254, 1549963254, '','CKANDY', 0, 1);
-INSERT INTO `p_case_list` VALUES (13, '梵蒂冈的', '地方', '大范甘迪很反感和发过火', '23', '凡事都给对方', 1549963373, 1549963373, '','CKANDY', 0, 1);
-INSERT INTO `p_case_list` VALUES (14, '梵蒂冈的', '地方', '大范甘迪很反感和发过火', '23', '凡事都给对方', 1549963485, 1549963485, '','PORD', 0, 1);
-INSERT INTO `p_case_list` VALUES (15, '胜多负少的', '水电费少说点', '胜多负少胜多负少的胜多负少', '水电费', '2水电费', 1550047701, 1550047701,'LURA', '', 0, 1);
-INSERT INTO `p_case_list` VALUES (16, '豆腐干豆腐', '的电饭锅', '电饭锅电饭锅的', '地方', '电饭锅', 1550048039, 1550048039, '[\"images\\/\\u5fae\\u4fe1\\u56fe\\u7247_20190121112749.png\",\"images\\/\\u5fae\\u4fe1\\u56fe\\u7247_20190121112756.png\",\"images\\/\\u5fae\\u4fe1\\u56fe\\u7247_20190121112800.png\"]','TY', 0, 1);
-
--- ----------------------------
--- Table structure for p_case_star
--- ----------------------------
-DROP TABLE IF EXISTS `p_case_star`;
-CREATE TABLE `p_case_star`  (
-  `cid` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '案例ID',
-  `uid` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户ID',
-  `stars` tinyint(4) UNSIGNED NULL DEFAULT 0 COMMENT '星数',
-  PRIMARY KEY (`uid`,`cid`) USING BTREE,
-  INDEX `cid`(`cid`) USING BTREE
-) ENGINE = MyISAM CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '影象星数表' ROW_FORMAT = Fixed;
+SET FOREIGN_KEY_CHECKS = 1;
