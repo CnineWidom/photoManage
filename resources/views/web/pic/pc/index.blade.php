@@ -86,7 +86,7 @@
                 @foreach ($listMess as $value)
                     <div class='grid-item'>
                         <img src="{{URL::asset('picture/pic (2).png')}}">
-                        <a href="">
+                        <a href="detail/{{ $value->baseId }}">
                             <div class="index_img_mask">
                                 <div class="index_imgdetail">
                                     <h5 class="index_imgdetail_title">{{$value->title}}</h5>

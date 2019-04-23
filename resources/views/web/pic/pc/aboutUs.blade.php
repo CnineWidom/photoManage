@@ -5,6 +5,9 @@
             background: url('{{ URL::asset("assest/aboutUsBg.png")}}') no-repeat center top;
             background-size: 100%;
         }
+        .footer{
+            margin-top:275px; 
+        }
     </style>
 @endsection
 @section('title','about')

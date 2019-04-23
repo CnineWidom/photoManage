@@ -24,6 +24,7 @@ Route::get('uploadPicture','uploadController@index')->name('upload');
 
 Route::post('uploadPicture/doupload','uploadController@doupload');
 Route::get('uploadPictureTip','uploadController@tipIndx')->name('tip');
+Route::get('detail/{photoId?}','HomeController@showDetail')->name('detail');
 
 Route::get('problem','HomeController@normalproblem')->name('normalproblem');
 Route::get('about','HomeController@aboutUs')->name('aboutUs');

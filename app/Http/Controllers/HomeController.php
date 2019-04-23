@@ -6,10 +6,8 @@ use App\Models\Users;
 use App\Models\Cases;
 use App\Models\CasePhoto;
 use Encore\Admin\Grid\Model;
-//use Illuminate\Http\Request;//明面上的方式
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-//use Illuminate\Support\Facades\Request;
 use App\Http\Requests\createRequest;
 
 
@@ -83,7 +81,6 @@ class HomeController extends Controller
             'loginType' => $this->loginType,
             'msg' => $this->msg
         ];
-        // return view('web.pic.pc.index', $data);
         return view('web.pic.pc.index',$data);
     }
 
@@ -111,5 +108,19 @@ class HomeController extends Controller
             'loginType' => $this->loginType
         ];
         return view('web.pic.pc.aboutUs',$data);
+    }
+
+    public function showDetail(createRequest $request)
+    {
+        $photoId = $request->route('photoId');
+        dd($request->session());
+        // if(Auth::check());
+        dd(Auth::check());
+        if($photoId){
+
+        }
+        else{
+
+        }
     }
 }
