@@ -4,7 +4,7 @@ namespace App\Admin\Extensions;
 
 use Encore\Admin\Grid\Tools\BatchAction;
 
-class ReleasePost extends BatchAction
+class FilterPost extends BatchAction
 {
     protected $action;
 
@@ -21,7 +21,7 @@ $('{$this->getElementClass()}').on('click', function() {
     if(!confirm("确认批量操作么？")) return false; 
     $.ajax({
         method: 'post',
-        url: 'release',
+        url: 'filter',
         data: {
             _token:LA.token,
             ids: selectedRows(),

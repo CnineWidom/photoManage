@@ -13,8 +13,8 @@ class HomeController extends Controller
     public function index(Content $content)
     {
         return $content
-            //->header('photoManage管理系统')
-            ->description('欢迎您使用photoManage管理系统！');
+            ->header('photoManage管理系统');
+            //->description('欢迎您使用photoManage管理系统！');
             /*
             ->row(Dashboard::title())
             ->row(function (Row $row) {
