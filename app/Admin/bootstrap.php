@@ -39,8 +39,10 @@ Grid::init(function (Grid $grid) {
     //$grid->disableExport();//禁用导出
 
     $grid->actions(function (Grid\Displayers\Actions $actions) {
-        $actions->disableView();
+        //$actions->disableView();
         //$actions->disableEdit();
         //$actions->disableDelete();
     });
 });
+
+app('view')->prependNamespace('admin', resource_path('views/admin'));//将默认视图替换成自定义视图

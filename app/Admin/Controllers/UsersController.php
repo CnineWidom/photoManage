@@ -87,10 +87,10 @@ class UsersController extends Controller
         $grid->nick_name('昵称');
         $grid->phone_number('手机号');
         $grid->email('邮箱');
-        $grid->is_forbid('封号?')->display(function ($is_forbid) {
+        $grid->is_forbid('封号')->display(function ($is_forbid) {
             return $is_forbid ? '是' : '否';
         });
-        $grid->is_activate('激活?')->display(function ($is_activate) {
+        $grid->is_activate('激活')->display(function ($is_activate) {
             return $is_activate ? '是' : '否';
         });
         

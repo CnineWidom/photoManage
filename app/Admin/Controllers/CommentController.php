@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Extensions\FilterPost;
 use App\Models\CaseComment;
 use App\Http\Controllers\Controller;
 use App\Models\Cases;
@@ -84,11 +85,14 @@ class CommentController extends Controller
 
         $grid = new Grid(new CaseComment);
 
+        $grid->model()->orderBy('created_at', 'desc');//按创建时间倒叙
+
         $grid->id('ID');
+        $grid->cases()->title('所属案例');
         $grid->cid('案例')->display(function ($cid) {
             $case = Cases::find($cid);
             $title = $case->title;
-            return '<a href="/admin/cases?id='.$cid.'">'.$title.'</a>';
+            return '<a title="案例id:'.$cid.'" href="/admin/cases?id='.$cid.'">'.$title.'</a>';
         });
         $grid->uid('用户')->display(function ($uid) {
             $user = Users::find($uid);
@@ -97,7 +101,7 @@ class CommentController extends Controller
         });
         $grid->content('评论内容');
         $grid->created_at('评论时间');
-        $grid->is_filter('是否过滤')->display(function ($isfilter) {
+        $grid->is_filter('过滤')->display(function ($isfilter) {
             return $isfilter ? '是' : '否';
         });
 
@@ -110,6 +114,21 @@ class CommentController extends Controller
             // append一个操作
             $actions->append('<a href="/admin/cases?id='.$cid.'"><i class="fa fa-photo"></i></a>');
 
+        });
+
+        $grid->filter(function ($filter) {
+
+            $filter->equal('cid', '案例ID');
+            $filter->like('content', '评论')->placeholder('支持模糊查询');
+
+        });
+
+        $grid->tools(function ($tools) {
+            $tools->batch(function ($batch) {
+                $batch->disableDelete();
+                $batch->add('过滤', new FilterPost(1));
+                $batch->add('显示', new FilterPost(0));
+            });
         });
 
         return $grid;

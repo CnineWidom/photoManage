@@ -11,7 +11,7 @@ return [
     | login page.
     |
     */
-    'name' => 'Laravel-admin',
+    'name' => 'photoManage-admin',
 
     /*
     |--------------------------------------------------------------------------
@@ -22,7 +22,7 @@ return [
     | `img` tag, eg '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo' => '<b>Laravel</b> admin',
+    'logo' => '<b>photoManage</b>',
 
     /*
     |--------------------------------------------------------------------------
@@ -34,7 +34,7 @@ return [
     | '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo-mini' => '<b>La</b>',
+    'logo-mini' => '<b>PM</b>',
 
     /*
     |--------------------------------------------------------------------------
@@ -262,7 +262,7 @@ return [
     | each page
     |
     */
-    'show_version' => true,
+    'show_version' => 0,
 
     /*
     |--------------------------------------------------------------------------
@@ -272,7 +272,7 @@ return [
     | Whether to display the environment at the footer of each page
     |
     */
-    'show_environment' => true,
+    'show_environment' => 0,
 
     /*
     |--------------------------------------------------------------------------
