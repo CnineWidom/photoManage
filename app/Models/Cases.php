@@ -18,7 +18,12 @@ class Cases extends Model
     protected $fillable = [
         'title','keywords','content','author','device','issue'
     ];
-    //外键默认为user_id
+    public function users()
+    {
+        return $this->belongsTo(Users::class,'uid')->withDefault([
+            'user_name' => '后台',
+        ]);
+    }
     //评论
     public function comments()
     {

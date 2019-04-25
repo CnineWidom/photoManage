@@ -27,9 +27,11 @@ $('{$this->getElementClass()}').on('click', function() {
             ids: selectedRows(),
             action: {$this->action}
         },
-        success: function () {
-            $.pjax.reload('#pjax-container');
-            toastr.success('操作成功');
+        success: function (rs) {
+            if(rs == 1){
+                $.pjax.reload('#pjax-container');
+                toastr.success('操作成功');
+            }
         }
     });
 });

@@ -14,6 +14,8 @@ Route::group([
     
     $router->resource('users', UsersController::class);
     $router->resource('cases', CasesController::class);
+    $router->resource('comment', CommentController::class);
 
-    $router->any('release', 'CommonActionController@release');
+    $router->any('release', 'CommonActionController@release');//文章下线
+    $router->any('filter', 'CommonActionController@filter');//评论过滤
 });

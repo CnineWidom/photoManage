@@ -43,7 +43,7 @@ class Users extends Authenticatable
 
     public function getUpdatedAtAttribute()
     {
-        //return $this->attributes['updated_at'] ? date('Y-m-d H:i:s', $this->attributes['updated_at']) : '';
+        return $this->attributes['updated_at'] ? date('Y-m-d H:i:s', $this->attributes['updated_at']) : '';
     }
 
     public function scopePublish(){

@@ -84,7 +84,7 @@ class HomeController extends Controller
             'msg' => $this->msg
         ];
         // return view('web.pic.pc.index', $data);
-        return view('web.pic.pc.test',$data);
+        return view('web.pic.pc.index',$data);
     }
 
     public function getAuthLogin($request)
@@ -95,5 +95,21 @@ class HomeController extends Controller
             $this ->msg = $session['warn']['message'];
             flash($this ->msg)->error()->important();
         }
+    }
+
+    public function normalproblem()
+    {
+        $data=[
+            'loginType' => $this->loginType
+        ];
+        return view('web.pic.pc.normalProblem',$data);
+    }
+
+    public function aboutUs()
+    {
+        $data=[
+            'loginType' => $this->loginType
+        ];
+        return view('web.pic.pc.aboutUs',$data);
     }
 }
