@@ -172,7 +172,7 @@
 
 @section('script')
 	<script src='{{URL::asset("js/index/velocity.js")}}'></script>
-	<script src='{{URL::asset("js/index.js?1904075")}}'></script>
+	<script src='{{URL::asset("js/index.js?1904076")}}'></script>
 @show
 
 <script>

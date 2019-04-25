@@ -28,7 +28,7 @@ class uploadController extends Controller
 
 	public function __construct()
 	{
-		$this->middleware('myAuth',['only'=>['index']]);
+//		$this->middleware('myAuth',['only'=>['index']]);
 	}
 
 	public function index()
@@ -50,13 +50,12 @@ class uploadController extends Controller
             $newFileName = $this->newFileName.$name.$this->markBack;
             $newFileNameByTmp = $this->newFileNameByTmp.$name.$this->markBack;
 
-            $dir = $newFileName;
-            echo $dir;
-            if (!file_exists($dir)){
-	            mkdir($dir,'0755',TRUE);
+            $dir = $path.$newFileName;
+            if (!file_exists($dir)||!file_exists($path.$newFileNameByTmp)){
+                mkdir($dir,'0755',TRUE);
+                mkdir($newFileNameByTmp,'0755',TRUE);
 	            echo 1;
 	        }
-	        exit;
             $img = $image->make($tmpFileName)->resize(300,300);
             $img->save($dir);
             if($this->useWalkMark){
@@ -80,35 +79,5 @@ class uploadController extends Controller
 		 // $content = $request->get('content');
 		 // $file = $request->all();
 		 // dd($file);
-	}
-
-	public function saveImage($image,$newFileName,$newFileNameByTmp,$path)
-	{
-		$img = $image->make($tmpFileName)->resize(300,300);
-        $img->save($path.$newFileName);
-        if($this->useWalkMark){
-            $img->text($this->markText,140,140,function ($font){
-                $font->file('C:/Windows/Fonts/STXINWEI.TTF');//使用本地ttf文件 使用laravel自带的话会出现中文乱码
-//                    $font->file(2);
-                $font->size(40);
-                $font->color('#fff');
-                $font->align('center');
-            });
-        }
-        else{
-            $img->insert($this->markPicPath);
-        }
-        $img->save($path.$newFileNameByTmp);
-
-        $imgReplacePath = $path.$imageRes->image_load;
-        $imgReplacePathTmp = str_replace('user','userTmp',$imgReplacePath);
-        if(file_exists($imgReplacePath))
-        {
-            unlink($imgReplacePath);
-            unlink($imgReplacePathTmp);
-        }
-        $data['image_load'] = $newFileName;
-        $res['image'] = $newFileName;
-        return true;
 	}
 }
