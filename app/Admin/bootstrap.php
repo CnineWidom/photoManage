@@ -39,7 +39,7 @@ Grid::init(function (Grid $grid) {
     //$grid->disableExport();//禁用导出
 
     $grid->actions(function (Grid\Displayers\Actions $actions) {
-        //$actions->disableView();
+        $actions->disableView();
         //$actions->disableEdit();
         //$actions->disableDelete();
     });

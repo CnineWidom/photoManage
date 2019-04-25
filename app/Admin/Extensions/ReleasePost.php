@@ -18,6 +18,7 @@ class ReleasePost extends BatchAction
         return <<<EOT
 
 $('{$this->getElementClass()}').on('click', function() {
+    if(selectedRows() == "" || selectedRows() == null) return false; 
     if(!confirm("确认批量操作么？")) return false; 
     $.ajax({
         method: 'post',
