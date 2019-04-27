@@ -88,7 +88,7 @@ class CommentController extends Controller
         $grid->model()->orderBy('created_at', 'desc');//按创建时间倒叙
 
         $grid->id('ID');
-        $grid->cases()->title('所属案例');
+        //$grid->cases()->title('所属案例');
         $grid->cid('案例')->display(function ($cid) {
             $case = Cases::find($cid);
             $title = $case->title;
@@ -108,12 +108,11 @@ class CommentController extends Controller
         $grid->disableCreateButton();//禁用新增
 
         $grid->actions(function ($actions) {
-            $comment = $actions->row;
-            $cid = $comment['cid'];
             $actions->disableView();
             // append一个操作
-            $actions->append('<a href="/admin/cases?id='.$cid.'"><i class="fa fa-photo"></i></a>');
-
+            //$comment = $actions->row;
+            //$cid = $comment['cid'];
+            //$actions->append('<a href="/admin/cases?id='.$cid.'"><i class="fa fa-photo"></i></a>');
         });
 
         $grid->filter(function ($filter) {

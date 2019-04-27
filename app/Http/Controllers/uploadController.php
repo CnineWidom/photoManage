@@ -1,17 +1,14 @@
 <?php
 /*图片上传*/
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Http\Requests\createRequest;
 use Intervention\Image\ImageManager;
-
 class uploadController extends Controller
 {
 	//水印路径
     private $newFileNameByTmp = '/upload/images/userTmp/';
     private $newFileName = '/upload/images/user/';
-
     //是否用水印
     public  $useWalkMark = 1;
     //用哪种水印 1图片 2文字
@@ -31,7 +28,7 @@ class uploadController extends Controller
 
 	public function __construct()
 	{
-		// $this->middleware('myAuth',['only'=>['index']]);
+		$this->middleware('myAuth',['only'=>['index']]);
 	}
 
 	public function index()
@@ -61,10 +58,8 @@ class uploadController extends Controller
 		$sizeArr = $this->retrunSize($file);
         $width = $sizeArr[0];
         $height = $sizeArr[1];
-
         $tmpFileName = $file->getPathname();
         $name =md5(base64_decode(time()));
-
         $newFileName = $this->newFileName.$name.$this->markBack;
         $newFileNameByTmp = $this->newFileNameByTmp.$name.$this->markBack;
         $img = $image->make($tmpFileName)->resize($width,$height);
@@ -83,15 +78,14 @@ class uploadController extends Controller
         }
         //$newFileName  插入数据库 后期写
         $img->save($path.$newFileNameByTmp);
-	}
-
-	public function retrunSize($file)
-	{
-		$str=getimagesize($file)[3];
-		list($width,$height) = explode(' ', str_replace('"', '', $str));
-		$width = $this->power*(int)explode('=', $width)[1];
-		$height = $this->power*(int)explode('=', $height)[1];
-		$arr = [$width,$height];
-		return $arr;
-	}
+    }
+    public function retrunSize($file)
+    {
+        $str=getimagesize($file)[3];
+        list($width,$height) = explode(' ', str_replace('"', '', $str));
+        $width = $this->power*(int)explode('=', $width)[1];
+        $height = $this->power*(int)explode('=', $height)[1];
+        $arr = [$width,$height];
+        return $arr;
+    }
 }

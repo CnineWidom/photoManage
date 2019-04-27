@@ -568,16 +568,16 @@
         },
         {
             "name": "encore/laravel-admin",
-            "version": "v1.6.12",
+            "version": "v1.6.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/z-song/laravel-admin.git",
-                "reference": "8613f6b268dccd6c1864f474c377712c5c7df27c"
+                "reference": "015a3c1d72eaeb1a1ec193789b50cc5e569dd71e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/z-song/laravel-admin/zipball/8613f6b268dccd6c1864f474c377712c5c7df27c",
-                "reference": "8613f6b268dccd6c1864f474c377712c5c7df27c",
+                "url": "https://api.github.com/repos/z-song/laravel-admin/zipball/015a3c1d72eaeb1a1ec193789b50cc5e569dd71e",
+                "reference": "015a3c1d72eaeb1a1ec193789b50cc5e569dd71e",
                 "shasum": ""
             },
             "require": {
@@ -591,7 +591,7 @@
                 "intervention/image": "~2.3",
                 "laravel/browser-kit-testing": "^2.0",
                 "laravel/laravel": "~5.5",
-                "phpunit/phpunit": "~6.0 || ~8.0",
+                "phpunit/phpunit": "~6.0",
                 "symfony/css-selector": "~3.1"
             },
             "suggest": {
@@ -635,7 +635,7 @@
                 "grid",
                 "laravel"
             ],
-            "time": "2019-04-23T05:24:55+00:00"
+            "time": "2019-04-04T09:22:37+00:00"
         },
         {
             "name": "erusev/parsedown",
@@ -2167,16 +2167,16 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v6.2.1",
+            "version": "v6.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "5397cd05b0a0f7937c47b0adcb4c60e5ab936b6a"
+                "reference": "6fa3232ff9d3f8237c0fae4b7ff05e1baa4cd707"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/5397cd05b0a0f7937c47b0adcb4c60e5ab936b6a",
-                "reference": "5397cd05b0a0f7937c47b0adcb4c60e5ab936b6a",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/6fa3232ff9d3f8237c0fae4b7ff05e1baa4cd707",
+                "reference": "6fa3232ff9d3f8237c0fae4b7ff05e1baa4cd707",
                 "shasum": ""
             },
             "require": {
@@ -2225,7 +2225,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2019-04-21T09:21:45+00:00"
+            "time": "2019-03-10T07:52:41+00:00"
         },
         {
             "name": "symfony/console",
@@ -2765,7 +2765,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "BackEndTea@gmail.com"
+                    "email": "backendtea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
@@ -4574,7 +4574,6 @@
                 "mock",
                 "xunit"
             ],
-            "abandoned": true,
             "time": "2018-08-09T05:50:03+00:00"
         },
         {
