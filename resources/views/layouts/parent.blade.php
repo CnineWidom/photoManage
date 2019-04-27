@@ -32,9 +32,9 @@
 	            <div class="index_nav">
 	                <ul>
 	                    <li><a href="{{ route('work') }}">首页</a></li>
-	                    <li><a href="{{ route('tip') }}">上传</a></li>
-	                    <li><a href="{{ route('normalproblem') }}">常见问题</a></li>
-	                    <li><a href="{{ route('aboutUs') }}">关于我们</a></li>
+	                    <li><a href="{{ route('normal') }}/uploadPictureTip">上传</a></li>
+	                    <li><a href="{{ route('normal') }}/normalproblem">常见问题</a></li>
+	                    <li><a href="{{ route('normal') }}/aboutUs">关于我们</a></li>
 	                </ul>
 	            </div>
 	            <div class='index_user'>
@@ -117,7 +117,7 @@
                                 <li><a href="aboutUs.html">关于我们</a></li>
                                 <li><a href="uploadPictureTip.html">分享</a></li>
                                 <li><a href="havascript:void(0);">联系我们</a></li>
-                                <li><a href="{{route('normalproblem')}}">常见问题</a></li>
+                                <li><a href="{{route('normal')}}/normalproblem">常见问题</a></li>
                             </ul>
                         </div>
                     </div>
@@ -182,5 +182,10 @@
     if (islogin === -1 ){
     	$('.mask').fadeIn('fast');
 		$('.index_login_form').fadeIn('fast');
+    }
+
+   	error = '{{$errors->store->first("error")}}' ? '{{$errors->store->first("error")}}' : 0;
+    if(error) {
+    	alert(error)
     }
 </script>

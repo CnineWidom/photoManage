@@ -9,8 +9,8 @@ use Intervention\Image\ImageManager;
 class uploadController extends Controller
 {
 	//水印路径
-    private $newFileNameByTmp = '/uploads/images/userTmp/';
-    private $newFileName = '/uploads/images/user/';
+    private $newFileNameByTmp = '/upload/images/userTmp/';
+    private $newFileName = '/upload/images/user/';
 
     //是否用水印
     public  $useWalkMark = 1;
@@ -27,19 +27,11 @@ class uploadController extends Controller
 	public $loginType = 1;
 
 	//缩小或者放大的倍率
-	private $power = 1;
+	private $power = 0.5;
 
 	public function __construct()
 	{
-		$this->middleware('myAuth',['only'=>['index']]);
-	}
-
-	public function tipIndx()
-	{
-		$data=[
-            'loginType' => $this->loginType
-        ];
-		return view('web.pic.pc.uploadPictureTip',$data);
+		// $this->middleware('myAuth',['only'=>['index']]);
 	}
 
 	public function index()
@@ -77,7 +69,6 @@ class uploadController extends Controller
         $newFileNameByTmp = $this->newFileNameByTmp.$name.$this->markBack;
         $img = $image->make($tmpFileName)->resize($width,$height);
         $img->save($path.$newFileName);
-
         if($this->useWalkMark){
             $img->text($this->markText,$width*0.2,$height*0.4,function ($font){
                 $font->file('C:/Windows/Fonts/simkai.ttf');//使用本地ttf文件 使用laravel自带的话会出现中文乱码
@@ -90,6 +81,7 @@ class uploadController extends Controller
         else{
             $img->insert($this->markPicPath);
         }
+        //$newFileName  插入数据库 后期写
         $img->save($path.$newFileNameByTmp);
 	}
 

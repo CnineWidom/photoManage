@@ -4,12 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Users;
 use App\Models\Cases;
-use App\Models\CasePhoto;
 use Encore\Admin\Grid\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\createRequest;
-
+use Intervention\Image\ImageManager;
 
 class HomeController extends Controller
 {
@@ -62,6 +61,13 @@ class HomeController extends Controller
             $value->keywordsTmp = explode("||",$value->keywords);
             $value->createdTmp = Date('Y-m-d',$value->created_at);
             $value->photographer = empty($value->photographer) ? $value->author : $value->photographer;
+            $photo = $value->photos;
+            if($photo){
+                $photoArr = json_decode($photo);
+                $photoFirst = public_path()."/".$photoArr[0];
+                $img_encode = $this->baseImg($photoFirst);
+                $value->encode_img = $img_encode;
+            }
             // 获取星数 取平均值 公式 sum(star)/count(uid);
             $getStartAvg = " select AVG(`stars`)as starAvg from `p_case_star` where `cid` =".$value->id;
             $starAvg = DB::select($getStartAvg)[0];
@@ -84,6 +90,36 @@ class HomeController extends Controller
         return view('web.pic.pc.index',$data);
     }
 
+    public function showDetail(createRequest $request)
+    {
+        $photoId = base64_decode($request->route('photoId'));
+        if($photoId){
+            $res = Cases::find($photoId);
+            if($res){
+                $photos = $res['photos'];
+                foreach ($photos as $key => &$value) {
+                    $path = public_path()."/".$value;
+                    $photos[$key] = $this->baseImg($path);
+                }
+                unset($value);
+                $photoFirst = $photos[0];
+                // $img_encode =
+            }
+            else{
+                $code = -1;
+                $msg = '没有数据';
+            }
+        }
+        else{
+            $code = -1;
+             $msg = '参数错误';
+        }
+
+        if($code < 0){
+            return back()->withErrors(['error'=> $mag],'store');
+        }
+    }
+
     public function getAuthLogin($request)
     {
         $session =$request->session()->all();
@@ -94,33 +130,14 @@ class HomeController extends Controller
         }
     }
 
-    public function normalproblem()
-    {
-        $data=[
-            'loginType' => $this->loginType
-        ];
-        return view('web.pic.pc.normalProblem',$data);
-    }
-
-    public function aboutUs()
-    {
-        $data=[
-            'loginType' => $this->loginType
-        ];
-        return view('web.pic.pc.aboutUs',$data);
-    }
-
-    public function showDetail(createRequest $request)
-    {
-        $photoId = $request->route('photoId');
-        dd($request->session());
-        // if(Auth::check());
-        dd(Auth::check());
-        if($photoId){
-
-        }
-        else{
-
-        }
+    /*
+    * 返回加密后的路径
+    * @param imgpath 全路径
+    */
+    public function baseImg($imgPath){
+        $image = new ImageManager ;
+        $images = $image->make($imgPath)->encode('png', 75);
+        $img_encode = 'data:image/png;base64,'. base64_encode($images);
+        return $img_encode;
     }
 }

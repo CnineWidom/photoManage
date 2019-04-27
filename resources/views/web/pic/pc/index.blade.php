@@ -52,10 +52,10 @@
                 <div class='pic_content_detail_content'>
                     <div class="pic_content_detail_pic" style="position: relative;">
                             <div  class="pic_content_detail_pic_big">
-                                <img src="{{$value->photos}}" height="680" width="480"  alt="480">
+                                <img src="{{$value->encode_img}}" height="680" width="480"  alt="480">
                             </div>
                         <div class="pic_content_detail_pic_small">
-                            <img src="{{$value->photos}}"  alt="">
+                            <img src="{{$value->encode_img}}"  alt="">
                         </div>
                     </div>
                     <div class="pic_content_detail_introduction">
@@ -85,8 +85,8 @@
                  <!-- 简略图片循环样例 开始 -->
                 @foreach ($listMess as $value)
                     <div class='grid-item'>
-                        <img src="{{URL::asset('picture/pic (2).png')}}">
-                        <a href="detail/{{ $value->baseId }}">
+                        <img src="{{$value->encode_img}}">
+                        <a href="{{route('detail')}}/{{$value->baseId}}">
                             <div class="index_img_mask">
                                 <div class="index_imgdetail">
                                     <h5 class="index_imgdetail_title">{{$value->title}}</h5>
@@ -223,6 +223,7 @@
         })
         $('.pic_nav_type ul li').removeClass('pic_nav_type_li_active')
         $(".pic_nav_type ul li:eq({{$id}})").addClass('pic_nav_type_li_active')
+        
 	</script>
 @endsection
 
