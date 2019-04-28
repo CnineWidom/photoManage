@@ -166,6 +166,7 @@
 <script src='{{URL::asset("js/jquery.min.js")}}'></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src='{{URL::asset("js/index/stackgrid.adem.js")}}'></script>
+<script src='{{URL::asset("js/index.js?1904078")}}'></script>
 
 @section('uploadjs')
 	<script src="https://cdn.bootcss.com/webuploader/0.1.1/webuploader.min.js"></script>
@@ -173,7 +174,6 @@
 
 @section('script')
 	<script src='{{URL::asset("js/index/velocity.js")}}'></script>
-	<script src='{{URL::asset("js/index.js?1904078")}}'></script>
 @show
 
 <script>
