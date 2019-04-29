@@ -29,7 +29,7 @@ class AuthBySelf extends Middleware
             // Redirect::action("HomeController@index", [0]);
             // return Redirect::to('user/login')->with('message', 'Login Failed');
         }else{
-            return Redirect::to('test')->with('warn', $this->backArr(0));
+            return Redirect::to('index')->with('warn', $this->backArr(0));
         }
     }
 

@@ -44,3 +44,5 @@ Grid::init(function (Grid $grid) {
         //$actions->disableDelete();
     });
 });
+
+app('view')->prependNamespace('admin', resource_path('views/admin'));//将默认视图替换成自定义视图

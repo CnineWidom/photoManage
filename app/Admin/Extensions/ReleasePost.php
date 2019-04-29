@@ -18,6 +18,7 @@ class ReleasePost extends BatchAction
         return <<<EOT
 
 $('{$this->getElementClass()}').on('click', function() {
+    if(selectedRows() == "" || selectedRows() == null) return false; 
     if(!confirm("确认批量操作么？")) return false; 
     $.ajax({
         method: 'post',
@@ -27,9 +28,11 @@ $('{$this->getElementClass()}').on('click', function() {
             ids: selectedRows(),
             action: {$this->action}
         },
-        success: function () {
-            $.pjax.reload('#pjax-container');
-            toastr.success('操作成功');
+        success: function (rs) {
+            if(rs == 1){
+                $.pjax.reload('#pjax-container');
+                toastr.success('操作成功');
+            }
         }
     });
 });

@@ -17,17 +17,21 @@
 
 Auth::routes();
 
-Route::post('home', 'HomeController@index');
+Route::get('index/{id?}','HomeController@index')->name('work');
+Route::post('index','HomeController@index');
 
-Route::get('home/{id}', 'HomeController@index')->name('home');
 Route::get('uploadPicture','uploadController@index')->name('upload');
+
 Route::post('uploadPicture/doupload','uploadController@doupload');
-Route::get('test/{id?}','HomeController@index')->name('work');
-Route::post('test','HomeController@index');
 
-// Route::get('detail/{id?}','');
+Route::get('detail/{photoId?}','HomeController@showDetail')->name('detail');
 
 
-
-
-
+//public html
+Route::get('normal/{text?}',function($text){
+	$resouse = 'web.pic.pc.'.$text;
+    $data=[
+    	'loginType' => 1
+    ];
+    return view($resouse,$data);
+})->name('normal');

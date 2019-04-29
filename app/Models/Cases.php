@@ -18,7 +18,12 @@ class Cases extends Model
     protected $fillable = [
         'title','keywords','content','author','device','issue'
     ];
-    //外键默认为user_id
+    public function users()
+    {
+        return $this->belongsTo(Users::class,'uid')->withDefault([
+            'user_name' => '后台',
+        ]);
+    }
     //评论
     public function comments()
     {
@@ -29,12 +34,7 @@ class Cases extends Model
     {
         return $this->hasMany(CaseStar::class, 'cid');
     }
-    //图片
-    public function casePhoto()
-    {
-        return $this->hasMany('App\Models\casePhoto','cid');
-    }
-    
+
     public function setPhotosAttribute($photos)
     {
         if (is_array($photos)) {
