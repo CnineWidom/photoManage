@@ -25,27 +25,27 @@
 </style>
 
 <body class= '@yield("body")'>
-<div class='layout' style="clear: both;">
-	@section('siderbar')
-		<div class="header" style="width:100%;height:28px;">
-			<div class="index_logo"><img src="{{ URL::asset('assest/logoblue.png') }}" alt=""></div>
-			<div class="index_nav">
-				<ul>
-					<li><a href="{{ route('work') }}">首页</a></li>
-					<li><a href="{{ route('tip') }}">上传</a></li>
-					<li><a href="{{ route('normalproblem') }}">常见问题</a></li>
-					<li><a href="{{ route('aboutUs') }}">关于我们</a></li>
-				</ul>
-			</div>
-			<div class='index_user'>
-				@auth
-					<a href="javascript:void(0);" style="font-weight:bold">{{Auth::user()->user_name}}</a>
-					<a href="{{ route('logout') }}" class='index_loginout' onclick="event.preventDefault();document.getElementById('logout-form').submit();"
-					   style="opacity: 0.5;color: rgba(42, 42, 42, 1);cursor: pointer;">[退出]</a>
-					<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-						{{ csrf_field() }}
-					</form>
-				@else
+	<div class='layout' style="clear: both;">
+		@section('siderbar')
+			<div class="header" style="width:100%;height:28px;">
+	            <div class="index_logo"><img src="{{ URL::asset('assest/logoblue.png') }}" alt=""></div>
+	            <div class="index_nav">
+	                <ul>
+	                    <li><a href="{{ route('work') }}">首页</a></li>
+	                    <li><a href="{{ route('normal') }}/uploadPictureTip">上传</a></li>
+	                    <li><a href="{{ route('normal') }}/normalproblem">常见问题</a></li>
+	                    <li><a href="{{ route('normal') }}/aboutUs">关于我们</a></li>
+	                </ul>
+	            </div>
+	            <div class='index_user'>
+					@auth
+						<a href="javascript:void(0);" style="font-weight:bold">{{Auth::user()->user_name}}</a>  
+						<a href="{{ route('logout') }}" class='index_loginout' onclick="event.preventDefault();document.getElementById('logout-form').submit();"
+						style="opacity: 0.5;color: rgba(42, 42, 42, 1);cursor: pointer;">[退出]</a>
+	                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
+	                @else
 					<span >
 						<span class='index_login_span'>登录</span> |
 						<span class='index_register_span'> <a href="{{route('register')}}" style="color:rgb(39,39,39)">注册</a></span>
@@ -102,70 +102,71 @@
 		</form>
 	@show
 
-	@section('content')
-		<p>主要内容存放</p>
-	@show
-</div>
-<div class="footer">
-	@section('footer')
-		<div class="footer_detail">
-			<div class='footer_detail_content footer_detail_content1'>
-				<div class='footer_title'>导航</div>
-				<div class='footer_nav'>
-					<ul>
-						<li> <a href="{{route('work')}}">主页</a> </li>
-						<li><a href="aboutUs.html">关于我们</a></li>
-						<li><a href="uploadPictureTip.html">分享</a></li>
-						<li><a href="havascript:void(0);">联系我们</a></li>
-						<li><a href="{{route('normalproblem')}}">常见问题</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class='footer_detail_content footer_detail_content2'>
-				<div class='footer_title'>中山眼科中心</div>
-				<div class='footer_nav'>
-					<ul>
-						<li>邮箱地址: info@gmail.com</li>
-						<li>联系方式: （020）6660-7666</li>
-						<li>联系地址: 广州市先烈南路54号（区庄院区）</li>
-						<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;广州市天河区金穗路7号（珠江新城院区）</li>
-					</ul>
-				</div>
-			</div>
-			<div class='footer_detail_content footer_detail_content3'>
-				<div class='footer_title'>语言</div>
-				<div class='footer_nav'>
-					<ul>
-						<li>简体</li>
-						<li>English</li>
-					</ul>
-				</div>
-			</div>
-			<div class='footer_detail_content footer_detail_content4'>
-				<div class='footer_title'>其他</div>
-				<div class='footer_nav'>
-					<ul>
-						<li>隐私政策</li>
-						<li>条款及细则</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		<div class="footer_copyright" style="line-height:60px;">
-			<div class='footer_copyright_content' >
-				<img src='{{ URL::asset("assest/logoblue.png")}}' alt="" style='float: left;'>
-				<h5 style="font-size:16px;float: left;">版权归 © 2019  中山大学眼科中心 所有</h5>
-				<h5 style="font-size:16px;float: right;margin-left: 5px;">粤ICP备11021180号</h5>
-				<img src='{{ URL::asset("assest/Bitmap.png")}}' alt="" style='float: right;margin-top: 20px;' width="20">
-			</div>
-		</div>
-	@show
-</div>
+	    @section('content')
+			<p>主要内容存放</p>
+	    @show
+	</div>
+	<div class="footer">
+		@section('footer')
+			<div class="footer_detail">
+                <div class='footer_detail_content footer_detail_content1'>
+                        <div class='footer_title'>导航</div>
+                        <div class='footer_nav'>
+                            <ul>
+                                <li> <a href="{{route('work')}}">主页</a> </li>
+                                <li><a href="aboutUs.html">关于我们</a></li>
+                                <li><a href="uploadPictureTip.html">分享</a></li>
+                                <li><a href="havascript:void(0);">联系我们</a></li>
+                                <li><a href="{{route('normal')}}/normalproblem">常见问题</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class='footer_detail_content footer_detail_content2'>
+                        <div class='footer_title'>中山眼科中心</div>
+                        <div class='footer_nav'>
+                            <ul>
+                                <li>邮箱地址: info@gmail.com</li>
+                                <li>联系方式: （020）6660-7666</li>
+                                <li>联系地址: 广州市先烈南路54号（区庄院区）</li>
+                                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;广州市天河区金穗路7号（珠江新城院区）</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class='footer_detail_content footer_detail_content3'>
+                        <div class='footer_title'>语言</div>
+                        <div class='footer_nav'>
+                            <ul>
+                                <li>简体</li>
+                                <li>English</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class='footer_detail_content footer_detail_content4'>
+                        <div class='footer_title'>其他</div>
+                        <div class='footer_nav'>
+                            <ul>
+                                <li>隐私政策</li>
+                                <li>条款及细则</li>
+                            </ul>
+                        </div>
+                    </div>
+        	</div>    
+	        <div class="footer_copyright" style="line-height:60px;">
+	        	<div class='footer_copyright_content' >
+		            <img src='{{ URL::asset("assest/logoblue.png")}}' alt="" style='float: left;'>
+		            <h5 style="font-size:16px;float: left;">版权归 © 2019  中山大学眼科中心 所有</h5>
+		            <h5 style="font-size:16px;float: right;margin-left: 5px;">粤ICP备11021180号</h5>
+		            <img src='{{ URL::asset("assest/Bitmap.png")}}' alt="" style='float: right;margin-top: 20px;' width="20">
+	          </div>
+	        </div>
+		@show
+	</div>
 </body>
 </html>
 <script src='{{URL::asset("js/jquery.min.js")}}'></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src='{{URL::asset("js/index/stackgrid.adem.js")}}'></script>
+<script src='{{URL::asset("js/index.js?1904078")}}'></script>
 
 @section('uploadjs')
 	<script src="https://cdn.bootcss.com/webuploader/0.1.1/webuploader.min.js"></script>
@@ -173,14 +174,17 @@
 
 @section('script')
 	<script src='{{URL::asset("js/index/velocity.js")}}'></script>
-	<script src='{{URL::asset("js/index.js?1904078")}}'></script>
 @show
 
 <script>
 	$('#flash-overlay-modal').modal();
-	var islogin = {{ $loginType }}
-	if (islogin === -1 ){
+	var islogin = '{{ $loginType }}' 
+	if (islogin === '-1' ){
 		$('.mask').fadeIn('fast');
 		$('.index_login_form').fadeIn('fast');
-	}
+    }
+   	error = '{{$errors->store->first("error")}}' ? '{{$errors->store->first("error")}}' : 0;
+    if(error) {
+    	alert(error)
+    }
 </script>

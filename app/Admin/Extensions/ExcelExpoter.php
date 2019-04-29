@@ -36,11 +36,16 @@ class ExcelExpoter extends AbstractExporter
                 $body = $this->body;
                 $myfilter = $this->myfilter;
                 $bodyRows = collect($this->getData())->map(function ($item)use($body, $myfilter) {
+                    dd($item);
                     foreach ($body as $keyName){
-                        if($myfilter[$keyName])
+                        if($myfilter[$keyName]){
                             $arr[] = self::transformation($keyName, $item);
-                        else
+                        }
+                        elseif($keyName == 'photos'){
+                            $arr[] = implode(',', array_get($item, 'users'));
+                        }else{
                             $arr[] = array_get($item, $keyName);
+                        }
                     }
                     return $arr;
                 });

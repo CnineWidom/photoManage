@@ -6,9 +6,9 @@ use App\Http\Requests\createRequest;
 use Intervention\Image\ImageManager;
 class uploadController extends Controller
 {
-    //水印路径
-    private $newFileNameByTmp = '/uploads/images/userTmp/';
-    private $newFileName = '/uploads/images/user/';
+	//水印路径
+    private $newFileNameByTmp = '/upload/images/userTmp/';
+    private $newFileName = '/upload/images/user/';
     //是否用水印
     public  $useWalkMark = 1;
     //用哪种水印 1图片 2文字
@@ -19,43 +19,43 @@ class uploadController extends Controller
     public $markPicPath = '';
     //默认后缀
     public $markBack = '.png';
-    //判断是否登录状态
-    public $loginType = 1;
-    //缩小或者放大的倍率
-    private $power = 1;
-    public function __construct()
-    {
-        $this->middleware('myAuth',['only'=>['index']]);
-    }
-    public function tipIndx()
-    {
-        $data=[
-            'loginType' => $this->loginType
-        ];
-        return view('web.pic.pc.uploadPictureTip',$data);
-    }
-    public function index()
-    {
-        $data = [
-            'loginType' => $this->loginType,
-        ];
-        return view('web.pic.pc.uploadPicture',$data);
-    }
-    public function doupload(Request $request)
-    {
-        $res= $request->all();
-        $file = $request->file('file');
-        if(!empty($file)){
-            if (!file_exists($path.$this->newFileNameByTmp)||!file_exists($path.$this->newFileName)){
-                mkdir($path.$this->newFileNameByTmp,'0777',TRUE);
-                mkdir($path.$newFileName,'0777',TRUE);
-            }
-        }
-    }
-    public function saveImage(ImageManager $image,$file)
-    {
-        $path = public_path();
-        $sizeArr = $this->retrunSize($file);
+
+	//判断是否登录状态
+	public $loginType = 1;
+
+	//缩小或者放大的倍率
+	private $power = 0.5;
+
+	public function __construct()
+	{
+		$this->middleware('myAuth',['only'=>['index']]);
+	}
+
+	public function index()
+	{
+		$data = [
+			'loginType' => $this->loginType,
+		];
+		return view('web.pic.pc.uploadPicture',$data);
+	}
+
+	public function doupload(Request $request)
+	{
+		$res= $request->all();
+		$file = $request->file('file');
+
+		if(!empty($file)){
+			if (!file_exists($path.$this->newFileNameByTmp)||!file_exists($path.$this->newFileName)){
+	            mkdir($path.$this->newFileNameByTmp,'0777',TRUE);
+	            mkdir($path.$newFileName,'0777',TRUE);
+	        }
+		}
+	}
+
+	public function saveImage(ImageManager $image,$file)
+	{
+		$path = public_path();
+		$sizeArr = $this->retrunSize($file);
         $width = $sizeArr[0];
         $height = $sizeArr[1];
         $tmpFileName = $file->getPathname();
@@ -76,6 +76,7 @@ class uploadController extends Controller
         else{
             $img->insert($this->markPicPath);
         }
+        //$newFileName  插入数据库 后期写
         $img->save($path.$newFileNameByTmp);
     }
     public function retrunSize($file)

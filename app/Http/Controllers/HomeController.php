@@ -4,14 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Users;
 use App\Models\Cases;
-use App\Models\CasePhoto;
+use App\Models\CasesComment;
 use Encore\Admin\Grid\Model;
-//use Illuminate\Http\Request;//明面上的方式
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-//use Illuminate\Support\Facades\Request;
 use App\Http\Requests\createRequest;
-
+use Intervention\Image\ImageManager;
 
 class HomeController extends Controller
 {
@@ -61,20 +59,20 @@ class HomeController extends Controller
         $listMess = DB::select($sql);
         foreach ($listMess as $key => &$value) {
             $value->baseId = base64_encode($value->id);
-            $value->keywordsTmp = explode("||",$value->keywords);
+            $value->keywordsTmp = explode(",",$value->keywords);
             $value->createdTmp = Date('Y-m-d',$value->created_at);
             $value->photographer = empty($value->photographer) ? $value->author : $value->photographer;
+            $photo = $value->photos;
+            if($photo){
+                $photoArr = json_decode($photo);
+                $photoFirst = public_path()."/".$photoArr[0];
+                $img_encode = $this->baseImg($photoFirst);
+                $value->encode_img = $img_encode;
+            }
             // 获取星数 取平均值 公式 sum(star)/count(uid);
             $getStartAvg = " select AVG(`stars`)as starAvg from `p_case_star` where `cid` =".$value->id;
             $starAvg = DB::select($getStartAvg)[0];
-            $starAvg = ceil($starAvg->starAvg);
-            $starArr = array_fill(0, 5, 0);
-            for($i = 0 ; $i < $starAvg; $i++){
-                if($i< 5 ){
-                    $starArr[$i] = 1;
-                }
-            }
-            $value ->starArr =  $starArr;
+            $value->starArr = $this->starArr($starAvg->starAvg);
         }
         unset($value);
         $data = [
@@ -83,8 +81,49 @@ class HomeController extends Controller
             'loginType' => $this->loginType,
             'msg' => $this->msg
         ];
-        // return view('web.pic.pc.index', $data);
         return view('web.pic.pc.index',$data);
+    }
+
+    public function showDetail(createRequest $request)
+    {
+        $photoId = base64_decode($request->route('photoId'));
+        if($photoId){
+            // $res = Cases::find($photoId);
+            $sql = "SELECT *,AVG(`stars`) as `stars` from `p_case_list` as p LEFT JOIN `p_case_star` as s on p.id=s.cid where p.id = $photoId";
+            $res = DB::select($sql);
+            if($res){
+                foreach ($res as $k => &$val) {
+                    $photos = json_decode($val->photos);
+                    foreach ($photos as $key => &$value) {
+                        $path = public_path()."/".$value;
+                        $val->photosTmp[$key] = $this->baseImg($path);
+                    }
+                    unset($value);
+                    $val->photoCount = sizeof($val->photosTmp);
+                    $keyWordTmp = explode(',',$val->keywords);
+                    $val->keyWordTmp = $keyWordTmp;
+                    $val->starArr =  $this->starArr($val->stars);
+                    $val->createDate = date('Y-m-d',$val->created_at);
+                    $sql = '';
+                }
+                unset($val);
+            }
+            else{
+                $code = -1;
+                $msg = '没有数据';
+            }
+        }
+        else{
+            $code = -1;
+             $msg = '参数错误';
+        }
+        if($code < 0){
+            return back()->withErrors(['error'=> $mag],'store');
+        }
+        $data = [
+            'result' => $res[0]
+        ];
+        return view('web.pic.pc.caseDetail',$data);
     }
 
     public function getAuthLogin($request)
@@ -97,19 +136,26 @@ class HomeController extends Controller
         }
     }
 
-    public function normalproblem()
-    {
-        $data=[
-            'loginType' => $this->loginType
-        ];
-        return view('web.pic.pc.normalProblem',$data);
+    /*
+    * 返回加密后的路径
+    * @param imgpath 全路径
+    */
+    public function baseImg($imgPath){
+        $image = new ImageManager ;
+        $images = $image->make($imgPath)->encode('png', 75);
+        $img_encode = 'data:image/png;base64,'. base64_encode($images);
+        return $img_encode;
     }
 
-    public function aboutUs()
+    public function starArr($count)
     {
-        $data=[
-            'loginType' => $this->loginType
-        ];
-        return view('web.pic.pc.aboutUs',$data);
+        $starAvg  = ceil($count);
+        $starArr = array_fill(0, 5, 0);
+        for($i = 0 ; $i < $starAvg; $i++){
+            if($i< 5 ){
+                $starArr[$i] = 1;
+            }
+        }
+        return $starArr;
     }
 }

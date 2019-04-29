@@ -34,12 +34,7 @@ class Cases extends Model
     {
         return $this->hasMany(CaseStar::class, 'cid');
     }
-    //图片
-    public function casePhoto()
-    {
-        return $this->hasMany('App\Models\casePhoto','cid');
-    }
-    
+
     public function setPhotosAttribute($photos)
     {
         if (is_array($photos)) {
