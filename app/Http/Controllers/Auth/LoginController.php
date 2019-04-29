@@ -49,11 +49,11 @@ class LoginController extends Controller
         // the IP address of the client making these requests into this application.
         if ($this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
+
             return $this->sendLockoutResponse($request);
         }
 
         if ($this->attemptLogin($request)) {
-            // flash('欢迎回来','success');
             return $this->sendLoginResponse($request);
         }
 
@@ -65,6 +65,12 @@ class LoginController extends Controller
         return $this->sendFailedLoginResponse($request);
     }
 
+    /**
+     * Validate the user login request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return void
+     */
     protected function validateLogin(Request $request)
     {
         $this->validate($request, [
@@ -81,12 +87,14 @@ class LoginController extends Controller
      */
     protected function attemptLogin(Request $request)
     {
-        $credentials = array_merge($this->credentials($request));
-
-        $flag =  $this->guard()->attempt(
-            $credentials, $request->filled('remember')
+        return $this->guard()->attempt(
+            $this->credentials($request), $request->filled('remember')
         );
-        return $flag;
+    }
+
+    public function username()
+    {
+        return 'phone_number';
     }
 
     public function logout(Request $request){
