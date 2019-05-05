@@ -104,7 +104,7 @@ class HomeController extends Controller
                     //时间间隔
                     $timeInterval = ceil(($nowTime-strtotime($value->created_at))/3600);
                     if($timeInterval <= $this->timeInval){
-                        $value->timeInter = $timeInterval;
+                        $value->timeInter = $timeInterval."小时之前";
                     }
                     else $value->timeInter = date('Y-m-d',strtotime($value->created_at));
                 }
@@ -121,9 +121,22 @@ class HomeController extends Controller
                     $val->keyWordTmp = $keyWordTmp;
                     $val->starArr =  $this->starArr($val->stars);
                     $val->createDate = date('Y-m-d',$val->created_at);
-                    $val->coment = $comment;
+                    $val->comment = $comment;
                 }
                 unset($val);
+                //类似的相关的图例
+                $key = $res[0]->keywords;
+                $keyStr = implode('|',explode(',', $key));
+                $sql = "SELECT * from `p_case_list` WHERE `id` not in({$photoId}) and  `keywords` REGEXP '{$keyStr}' limit 5";
+                $sameList = DB::SELECT($sql);
+                if($sameList){
+                    foreach ($sameList as $k => $v) {
+                        
+                    }
+                }else{
+                    $sql = "SELECT * from `p_case_list` WHERE `id` not in({$photoId}) order by `created_at` limit 5";
+                    $sameList = DB::SELECT($sql);
+                }
             }
             else{
                 $code = -1;
@@ -137,8 +150,9 @@ class HomeController extends Controller
         if($code < 0){
             return back()->withErrors(['error'=> $msg],'store');
         }
+
         $data = [
-            'result' => $res[0]
+            'result' => $res[0],
         ];
         return view('web.pic.pc.caseDetail',$data);
     }
