@@ -32,7 +32,7 @@ class Users extends Authenticatable
 
         static::saving(function ($model) {
             if($model->password)
-                $model->password = photoMPwd($model->password);//方便扩展，也可以直接使用框架自带bcrypt($request->password);
+                $model->password = $model->password;//方便扩展，也可以直接使用框架自带bcrypt($request->password);
         });
     }
 
@@ -49,5 +49,6 @@ class Users extends Authenticatable
     public function scopePublish(){
 
     }
+
 
 }

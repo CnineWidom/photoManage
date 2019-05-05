@@ -15,7 +15,8 @@ class HomeController extends Controller
 {
     public $loginType = 1;
     public $msg = '';
-
+    //时间间隔
+    public  $timeInval = 5;
     protected $pageCount = 15;
     /**
      * Create a new controller instance.
@@ -87,11 +88,27 @@ class HomeController extends Controller
     public function showDetail(createRequest $request)
     {
         $photoId = base64_decode($request->route('photoId'));
+        $nowTime = time();
         if($photoId){
-            // $res = Cases::find($photoId);
             $sql = "SELECT *,AVG(`stars`) as `stars` from `p_case_list` as p LEFT JOIN `p_case_star` as s on p.id=s.cid where p.id = $photoId";
             $res = DB::select($sql);
             if($res){
+                $comment = [];
+                $comment = Cases::find($photoId)->caseComment()->get();
+                foreach($comment as  $key=>&$value ){
+                    $userMess = Users::find($value->uid)->get();
+                    if($userMess){
+                        $value->userMess = empty($userMess[0]->nick_name) ? $userMess[0]->user_name : $userMess[0]->nick_name;
+                    }
+                    else $value->userMess = "****";
+                    //时间间隔
+                    $timeInterval = ceil(($nowTime-strtotime($value->created_at))/3600);
+                    if($timeInterval <= $this->timeInval){
+                        $value->timeInter = $timeInterval;
+                    }
+                    else $value->timeInter = date('Y-m-d',strtotime($value->created_at));
+                }
+                unset($value);
                 foreach ($res as $k => &$val) {
                     $photos = json_decode($val->photos);
                     foreach ($photos as $key => &$value) {
@@ -104,7 +121,7 @@ class HomeController extends Controller
                     $val->keyWordTmp = $keyWordTmp;
                     $val->starArr =  $this->starArr($val->stars);
                     $val->createDate = date('Y-m-d',$val->created_at);
-                    $sql = '';
+                    $val->coment = $comment;
                 }
                 unset($val);
             }
@@ -118,7 +135,7 @@ class HomeController extends Controller
              $msg = '参数错误';
         }
         if($code < 0){
-            return back()->withErrors(['error'=> $mag],'store');
+            return back()->withErrors(['error'=> $msg],'store');
         }
         $data = [
             'result' => $res[0]
@@ -142,7 +159,7 @@ class HomeController extends Controller
     */
     public function baseImg($imgPath){
         $image = new ImageManager ;
-        $images = $image->make($imgPath)->encode('png', 75);
+        $images = $image->make($imgPath)->resize(370,370)->encode('png', 75);
         $img_encode = 'data:image/png;base64,'. base64_encode($images);
         return $img_encode;
     }

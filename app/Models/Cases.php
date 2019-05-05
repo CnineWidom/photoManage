@@ -56,5 +56,11 @@ class Cases extends Model
     {
         return $this->attributes['updated_at'] ? date('Y-m-d H:i:s', $this->attributes['updated_at']) : '';
     }
+
+    public function caseComment(){
+
+        return $this->hasMany('App\Models\CaseComment','cid','id');
+
+    }
  
 }

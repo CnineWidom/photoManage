@@ -35,8 +35,7 @@
                 <div class="caseDetail_main_content_pic_small">
                     <ul>
                         @foreach ($result->photosTmp as $value) 
-                            <li style="background-image: url('{{$value}}'') center;background-size:cover"></li>
-
+                            <li style="background-image: url('{{$value}}') center;background-size:cover"></li>
                         @endforeach
                     </ul>
                     <div><i></i></div>
@@ -90,14 +89,18 @@
                 <button class='share_button' style="float:right">发表评论</button>
             </div>
             <div class="caseDetail_main_conment_content">
-                <p style="text-align:center;display: none">暂无评论</p>   
-
-                <div class="caseDetail_main_conment_content_word">
-                    <h3 class="caseDetail_main_conment_content_word_username">Joe_TSUE</h3>  
-                    <span style="float:left">2小时前</span><br>
-                    <h5>18岁的非裔美国女性，BMI增加，有头痛，恶心，短暂复视和视力丧失的病史，她在最近两周从床上起床（并在直立后离开）时注意到了这一点。去了PCP并接受了流感治疗，并且在没，改善和已知的视觉症状后，被送到ED。 MRI没有显示任何肿块，并显示空蝶鞍turcia。计划用于LP（期望高开放压力）和神经眼科学。愿景20/30 OD和20/20操作系统;没有RAPD; </h5>
-                </div>
+                @if( count($result->comment) === 0)
+                    <p style="text-align:center;display: none">暂无评论</p>
+                @else
+                    @foreach($result->comment as $value)
+                    <div class="caseDetail_main_conment_content_word">
+                        <h3 class="caseDetail_main_conment_content_word_username">{{ $value->userMess }}</h3>
+                        <span style="float:left">2小时前</span><br>
+                        <h5>18岁的非裔美国女性，BMI增加，有头痛，恶心，短暂复视和视力丧失的病史，她在最近两周从床上起床（并在直立后离开）时注意到了这一点。去了PCP并接受了流感治疗，并且在没，改善和已知的视觉症状后，被送到ED。 MRI没有显示任何肿块，并显示空蝶鞍turcia。计划用于LP（期望高开放压力）和神经眼科学。愿景20/30 OD和20/20操作系统;没有RAPD; </h5>
+                    </div>
+                @endif
             </div>
+
             <div class="caseDetail_main_similar_pic">
                 <h3 class="caseDetail_main_conment_content_word_username" style="float:none;margin-top:50px;">类似案例及图片</h3>
                 <ul style="margin-top:20px;">
@@ -138,6 +141,3 @@
 @section('script')
 
 @endsection
-
-</body>
-</html>
