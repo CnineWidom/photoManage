@@ -650,7 +650,7 @@ text-align: left;
     box-sizing: border-box;
 }
 .caseDetail_main_conment_content_word_username{
-    width: 150px;
+    /* width: 150px; */
     font-size:20px;
     color: black;
     float: left; 
