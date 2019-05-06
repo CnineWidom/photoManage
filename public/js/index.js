@@ -530,6 +530,7 @@ if ($('.caseDetail_main_content_pic_small'.length > 0)) {
         var src = $(this).css("backgroundImage");
         src = src.split("(\"")[1].split("\")")[0];
 
+        // console.log(src);
         // src = 
         // console.log(src);
 

@@ -75,7 +75,7 @@
     <div style="width:100%;background:rgb(250,250,250);display:inline-block;">
         <div class="layout">
             <div class="caseDetail_main_conment">
-                <form action="" style="position:relative">
+                <form action="detail" method="post" style="position:relative">
                     <h3>评论：</h3>
                     <textarea name="" id=""  placeholder="写下你的想法吧..."></textarea>
                     <h6 class="index_imgdetail_rate caseDetail_main_conment_rate" style="position: absolute;right: 10px;top:135px">
@@ -106,31 +106,12 @@
             <div class="caseDetail_main_similar_pic">
                 <h3 class="caseDetail_main_conment_content_word_username" style="float:none;margin-top:50px;">类似案例及图片</h3>
                 <ul style="margin-top:20px;">
-                    <a href=""> 
-                        <li style="background:rgb(250,250,250);background: url('picture/Group.jpg') no-repeat center;background-size: cover"></li>
-                    </a>
-                    <a href="">
-                        <li style="background:rgb(250,250,250);background: url('picture/pic (2).png') no-repeat center;background-size: cover"></li>
-                    </a>
-                    <a href="">
-                        <li style="background:rgb(250,250,250);background: url('picture/pic (3).png') no-repeat center;background-size: cover">
-                        </li>
-                    </a>
-                    <a href="">
-                        <li style="background:rgb(250,250,250);background: url('picture/pic (4).png') no-repeat center;background-size: cover"></li>
-                    </a>
-                    <a href="">
-                        <li style="background:rgb(250,250,250);background: url('picture/pic (5).png') no-repeat center;background-size: cover"></li>
-                    </a>
-                    <a href="">
-                        <li style="background:rgb(250,250,250);background: url('picture/pic (6).png') no-repeat center;background-size: cover"></li>
-                    </a>
-                    <a href="">
-                        <li style="background:rgb(250,250,250);background: url('picture/pic (7).png') no-repeat center;background-size: cover"></li>
-                    </a>
-                    <a href="">
-                        <li style="background:rgb(250,250,250);background: url('picture/pic (8).png') no-repeat center;background-size: cover"></li>
-                    </a>
+                    @foreach($sameList as $val)
+                        <img src="{{$val->photosTmp}}" alt="">
+                        <a href="{{route('detail')}}/{{$val->baseId }}">
+                            <li style="background:rgb(250,250,250);background-image: url('{{$val->photosTmp}}') no-repeat center;background-size: cover"></li>
+                        </a>
+                    @endforeach
                 </ul>
             </div>
         </div>

@@ -18,6 +18,7 @@ class HomeController extends Controller
     //时间间隔
     public  $timeInval = 5;
     protected $pageCount = 15;
+    protected $defaultImage ;
     /**
      * Create a new controller instance.
      *
@@ -25,6 +26,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
+        $this->defaultImage ="file:///".public_path('upload/images/').'default.png';
         // $this->middleware('auth');
     }
 
@@ -89,6 +91,9 @@ class HomeController extends Controller
     {
         $photoId = base64_decode($request->route('photoId'));
         $nowTime = time();
+
+        //发布
+
         if($photoId){
             $sql = "SELECT *,AVG(`stars`) as `stars` from `p_case_list` as p LEFT JOIN `p_case_star` as s on p.id=s.cid where p.id = $photoId";
             $res = DB::select($sql);
@@ -110,12 +115,8 @@ class HomeController extends Controller
                 }
                 unset($value);
                 foreach ($res as $k => &$val) {
-                    $photos = json_decode($val->photos);
-                    foreach ($photos as $key => &$value) {
-                        $path = public_path()."/".$value;
-                        $val->photosTmp[$key] = $this->baseImg($path);
-                    }
-                    unset($value);
+                    $val->baseId = base64_encode($val->id);
+                    $val->photosTmp = $this->baseArr($val->photos);
                     $val->photoCount = sizeof($val->photosTmp);
                     $keyWordTmp = explode(',',$val->keywords);
                     $val->keyWordTmp = $keyWordTmp;
@@ -124,19 +125,32 @@ class HomeController extends Controller
                     $val->comment = $comment;
                 }
                 unset($val);
+
                 //类似的相关的图例
                 $key = $res[0]->keywords;
                 $keyStr = implode('|',explode(',', $key));
-                $sql = "SELECT * from `p_case_list` WHERE `id` not in({$photoId}) and  `keywords` REGEXP '{$keyStr}' limit 5";
+                $sql = "SELECT * from `p_case_list` WHERE `id` not in({$photoId}) and  `keywords` REGEXP '{$keyStr}' limit 8";
                 $sameList = DB::SELECT($sql);
                 if($sameList){
-                    foreach ($sameList as $k => $v) {
-                        
+                    foreach ($sameList as $k => &$v) {
+                        $v->baseId = base64_encode($v->id);
+                        if($v->photos){
+                            $v->photosTmp = $this->baseArr($v->photos,129,129)[0];
+                        }
+                        else $v->photosTmp = $this->baseImg($this->defaultImage,129,129);
                     }
                 }else{
-                    $sql = "SELECT * from `p_case_list` WHERE `id` not in({$photoId}) order by `created_at` limit 5";
+                    $sql = "SELECT * from `p_case_list` WHERE `id` not in({$photoId}) order by `created_at` limit 8";
                     $sameList = DB::SELECT($sql);
+                    foreach ($sameList as $k => &$v) {
+                        $v->baseId = base64_encode($v->id);
+                        if($v->photos){
+                            $v->photosTmp = $this->baseArr($v->photos,129,129)[0];
+                        }
+                        else $v->photosTmp = $this->baseImg($this->defaultImage,129,129);
+                    }
                 }
+                unset($v);
             }
             else{
                 $code = -1;
@@ -151,8 +165,11 @@ class HomeController extends Controller
             return back()->withErrors(['error'=> $msg],'store');
         }
 
+
+
         $data = [
             'result' => $res[0],
+            'sameList' => $sameList
         ];
         return view('web.pic.pc.caseDetail',$data);
     }
@@ -171,11 +188,23 @@ class HomeController extends Controller
     * 返回加密后的路径
     * @param imgpath 全路径
     */
-    public function baseImg($imgPath){
+    public function baseImg($imgPath,$width=370,$height=370){
         $image = new ImageManager ;
-        $images = $image->make($imgPath)->resize(370,370)->encode('png', 75);
+        $images = $image->make($imgPath)->resize($width,$height)->encode('png', 75);
         $img_encode = 'data:image/png;base64,'. base64_encode($images);
         return $img_encode;
+    }
+
+    /*
+     * 返回所有加密的路径
+     * */
+    public  function baseArr($json,$width=370,$height=370){
+        $photos = json_decode($json);
+        foreach ($photos as $key => &$value) {
+            $path = public_path()."/".$value;
+            $photosTmp[$key] = $this->baseImg($path,$width,$height);
+        }
+        return  $photosTmp;
     }
 
     public function starArr($count)

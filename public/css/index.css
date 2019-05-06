@@ -644,7 +644,8 @@ text-align: left;
     padding-top:39px;
     border-bottom:1px solid rgba(151,151,151,0.3);
     text-align: left;
-    color:rgb(150,150,150)
+    color:rgb(150,150,150);
+    width: 100%;
 }
 .caseDetail_main_conment_content_word{
     display: inline-block;
@@ -664,7 +665,7 @@ opacity: 0.5;
 color: rgba(128, 128, 128, 1);
 font-size: 14px;
 text-align: left;
-margin-top:6px;
+margin-top:20px;
 
 }
 .caseDetail_main_conment_content_word h5{

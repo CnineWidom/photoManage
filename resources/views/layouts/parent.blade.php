@@ -5,8 +5,8 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta content='initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width' name='viewport'>
 	<meta name="csrf-token" content="{{ csrf_token() }}">
-	<link rel="stylesheet" href="{{ URL::asset('css/common.css?190331') }}">
-	<link rel="stylesheet" href="{{ URL::asset('css/index.css?1903303') }}">
+	<link rel="stylesheet" href="{{ URL::asset('css/common.css?190330') }}">
+	<link rel="stylesheet" href="{{ URL::asset('css/index.css?1903313') }}">
 	@section('styleCss')
 		<link rel="stylesheet" href="http://at.alicdn.com/t/font_1030860_kpunaqreyg.css">
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -166,7 +166,7 @@
 <script src='{{URL::asset("js/jquery.min.js")}}'></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src='{{URL::asset("js/index/stackgrid.adem.js")}}'></script>
-<script src='{{URL::asset("js/index.js?1904079")}}'></script>
+<script src='{{URL::asset("js/index.js?1904081")}}'></script>
 
 @section('uploadjs')
 	<script src="https://cdn.bootcss.com/webuploader/0.1.1/webuploader.min.js"></script>

@@ -25,6 +25,7 @@ Route::get('uploadPicture','uploadController@index')->name('upload');
 Route::post('uploadPicture/doupload','uploadController@doupload');
 
 Route::get('detail/{photoId?}','HomeController@showDetail')->name('detail');
+Route::post('detail','HomeController@showDetail');
 
 
 //public html

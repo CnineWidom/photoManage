@@ -86,7 +86,7 @@
                 @foreach ($listMess as $value)
                     <div class='grid-item'>
                         <img src="{{$value->encode_img}}">
-                        <a href="{{route('detail')}}/{{$value->baseId}}">
+                        <a href="{{ route('detail')}}/{{$value->baseId }}">
                             <div class="index_img_mask">
                                 <div class="index_imgdetail">
                                     <h5 class="index_imgdetail_title">{{$value->title}}</h5>
