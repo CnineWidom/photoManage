@@ -524,20 +524,17 @@ $('.pic_content_detail_pic_small').each(function () {
 
 // 案例详情 开始
 if ($('.caseDetail_main_content_pic_small'.length > 0)) {
-    $('.caseDetail_main_content_pic_small li').each(function (j) {
-
-
-        var src = $(this).css("backgroundImage");
-        src = src.split("(\"")[1].split("\")")[0];
+    $(".caseDetail_main_content_pic_big img").attr('src',$('.caseDetail_main_content_pic_small li').eq(0).find('img').attr('src'))
+    $('.caseDetail_main_content_pic_small li img').each(function (j) {
+        var src = $(this).attr("src");
 
         // console.log(src);
         // src = 
         // console.log(src);
 
-        $(this).bind('mouseenter', function () {
+        $(this).bind('mouseover', function () {
 
-            $(this).parent().find('li').css('border', '1px solid rgb(229,229,229)');
-            $(this).css('border', '1px solid red');
+
             if ($(".caseDetail_main_content_pic_big img").attr('src') == src) {
                 return;
             }
@@ -566,17 +563,18 @@ if ($('.caseDetail_main_conment_rate').length > 0) {
         // console.log(index);
 
         $(this).bind('click', function () {
+            var ratenum = 0
             for (var i = 0; i <= index; i++) {
                 $('.caseDetail_main_conment_rate i').eq(i).removeClass('normal_rate');
                 $('.caseDetail_main_conment_rate i').eq(i).addClass('active_rate');
-
+                ratenum++;
             }
 
             for (var i = 4; i > index; i--) {
                 $('.caseDetail_main_conment_rate i').eq(i).removeClass('active_rate');
                 $('.caseDetail_main_conment_rate i').eq(i).addClass('normal_rate');
             }
-
+            $('.ratenum').val(ratenum);
         })
 
     })
