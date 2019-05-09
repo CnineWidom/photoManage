@@ -600,7 +600,7 @@ transform:translate(-50%,-50%);
     border: 1px solid rgb(229,229,229);
 }
 .caseDetail_main_content_pic_small ul li:hover{
-    
+    border: 1px solid red
 }
 .caseDetail_main_content_pic_small ul li:first-child{
     margin-left:0px; 
@@ -608,7 +608,7 @@ transform:translate(-50%,-50%);
 
 .caseDetail_main_content_pic_small ul li img{
     width: 100%;
-
+    height:100%
 }
 .caseDetail_main_conment{
     padding: 0px 10px;
@@ -651,13 +651,15 @@ text-align: left;
     display: inline-block;
     padding: 10px;
     box-sizing: border-box;
-    
 }
 .caseDetail_main_conment_content_word_username{
-    width: 150px;
     font-size:20px;
     color: black;
     float: left; 
+}
+.caseDetail_main_similar_pic li img{
+    width: 100%;
+    height:100%
 }
 .caseDetail_main_conment_content_word span{
 

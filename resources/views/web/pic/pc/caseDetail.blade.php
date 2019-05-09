@@ -34,8 +34,8 @@
                 </div>
                 <div class="caseDetail_main_content_pic_small">
                     <ul>
-                        @foreach ($result->photosTmp as $value) 
-                            <li style="background-image: url('{{$value}}') center;background-size:cover"></li>
+                        @foreach ($result->photosTmp as $value)
+                            <li><img src="{{$value}}" alt=""></li>
                         @endforeach
                     </ul>
                     <div><i></i></div>
@@ -77,6 +77,7 @@
             <div class="caseDetail_main_conment">
                 <form action="detail" method="post" style="position:relative">
                     <h3>评论：</h3>
+                    <input type="hidden" value="0" class='ratenum'/>
                     <textarea name="" id=""  placeholder="写下你的想法吧..."></textarea>
                     <h6 class="index_imgdetail_rate caseDetail_main_conment_rate" style="position: absolute;right: 10px;top:135px">
                         <i class="iconfont icon-tuanjianrongcopy normal_rate"></i>
@@ -97,7 +98,7 @@
                 <div class="caseDetail_main_conment_content">
                     <div class="caseDetail_main_conment_content_word">
                         <h3 class="caseDetail_main_conment_content_word_username">{{ $value->userMess }}</h3>
-                        <span style="float:left">{{ $value->timeInter }}</span><br>
+                        <span style="float:left;margin-left:49px">{{ $value->timeInter }}</span><br>
                         <h5> {{ $value->content }}</h5>
                     </div>
                 </div>
@@ -107,9 +108,11 @@
                 <h3 class="caseDetail_main_conment_content_word_username" style="float:none;margin-top:50px;">类似案例及图片</h3>
                 <ul style="margin-top:20px;">
                     @foreach($sameList as $val)
-                        <img src="{{$val->photosTmp}}" alt="">
+
                         <a href="{{route('detail')}}/{{$val->baseId }}">
-                            <li style="background:rgb(250,250,250);background-image: url('{{$val->photosTmp}}') no-repeat center;background-size: cover"></li>
+                            <li>
+                                <img src="{{$val->photosTmp}}" alt="">
+                            </li>
                         </a>
                     @endforeach
                 </ul>
