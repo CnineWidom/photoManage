@@ -164,6 +164,7 @@ font-family: "微软雅黑";
 .index_pic ul li{
     margin-left: 23px!important;
     /* box-sizing: border-box; */
+    border:13px solid rgba(48,79,146,0)
 }
 .index_pic ul li:hover{
     border:13px solid rgba(48,79,146,1)
