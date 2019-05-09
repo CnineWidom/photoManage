@@ -154,6 +154,20 @@ font-family: "微软雅黑";
 /* font-weight: bold */
 
 }
+
+.index_pic ul{
+    background:white;
+    display: inline-block;
+    padding-top:9px;
+    padding-bottom:9px
+}
+.index_pic ul li{
+    margin-left: 23px!important;
+    /* box-sizing: border-box; */
+}
+.index_pic ul li:hover{
+    border:13px solid rgba(48,79,146,1)
+}
 .index_nav ul li a{
     color: rgb(42,42,42); 
 }
@@ -163,7 +177,7 @@ font-family: "微软雅黑";
 }
 .share{
     width: 360px;
-    height:440px;
+    height:240px;
     
 }
 .share_word{
@@ -685,7 +699,6 @@ font-size: 16px;
 }
 .caseDetail_main_similar_pic{
     width: 100%;
-    height: 132px;
 }
 .caseDetail_main_similar_pic ul li:first{
     margin-left:0px;
