@@ -90,8 +90,12 @@ class HomeController extends Controller
     public function showDetail(createRequest $request)
     {
         $photoId = base64_decode($request->route('photoId'));
+        $action = $request->route('up');
+        echo  $action;
+        if($action){
+            echo 456;
+        }
         $nowTime = time();
-
         //发布
 
         if($photoId){
@@ -157,10 +161,15 @@ class HomeController extends Controller
                 $msg = '没有数据';
             }
         }
-        else{
-            $code = -1;
-             $msg = '参数错误';
-        }
+        // elseif(){
+        // if($request->has('recode')){
+        //     echo 123;
+        //     $name = $request->input('recode');
+        //     $star = (int)$request->input('star');
+        // }
+            // $code = -1;
+            //  $msg = '参数错误';
+        // }
         if($code < 0){
             return back()->withErrors(['error'=> $msg],'store');
         }
