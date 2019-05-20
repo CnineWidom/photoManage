@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Users;
 use App\Models\Cases;
-use App\Models\CasesComment;
-use Encore\Admin\Grid\Model;
+use App\Models\CaseStar;
+use App\Models\CaseComment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\createRequest;
@@ -96,7 +96,7 @@ class HomeController extends Controller
             $res = DB::select($sql);
             if($res){
                 $comment = [];
-                $comment = Cases::find($photoId)->caseComment()->get();
+                $comment = Cases::find($photoId)->caseComment()->orderBy('created_at','desc')->limit($this->pageCount)->get();
                 foreach($comment as  $key=>&$value ){
                     $userMess = Users::find($value->uid)->get();
                     if($userMess){
@@ -137,7 +137,7 @@ class HomeController extends Controller
                         else $v->photosTmp = $this->baseImg($this->defaultImage,129,129);
                     }
                 }else{
-                    $sql = "SELECT * from `p_case_list` WHERE `id` not in({$photoId}) order by `created_at` limit 8";
+                    $sql = "SELECT * from `p_case_list` WHERE `id` not in({$photoId}) order by `created_at` desc limit 8";
                     $sameList = DB::SELECT($sql);
                     foreach ($sameList as $k => &$v) {
                         $v->baseId = base64_encode($v->id);
@@ -174,12 +174,13 @@ class HomeController extends Controller
         $content = $request->post('content');
         $photoId = base64_decode($request->route('photoId'));
         $starCount = (int)$request->post('starCount');
+        $starCount = $starCount ==0 ? 1 : $starCount;
         $uid =  Auth::id();
         $nowtime = time();
-        $commentLimit = CasesComment::where(function($query)use($uid,$photoId,$nowtime){
+        $commentLimit = CaseComment::where(function($query)use($uid,$photoId,$nowtime){
             $query->where(['uid'=>$uid,'cid'=>$photoId]);
             $query->where('created_at','>',$nowtime-500);
-        })->orderBy('created_at','desc')->first();
+        })->orderBy('created_at','desc')->limit(1)->get();
         if($commentLimit->isEmpty()){
             $updateData = [
                 'content' => $content,
@@ -187,6 +188,13 @@ class HomeController extends Controller
                 'uid' => $uid,
                 'create_at' => $nowtime,
             ];
+            $starData = [
+                'cid' => $photoId,
+                'uid' => $uid,
+                'stars' => $starCount
+            ];
+            $id = CaseComment::create($updateData);
+            $sid = CaseStar::create($starData);
         }
         return $this->showdetail($request);
     }
