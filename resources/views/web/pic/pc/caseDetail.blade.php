@@ -75,10 +75,11 @@
     <div style="width:100%;background:rgb(250,250,250);display:inline-block;">
         <div class="layout">
             <div class="caseDetail_main_conment">
-                <form action="detail" method="post" style="position:relative">
+                <form action="/detail1/{{$result->baseId}}" method="post" style="position:relative">
+                    {{ csrf_field() }}
                     <h3>评论：</h3>
-                    <input type="hidden" value="0" class='ratenum'/>
-                    <textarea name="" id=""  placeholder="写下你的想法吧..."></textarea>
+                    <input type="hidden" value="0" name="starCount" class='ratenum'/>
+                    <textarea name="content" id=""  placeholder="写下你的想法吧..."></textarea>
                     <h6 class="index_imgdetail_rate caseDetail_main_conment_rate" style="position: absolute;right: 10px;top:135px">
                         <i class="iconfont icon-tuanjianrongcopy normal_rate"></i>
                         <i class="iconfont icon-tuanjianrongcopy normal_rate"></i>
@@ -86,8 +87,8 @@
                         <i class="iconfont icon-tuanjianrongcopy normal_rate"></i>
                         <i class="iconfont icon-tuanjianrongcopy normal_rate"></i>
                     </h6>
+                    <input type="submit" class='share_button' style="float:right" value="发表评论">
                 </form>
-                <button class='share_button' style="float:right">发表评论</button>
             </div>
             @if( count($result->comment) == 0)
                 <div class="caseDetail_main_conment_content">

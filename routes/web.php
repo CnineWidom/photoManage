@@ -24,8 +24,8 @@ Route::get('uploadPicture','uploadController@index')->name('upload');
 
 Route::post('uploadPicture/doupload','uploadController@doupload');
 
+Route::post('detail1/{photoId?}','HomeController@upComment');
 Route::get('detail/{photoId?}','HomeController@showDetail')->name('detail');
-Route::post('detail','HomeController@showDetail');
 
 
 //public html

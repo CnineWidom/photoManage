@@ -27,7 +27,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->defaultImage ="file:///".public_path('upload/images/').'default.png';
-        // $this->middleware('auth');
+        $this->middleware('myAuth',['only'=>['upComment']]);
     }
 
     /**
@@ -91,9 +91,6 @@ class HomeController extends Controller
     {
         $photoId = base64_decode($request->route('photoId'));
         $nowTime = time();
-
-        //发布
-
         if($photoId){
             $sql = "SELECT *,AVG(`stars`) as `stars` from `p_case_list` as p LEFT JOIN `p_case_star` as s on p.id=s.cid where p.id = $photoId";
             $res = DB::select($sql);
@@ -164,14 +161,34 @@ class HomeController extends Controller
         if($code < 0){
             return back()->withErrors(['error'=> $msg],'store');
         }
-
-
-
         $data = [
             'result' => $res[0],
             'sameList' => $sameList
         ];
         return view('web.pic.pc.caseDetail',$data);
+    }
+
+    //发布评论
+    public function upComment(createRequest $request)
+    {
+        $content = $request->post('content');
+        $photoId = base64_decode($request->route('photoId'));
+        $starCount = (int)$request->post('starCount');
+        $uid =  Auth::id();
+        $nowtime = time();
+        $commentLimit = CasesComment::where(function($query)use($uid,$photoId,$nowtime){
+            $query->where(['uid'=>$uid,'cid'=>$photoId]);
+            $query->where('created_at','>',$nowtime-500);
+        })->orderBy('created_at','desc')->first();
+        if($commentLimit->isEmpty()){
+            $updateData = [
+                'content' => $content,
+                'cid' => $photoId,
+                'uid' => $uid,
+                'create_at' => $nowtime,
+            ];
+        }
+        return $this->showdetail($request);
     }
 
     public function getAuthLogin($request)
