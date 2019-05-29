@@ -243,6 +243,7 @@ INSERT INTO `p_case_comment` VALUES (3, 17, 4, '电饭锅电饭锅电饭锅', 15
 DROP TABLE IF EXISTS `p_case_list`;
 CREATE TABLE `p_case_list`  (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL  COMMENT '发布用户id',
   `title` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '标题',
   `keywords` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '关键词(多个，号隔开)',
   `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '说明',
@@ -262,13 +263,13 @@ CREATE TABLE `p_case_list`  (
 -- ----------------------------
 -- Records of p_case_list
 -- ----------------------------
-INSERT INTO `p_case_list` VALUES (17, '血常规社认为', 'sdf.sdf.sdf', '是大佛is几点封山的', '水电费水电费', '胜多负少的', 1550910462, 1555324761, '[\"images\\/d99d17d8b3db079bc8154f12b2d63a43.png\",\"images\\/7b686295f60ed30095227bb9a4ef3df0.png\",\"images\\/a455d09c12455330be4b25d4e1932126.png\"]', 0, 0);
-INSERT INTO `p_case_list` VALUES (11, 'sdf 水电费', '23', '23水电费胜多负少', '说的', '胜多负少', 1549963210, 1555324645, '', 0, 1);
-INSERT INTO `p_case_list` VALUES (12, 'sdf 水电费', '23', '23水电费胜多负少', '说的', '胜多负少', 1549963254, 1555324645, '', 0, 1);
-INSERT INTO `p_case_list` VALUES (13, '梵蒂冈的', '地方', '大范甘迪很反感和发过火', '23', '凡事都给对方', 1549963373, 1555324645, '', 0, 1);
-INSERT INTO `p_case_list` VALUES (14, '梵蒂冈的', '地方', '大范甘迪很反感和发过火', '23', '凡事都给对方', 1549963485, 1555324645, '', 0, 1);
-INSERT INTO `p_case_list` VALUES (15, '胜多负少的', '水电费少说点', '胜多负少胜多负少的胜多负少', '水电费', '2水电费', 1550047701, 1555324761, '', 0, 0);
-INSERT INTO `p_case_list` VALUES (16, '豆腐干豆腐', '的电饭锅', '电饭锅电饭锅的', '地方', '电饭锅', 1550048039, 1555324761, '[\"images\\/\\u5fae\\u4fe1\\u56fe\\u7247_20190121112749.png\",\"images\\/\\u5fae\\u4fe1\\u56fe\\u7247_20190121112756.png\",\"images\\/\\u5fae\\u4fe1\\u56fe\\u7247_20190121112800.png\"]', 0, 0);
+INSERT INTO `p_case_list` VALUES (17,13, '血常规社认为', 'sdf.sdf.sdf', '是大佛is几点封山的', '水电费水电费', '胜多负少的', 1550910462, 1555324761, '[\"images\\/d99d17d8b3db079bc8154f12b2d63a43.png\",\"images\\/7b686295f60ed30095227bb9a4ef3df0.png\",\"images\\/a455d09c12455330be4b25d4e1932126.png\"]', 0, 0);
+INSERT INTO `p_case_list` VALUES (11,14,'sdf 水电费', '23', '23水电费胜多负少', '说的', '胜多负少', 1549963210, 1555324645, '', 0, 1);
+INSERT INTO `p_case_list` VALUES (12,13,'sdf 水电费', '23', '23水电费胜多负少', '说的', '胜多负少', 1549963254, 1555324645, '', 0, 1);
+INSERT INTO `p_case_list` VALUES (13,13,'梵蒂冈的', '地方', '大范甘迪很反感和发过火', '23', '凡事都给对方', 1549963373, 1555324645, '', 0, 1);
+INSERT INTO `p_case_list` VALUES (14,14,'梵蒂冈的', '地方', '大范甘迪很反感和发过火', '23', '凡事都给对方', 1549963485, 1555324645, '', 0, 1);
+INSERT INTO `p_case_list` VALUES (15,13,'胜多负少的', '水电费少说点', '胜多负少胜多负少的胜多负少', '水电费', '2水电费', 1550047701, 1555324761, '', 0, 0);
+INSERT INTO `p_case_list` VALUES (16,14,'豆腐干豆腐', '的电饭锅', '电饭锅电饭锅的', '地方', '电饭锅', 1550048039, 1555324761, '[\"images\\/\\u5fae\\u4fe1\\u56fe\\u7247_20190121112749.png\",\"images\\/\\u5fae\\u4fe1\\u56fe\\u7247_20190121112756.png\",\"images\\/\\u5fae\\u4fe1\\u56fe\\u7247_20190121112800.png\"]', 0, 0);
 
 -- ----------------------------
 -- Table structure for p_case_photo

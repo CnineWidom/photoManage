@@ -75,7 +75,7 @@
     <div style="width:100%;background:rgb(250,250,250);display:inline-block;">
         <div class="layout">
             <div class="caseDetail_main_conment">
-                <form action="/detail1/{{$result->baseId}}" method="post" style="position:relative">
+                <form action="/detail/{{$result->baseId}}" method="post" style="position:relative">
                     {{ csrf_field() }}
                     <h3>评论：</h3>
                     <input type="hidden" value="0" name="starCount" class='ratenum'/>

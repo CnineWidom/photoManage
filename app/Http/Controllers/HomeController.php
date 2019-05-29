@@ -92,14 +92,14 @@ class HomeController extends Controller
         $photoId = base64_decode($request->route('photoId'));
         $nowTime = time();
         if($photoId){
-            $sql = "SELECT *,AVG(`stars`) as `stars` from `p_case_list` as p LEFT JOIN `p_case_star` as s on p.id=s.cid where p.id = $photoId";
+            $sql = "SELECT p.*,AVG(`stars`) as `stars` from `p_case_list` as p LEFT JOIN `p_case_star` as s on p.id=s.cid where p.id = $photoId";
             $res = DB::select($sql);
             if($res){
                 $comment = [];
                 $comment = Cases::find($photoId)->caseComment()->orderBy('created_at','desc')->limit($this->pageCount)->get();
                 foreach($comment as  $key=>&$value ){
-                    $userMess = Users::find($value->uid)->get();
-                    if($userMess){
+                    $userMess = Users::where('id',$value->uid)->get();
+                    if(!$userMess->isEmpty()){
                         $value->userMess = empty($userMess[0]->nick_name) ? $userMess[0]->user_name : $userMess[0]->nick_name;
                     }
                     else $value->userMess = "****";
@@ -161,10 +161,13 @@ class HomeController extends Controller
         if($code < 0){
             return back()->withErrors(['error'=> $msg],'store');
         }
+
         $data = [
             'result' => $res[0],
             'sameList' => $sameList
         ];
+
+
         return view('web.pic.pc.caseDetail',$data);
     }
 
@@ -196,6 +199,7 @@ class HomeController extends Controller
             $id = CaseComment::create($updateData);
             $sid = CaseStar::create($starData);
         }
+        else $code = -1;
         return $this->showdetail($request);
     }
 
