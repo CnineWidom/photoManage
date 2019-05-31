@@ -11,6 +11,7 @@
 @section('modal')
     @parent
 @endsection
+
 @section('content')
     <div class="caseDetail_main">
         <div class="caseDetail_main_nav">
@@ -71,7 +72,6 @@
             </div>
         </div>
     </div>
-
     <div style="width:100%;background:rgb(250,250,250);display:inline-block;">
         <div class="layout">
             <div class="caseDetail_main_conment">
@@ -90,6 +90,8 @@
                     <input type="submit" class='share_button' style="float:right" value="发表评论">
                 </form>
             </div>
+            @include('flash::message')
+
             @if( count($result->comment) == 0)
                 <div class="caseDetail_main_conment_content">
                     <p style="text-align:center;">暂无评论</p>
@@ -126,5 +128,10 @@
 @endsection
 
 @section('script')
-
+<script>
+    $(function(){
+        $('#flash-overlay-modal').modal();
+    })
+    
+</script>
 @endsection

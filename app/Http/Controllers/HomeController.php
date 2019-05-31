@@ -26,7 +26,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->defaultImage ="file:///".public_path('upload/images/').'default.png';
+        $this->defaultImage = public_path('upload/images/').'default.png';
         $this->middleware('myAuth',['only'=>['upComment']]);
     }
 
@@ -67,8 +67,12 @@ class HomeController extends Controller
             $value->photographer = empty($value->photographer) ? $value->author : $value->photographer;
             $photo = $value->photos;
             if($photo){
-                $photoArr = json_decode($photo);
+                $photoArr = json_decode($photo,1);
                 $photoFirst = public_path()."/".$photoArr[0];
+                $img_encode = $this->baseImg($photoFirst);
+                $value->encode_img = $img_encode;
+            }else{
+                $photoFirst = $this->defaultImage;
                 $img_encode = $this->baseImg($photoFirst);
                 $value->encode_img = $img_encode;
             }
@@ -87,14 +91,14 @@ class HomeController extends Controller
         return view('web.pic.pc.index',$data);
     }
 
-    public function showDetail(createRequest $request)
+    public function showDetail(createRequest $request,$code=0)
     {
         $photoId = base64_decode($request->route('photoId'));
         $nowTime = time();
         if($photoId){
-            $sql = "SELECT p.*,AVG(`stars`) as `stars` from `p_case_list` as p LEFT JOIN `p_case_star` as s on p.id=s.cid where p.id = $photoId";
-            $res = DB::select($sql);
-            if($res){
+            $sql = "SELECT p.*,AVG(`stars`) as `stars` from `p_case_list` as p LEFT JOIN `p_case_star` as s on p.id=s.cid where p.id =:photoId";
+            $res = DB::select($sql,['photoId' => $photoId]);
+            if(!empty($res[0]->id)){
                 $comment = [];
                 $comment = Cases::find($photoId)->caseComment()->orderBy('created_at','desc')->limit($this->pageCount)->get();
                 foreach($comment as  $key=>&$value ){
@@ -148,26 +152,26 @@ class HomeController extends Controller
                     }
                 }
                 unset($v);
-            }
-            else{
-                $code = -1;
-                $msg = '没有数据';
+            }else{
+                $code = -2;
             }
         }
         else{
             $code = -1;
-             $msg = '参数错误';
         }
+
         if($code < 0){
+            $msg = $this->getReturnMsg($code);
             return back()->withErrors(['error'=> $msg],'store');
+        }
+        elseif($code > 0){
+            flash($this->getReturnMsg($code))->success();
         }
 
         $data = [
             'result' => $res[0],
             'sameList' => $sameList
         ];
-
-
         return view('web.pic.pc.caseDetail',$data);
     }
 
@@ -198,19 +202,10 @@ class HomeController extends Controller
             ];
             $id = CaseComment::create($updateData);
             $sid = CaseStar::create($starData);
+            $code = 1;
         }
-        else $code = -1;
-        return $this->showdetail($request);
-    }
-
-    public function getAuthLogin($request)
-    {
-        $session =$request->session()->all();
-        if(!empty($session['warn'])) {
-            $this ->loginType = $session['warn']['code'];
-            $this ->msg = $session['warn']['message'];
-            flash($this ->msg)->error()->important();
-        }
+        else $code = -4;
+        return $this->showdetail($request,$code);
     }
 
     /*
@@ -219,9 +214,14 @@ class HomeController extends Controller
     */
     public function baseImg($imgPath,$width=370,$height=370){
         $image = new ImageManager ;
+        if(!is_readable($imgPath)){
+           $imgPath = $this->defaultImage;
+        }
+
         $images = $image->make($imgPath)->resize($width,$height)->encode('png', 75);
         $img_encode = 'data:image/png;base64,'. base64_encode($images);
         return $img_encode;
+       
     }
 
     /*
@@ -246,5 +246,34 @@ class HomeController extends Controller
             }
         }
         return $starArr;
+    }
+
+    public function getAuthLogin($request)
+    {
+        $session =$request->session()->all();
+        if(!empty($session['warn'])) {
+            $this->loginType = $session['warn']['code'];
+            $this->msg = $session['warn']['message'];
+            flash($this->msg)->error()->important();
+        }
+    }
+
+    public function getReturnMsg($code){
+        // 错误 或者需要返回给前端的
+        if($code < 0 ){
+            $msg=[
+                '-1' => '参数错误',
+                '-2' => '没有数据',
+                '-3' => '发布失败',
+                '-4' => '你已经发过一次了'
+            ];
+        }
+        else{
+            $msg=[
+                '1' => '发布成功',
+            ];
+        }
+
+        return $msg[$code];
     }
 }
