@@ -14,7 +14,6 @@
 @endsection
 
 @section('content')
-	@include('flash::message')
 	<div class="share">
         <div style='background: rgba(242,242,242,.2);padding-right: 2px'>
             <h2 class='share_word_topic'>浏览·分享·学习</h2>
@@ -118,7 +117,7 @@
 @section('script')
 	@parent
 	<script>
-		$(function() {
+		(function() {
 		    $('.pic_content_mask').show();
 		    var picwidth = $(".pic").width()-75;
 		        var eachwidth = picwidth/4;
@@ -224,7 +223,6 @@
         })
         $('.pic_nav_type ul li').removeClass('pic_nav_type_li_active')
         $(".pic_nav_type ul li:eq({{$id}})").addClass('pic_nav_type_li_active')
-        $('#flash-overlay-modal').modal();
 	</script>
 @endsection
 

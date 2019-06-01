@@ -1,3 +1,8 @@
+@extends('layouts.parent')
+@section('styleCss')
+    @parent
+@endsection
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,6 +34,7 @@
                 </div>
                 
     </div>
+
     <table class="caseManager_table" style='text-align:center;width:90%;margin-left:5%;'>
         <tr class='table_title' height='30' style="background:rgb(48,79,146);line-height:30px;color: rgb(243,243,243)">
             <td width='10%'> 

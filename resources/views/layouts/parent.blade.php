@@ -13,6 +13,8 @@
 	@show
 	<title>@yield('title')</title>
 </head>
+
+
 <style>
 	.body{
 		background-color:rgb(250,250,250);
@@ -21,6 +23,18 @@
 	}
 	.body2{
 		background:url({{ URL::asset("assest/pic2.png")}})  repeat-y left 20%;
+	}
+	.alert {
+	    padding: 10px;
+	    border: 1px solid transparent;
+	    border-radius: 4px;
+	    position: fixed;
+	    width: inherit;
+	    right: 15%;
+	    top: 0;
+	    opacity: 0.7;
+	    text-align: center;
+	    font-size: 15px;
 	}
 </style>
 
@@ -50,57 +64,56 @@
 						<span class='index_login_span'>登录</span> |
 						<span class='index_register_span'> <a href="{{route('register')}}" style="color:rgb(39,39,39)">注册</a></span>
 					</span>
-				@endauth
-			</div>
-		</div>
-	@show
-
-	@section('modal')
-		<div class="mask" style='position: absolute;width: 100%;top:0px;left:0px;height:2069px;background:rgb(0,0,0,0.39);z-index: 89;display:none'>
-		</div>
-		<form class='index_login_form' action="{{ route('login') }}" id='login_form' method="POST" style="position:fixed;top:10%;height: 582.4px;width:976px;display:none;background:white;left:50%;margin-left:-488px;z-index: 99">
-			{{ csrf_field() }}
-			<div style="position:absolute;right:29px;top:29px;cursor: pointer;">
-				<i class='iconfont icon-jiaocha index_login_form_close' style='color:rgba(109,109,109,0.5);font-size:32px;'></i>
-			</div>
-			<div style='width: 453.6px;margin:0px auto;'>
-				<img src="{{URL::asset('/assest/logoblue.png')}}" width="100%" style='margin-top:69px;'>
-				<!-- 用户名 -->
-				<div id='username' class="form_item" style="margin-top:50px;width:100%;border: 1px solid rgb(48,79,146,0.49)">
-					<i class="icon iconfont icon-lufu" style='color:rgba(48,79,146,0.79)'></i>
-					<input type="text" name='phone_number' autocomplete="off" class='login_input input' style="width:399px;color: rgb(39,39,39)" placeholder="手机号">
+					@endauth
 				</div>
-				@if ($errors->has('phone_number'))
-					<p>手机号码错误</p>
-				@endif
-			<!-- 密码 -->
-				<div id='password' class="form_item" style="margin-top:30px;width:100%;border: 1px solid rgb(48,79,146,0.49)">
-					<i class="icon iconfont icon-password" style='color:rgba(48,79,146,0.79)'></i>
-					<input type="password" name='password' class='login_input input' id='password_input' style="width:399px;color: rgb(39,39,39)" placeholder="密码">
-				</div>
-				@if ($errors->has('password'))
-					<p>密码错误</p>
-				@endif
-			<!-- cookie是否自动登录 -->
-				<input type="hidden" name='loginflag' id='loginflag' value="false">
-				<!-- 此处是验证信息 开始 后端如果需要验证可以再此处添加提示信息，前端已经做了初步的认证，如果后端需要的就在此处添加-->
-				<div id='tip'></div>
-				<!-- 此处是验证信息 结束-->
+			</div>
+			@include('flash::message')
+		@show
 
-				<button type='submit' class="button" style="width:100%">登陆</button>
-				<div id='link' style="color:black;width:100%">
-					<div style='float:left;font-size:14px'>
-						<i class="iconfont icon-check-box-outline-bl" id='cookie' style="cursor:pointer"></i>&nbsp;记住密码
+		@section('modal')
+			<div class="mask" style='position: absolute;width: 100%;top:0px;left:0px;height:2069px;background:rgb(0,0,0,0.39);z-index: 89;display:none'>
+			</div>
+			<form class='index_login_form' action="{{ route('login') }}" id='login_form' method="POST" style="position:fixed;top:10%;height: 582.4px;width:976px;display:none;background:white;left:50%;margin-left:-488px;z-index: 99">
+				{{ csrf_field() }}
+				<div style="position:absolute;right:29px;top:29px;cursor: pointer;">
+					<i class='iconfont icon-jiaocha index_login_form_close' style='color:rgba(109,109,109,0.5);font-size:32px;'></i>
+				</div>
+				<div style='width: 453.6px;margin:0px auto;'>
+					<img src="{{URL::asset('/assest/logoblue.png')}}" width="100%" style='margin-top:69px;'>
+					<!-- 用户名 -->
+					<div id='username' class="form_item" style="margin-top:50px;width:100%;border: 1px solid rgb(48,79,146,0.49)">
+						<i class="icon iconfont icon-lufu" style='color:rgba(48,79,146,0.79)'></i>
+						<input type="text" name='phone_number' autocomplete="off" class='login_input input' style="width:399px;color: rgb(39,39,39)" placeholder="手机号">
 					</div>
-					<a href="{{route('register')}}" id='register' style="color:rgb(39,39,39)">尚未注册</a>
-					|
-					<a href="{{ route('password.request') }}" style="color:rgb(39,39,39)">忘记密码？</a>
+					@if ($errors->has('phone_number'))
+						<p>手机号码错误</p>
+					@endif
+				<!-- 密码 -->
+					<div id='password' class="form_item" style="margin-top:30px;width:100%;border: 1px solid rgb(48,79,146,0.49)">
+						<i class="icon iconfont icon-password" style='color:rgba(48,79,146,0.79)'></i>
+						<input type="password" name='password' class='login_input input' id='password_input' style="width:399px;color: rgb(39,39,39)" placeholder="密码">
+					</div>
+					@if ($errors->has('password'))
+						<p>密码错误</p>
+					@endif
+				<!-- cookie是否自动登录 -->
+					<input type="hidden" name='loginflag' id='loginflag' value="false">
+					<!-- 此处是验证信息 开始 后端如果需要验证可以再此处添加提示信息，前端已经做了初步的认证，如果后端需要的就在此处添加-->
+					<div id='tip'></div>
+					<!-- 此处是验证信息 结束-->
+
+					<button type='submit' class="button" style="width:100%">登陆</button>
+					<div id='link' style="color:black;width:100%">
+						<div style='float:left;font-size:14px'>
+							<i class="iconfont icon-check-box-outline-bl" id='cookie' style="cursor:pointer"></i>&nbsp;记住密码
+						</div>
+						<a href="{{route('register')}}" id='register' style="color:rgb(39,39,39)">尚未注册</a>
+						|
+						<a href="{{ route('password.request') }}" style="color:rgb(39,39,39)">忘记密码？</a>
+					</div>
 				</div>
-				@include('flash::message')
-			</div>
-			<!-- </form> -->
-		</form>
-	@show
+			</form>
+		@show
 
 	    @section('content')
 			<p>主要内容存放</p>
@@ -178,6 +191,7 @@
 
 <script>
 	$('#flash-overlay-modal').modal();
+	$('div.alert').not('.alert-important').delay(2000).fadeOut(350);
 	var islogin = '{{ $loginType }}' 
 	if (islogin === '-1' ){
 		$('.mask').fadeIn('fast');

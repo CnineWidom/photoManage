@@ -91,7 +91,7 @@ class HomeController extends Controller
         return view('web.pic.pc.index',$data);
     }
 
-    public function showDetail(createRequest $request,$code=0)
+    public function showDetail(createRequest $request,$photoId,$code = 0)
     {
         $photoId = base64_decode($request->route('photoId'));
         $nowTime = time();
@@ -140,6 +140,7 @@ class HomeController extends Controller
                         }
                         else $v->photosTmp = $this->baseImg($this->defaultImage,129,129);
                     }
+                    unset($v);
                 }else{
                     $sql = "SELECT * from `p_case_list` WHERE `id` not in({$photoId}) order by `created_at` desc limit 8";
                     $sameList = DB::SELECT($sql);
@@ -150,24 +151,18 @@ class HomeController extends Controller
                         }
                         else $v->photosTmp = $this->baseImg($this->defaultImage,129,129);
                     }
+                    unset($v);
                 }
-                unset($v);
             }else{
                 $code = -2;
+                $back = 1;
             }
         }
         else{
             $code = -1;
+            $back = 1;
         }
-
-        if($code < 0){
-            $msg = $this->getReturnMsg($code);
-            return back()->withErrors(['error'=> $msg],'store');
-        }
-        elseif($code > 0){
-            flash($this->getReturnMsg($code))->success();
-        }
-
+        $msg = $this->getReturnMsg($code,$back);
         $data = [
             'result' => $res[0],
             'sameList' => $sameList
@@ -189,23 +184,34 @@ class HomeController extends Controller
             $query->where('created_at','>',$nowtime-500);
         })->orderBy('created_at','desc')->limit(1)->get();
         if($commentLimit->isEmpty()){
-            $updateData = [
-                'content' => $content,
-                'cid' => $photoId,
-                'uid' => $uid,
-                'create_at' => $nowtime,
-            ];
-            $starData = [
-                'cid' => $photoId,
-                'uid' => $uid,
-                'stars' => $starCount
-            ];
-            $id = CaseComment::create($updateData);
-            $sid = CaseStar::create($starData);
-            $code = 1;
-        }
-        else $code = -4;
-        return $this->showdetail($request,$code);
+            $comment = CaseComment::where(function($query)use($uid,$photoId,$nowtime){
+                $query->where(['uid'=>$uid,'cid'=>$photoId]);
+            })->orderBy('created_at','desc')->limit(1)->get();
+            if($comment->isEmpty()){
+                $updateData = [
+                    'content' => $content,
+                    'cid' => $photoId,
+                    'uid' => $uid,
+                    'create_at' => $nowtime,
+                ];
+                $starData = [
+                    'cid' => $photoId,
+                    'uid' => $uid,
+                    'stars' => $starCount
+                ];
+                $id = CaseComment::create($updateData);
+                $sid = CaseStar::create($starData);
+                $code = 1;
+            }else $code = -4;
+        }else $code = -5;
+        return $this->showdetail($request,$photoId,$code);
+    }
+
+    //个人信息
+    public function getMine(createRequest $request)
+    {
+        $data = [];
+        return view('web.pic.pc.caseManager',$data);
     }
 
     /*
@@ -258,20 +264,33 @@ class HomeController extends Controller
         }
     }
 
-    public function getReturnMsg($code){
+    /*
+    * @param code 错误代码
+    * @param isback 是否需要跳回上一页
+    */
+    public function getReturnMsg($code,$isback = 0){
         // 错误 或者需要返回给前端的
         if($code < 0 ){
             $msg=[
                 '-1' => '参数错误',
                 '-2' => '没有数据',
                 '-3' => '发布失败',
-                '-4' => '你已经发过一次了'
+                '-4' => '暂时只能评论一次哦',
+                '-5' => '太快了，休息一下'
             ];
+            if($isback){
+                return back()->withErrors(['error'=> $msg[$code]],'store');
+            }
+            flash($msg[$code])->error()->important();
         }
-        else{
+        elseif($code > 0){
             $msg=[
                 '1' => '发布成功',
             ];
+            if($isback){
+                return back()->withErrors(['error'=> $msg[$code]],'store');
+            }
+            flash($msg[$code])->success();
         }
 
         return $msg[$code];
