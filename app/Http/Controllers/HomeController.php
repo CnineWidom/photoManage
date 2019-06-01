@@ -27,7 +27,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->defaultImage = public_path('upload/images/').'default.png';
-        $this->middleware('myAuth',['only'=>['upComment']]);
+        $this->middleware('myAuth',['only'=>['upComment','getMine']]);
     }
 
     /**
@@ -39,7 +39,7 @@ class HomeController extends Controller
     {
         $this->getAuthLogin($request);
         $sql = "select * from p_case_list";
-        $where = ' where `issue` = 1 ';
+        $where = ' where `issue` = 0 ';
         if($request->get('search'))
         {
             $search = $request->get('search');
@@ -96,7 +96,7 @@ class HomeController extends Controller
         $photoId = base64_decode($request->route('photoId'));
         $nowTime = time();
         if($photoId){
-            $sql = "SELECT p.*,AVG(`stars`) as `stars` from `p_case_list` as p LEFT JOIN `p_case_star` as s on p.id=s.cid where p.id =:photoId";
+            $sql = "SELECT p.*,AVG(`stars`) as `stars` from `p_case_list` as p LEFT JOIN `p_case_star` as s on p.id=s.cid where p.id =:photoId AND p.issue =0";
             $res = DB::select($sql,['photoId' => $photoId]);
             if(!empty($res[0]->id)){
                 $comment = [];
@@ -210,7 +210,15 @@ class HomeController extends Controller
     //个人信息
     public function getMine(createRequest $request)
     {
-        $data = [];
+        $uid = Auth::id();
+        $mineList = Cases::where(function($query)use($uid){
+            $query->where('uid',$uid);
+            $query->where('issue',0);
+        })->orderBy('created_at','desc')->get();
+
+        $data = [
+
+        ];
         return view('web.pic.pc.caseManager',$data);
     }
 

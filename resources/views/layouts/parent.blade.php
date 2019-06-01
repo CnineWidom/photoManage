@@ -53,7 +53,7 @@
 	            </div>
 	            <div class='index_user'>
 					@auth
-						<a href="javascript:void(0);" style="font-weight:bold">{{Auth::user()->user_name}}</a>  
+						<a href="{{ route('mine') }}" style="font-weight:bold;color: #337ab7;background-color: transparent;">{{Auth::user()->user_name}}</a>  
 						<a href="{{ route('logout') }}" class='index_loginout' onclick="event.preventDefault();document.getElementById('logout-form').submit();"
 						style="opacity: 0.5;color: rgba(42, 42, 42, 1);cursor: pointer;">[退出]</a>
 	                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
