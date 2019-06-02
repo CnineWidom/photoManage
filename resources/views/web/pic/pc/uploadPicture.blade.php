@@ -87,8 +87,5 @@
 @endsection
 
 @section('script')
-    <script>
-        let token_csrf = '{{csrf_token()}}'
-    </script>
     @parent
 @endsection

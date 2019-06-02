@@ -223,7 +223,6 @@
         })
         $('.pic_nav_type ul li').removeClass('pic_nav_type_li_active')
         $(".pic_nav_type ul li:eq({{$id}})").addClass('pic_nav_type_li_active')
-        
 	</script>
 @endsection
 

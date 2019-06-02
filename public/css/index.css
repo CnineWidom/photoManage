@@ -95,9 +95,7 @@ time, mark, audio, video {
     font-size:14px;
     color: rgba(229,229,229,.8)
 }
-.index_login_span,.index_register_span{
-    cursor: pointer;
-}
+
 /* login css 结束 */
 
 /* register css 开始 */
@@ -156,6 +154,21 @@ font-family: "微软雅黑";
 /* font-weight: bold */
 
 }
+
+.index_pic ul{
+    background:white;
+    display: inline-block;
+    padding-top:9px;
+    padding-bottom:9px
+}
+.index_pic ul li{
+    margin-left: 23px!important;
+    /* box-sizing: border-box; */
+    border:13px solid rgba(48,79,146,0)
+}
+.index_pic ul li:hover{
+    border:13px solid rgba(48,79,146,1)
+}
 .index_nav ul li a{
     color: rgb(42,42,42); 
 }
@@ -165,7 +178,7 @@ font-family: "微软雅黑";
 }
 .share{
     width: 360px;
-    height:440px;
+    height:240px;
     
 }
 .share_word{
@@ -602,13 +615,17 @@ transform:translate(-50%,-50%);
 .caseDetail_main_content_pic_small ul li:hover{
     border: 1px solid red
 }
+.caseDetail_main_content_pic_small ul li img{
+    width:100%;
+    height:100%
+}
 .caseDetail_main_content_pic_small ul li:first-child{
     margin-left:0px; 
 }
 
 .caseDetail_main_content_pic_small ul li img{
     width: 100%;
-    height:100%
+
 }
 .caseDetail_main_conment{
     padding: 0px 10px;
@@ -642,10 +659,9 @@ text-align: left;
 }
 .caseDetail_main_conment_content{
     padding-top:39px;
-    border-bottom:1px solid rgba(151,151,151,0.3);
+    border-bottom: 1px solid rgba(151,151,151,0.3);
     text-align: left;
-    color:rgb(150,150,150);
-    width: 100%;
+    color:rgb(150,150,150)
 }
 .caseDetail_main_conment_content_word{
     display: inline-block;
@@ -653,6 +669,7 @@ text-align: left;
     box-sizing: border-box;
 }
 .caseDetail_main_conment_content_word_username{
+    /* width: 150px; */
     font-size:20px;
     color: black;
     float: left; 
@@ -667,7 +684,7 @@ opacity: 0.5;
 color: rgba(128, 128, 128, 1);
 font-size: 14px;
 text-align: left;
-margin-top:20px;
+margin-top:6px;
 
 }
 .caseDetail_main_conment_content_word h5{
@@ -683,7 +700,6 @@ font-size: 16px;
 }
 .caseDetail_main_similar_pic{
     width: 100%;
-    height: 132px;
 }
 .caseDetail_main_similar_pic ul li:first{
     margin-left:0px;

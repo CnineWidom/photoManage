@@ -15,6 +15,9 @@
 @endsection
 
 @section('content')
+@endsection
+
+@section('table')
     <div class="caseDetail_main uploadpicture_main">
         <div class="layout" style="padding-left:99px;padding-right:99px;box-sizing:border-box">
             <div class="pic_content_detail_introduction uploadpicture_main_introduction" style="width: 100%;border:none;padding-top: 10px">

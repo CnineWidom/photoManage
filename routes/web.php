@@ -27,6 +27,7 @@ Route::post('uploadPicture/doupload','uploadController@doupload');
 Route::post('detail/{photoId?}','HomeController@upComment');
 Route::get('detail/{photoId?}','HomeController@showDetail')->name('detail');
 
+Route::get('mine','HomeController@getMine')->name('mine');
 
 //public html
 Route::get('normal/{text?}',function($text){

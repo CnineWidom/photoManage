@@ -626,27 +626,8 @@ function navActive(obj) {
 if ($('.caseDetail_main_similar_pic').length > 0) {
     var width = $('.caseDetail_main_similar_pic li').width();
     $('.caseDetail_main_similar_pic li').height(width);
-
-    // resetPictureSize('caseDetail_content_detail_pic_small img','caseDetail_content_detail_pic_big',width,height,width/height,width*2);
 }
 
-// 案例详情 结束
-// $('.grid-item').each(function(){
-
-// })
-
-// 上传图片 开始
-// 初始化Web Uploader
-// var uploaddata;
-
-// var uploaddata = {
-//     title:'',//题目
-//     key:[],//关键词数组
-//     content:'',//内容
-//     partners:'',//合作者
-//     photograper:'',//摄影师
-//     equipment:''//设备
-// };
 if ($('.uploadPicture_main_content_form').length > 0) {
     console.log(token_csrf);
     var uploader = WebUploader.create({

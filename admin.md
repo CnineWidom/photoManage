@@ -41,3 +41,16 @@ $grid->exporter($excel);
 		151 行，去掉->rules('required|confirmed’);
 		public function form()，152行：屏蔽/*$form->password('password_confirmation',
 
+#### 对数据库的修改
+修改了p_case_comment 加了索引 id 
+修改 p_case_star 加了索引 id
+修改了 p_case_list 加了 uid 发布的用户id
+
+#### 图片
+规定：对于图片路径的存储到 upload层 "upload\\images\\user\\e9287986045f8d1eb848d987a50d0838.png" 
+数组的形式 加上json 第一张为 首页大图  如果没有图片 或者图片为空 则使用默认图片 public_path('upload/images/').'default.png'
+
+### 发布评论规则
+暂时 做成只能评论一次的
+
+

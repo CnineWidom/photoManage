@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -53,14 +54,14 @@ class LoginController extends Controller
         }
 
         if ($this->attemptLogin($request)) {
+            flash('欢迎回来')->success();
             return $this->sendLoginResponse($request);
         }
-
         // If the login attempt was unsuccessful we will increment the number of attempts
         // to login and redirect the user back to the login form. Of course, when this
         // user surpasses their maximum number of attempts they will get locked out.
         $this->incrementLoginAttempts($request);
-
+        flash('登录失败')->error()->important();
         return $this->sendFailedLoginResponse($request);
     }
 
@@ -78,6 +79,12 @@ class LoginController extends Controller
         ]);
     }
 
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        throw ValidationException::withMessages([
+            $this->username() => [trans('auth.failed')],
+        ]);
+    }
     /**
      * Attempt to log the user into the application.
      *

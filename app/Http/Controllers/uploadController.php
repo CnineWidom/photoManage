@@ -28,7 +28,7 @@ class uploadController extends Controller
 
 	public function __construct()
 	{
-		$this->middleware('myAuth',['only'=>['index']]);
+		$this->middleware('myAuth',['only'=>['index','doupload']]);
 	}
 
 	public function index()

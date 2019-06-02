@@ -26,8 +26,8 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->defaultImage ="file:///".public_path('upload/images/').'default.png';
-        $this->middleware('myAuth',['only'=>['upComment']]);
+        $this->defaultImage = public_path('upload/images/').'default.png';
+        $this->middleware('myAuth',['only'=>['upComment','getMine']]);
     }
 
     /**
@@ -39,7 +39,7 @@ class HomeController extends Controller
     {
         $this->getAuthLogin($request);
         $sql = "select * from p_case_list";
-        $where = ' where `issue` = 1 ';
+        $where = ' where `issue` = 0 ';
         if($request->get('search'))
         {
             $search = $request->get('search');
@@ -67,8 +67,12 @@ class HomeController extends Controller
             $value->photographer = empty($value->photographer) ? $value->author : $value->photographer;
             $photo = $value->photos;
             if($photo){
-                $photoArr = json_decode($photo);
+                $photoArr = json_decode($photo,1);
                 $photoFirst = public_path()."/".$photoArr[0];
+                $img_encode = $this->baseImg($photoFirst);
+                $value->encode_img = $img_encode;
+            }else{
+                $photoFirst = $this->defaultImage;
                 $img_encode = $this->baseImg($photoFirst);
                 $value->encode_img = $img_encode;
             }
@@ -87,17 +91,17 @@ class HomeController extends Controller
         return view('web.pic.pc.index',$data);
     }
 
-    public function showDetail(createRequest $request)
+    public function showDetail(createRequest $request,$photoId,$code = 0)
     {
         $photoId = base64_decode($request->route('photoId'));
         $nowTime = time();
         if($photoId){
-            $sql = "SELECT *,AVG(`stars`) as `stars` from `p_case_list` as p LEFT JOIN `p_case_star` as s on p.id=s.cid where p.id = $photoId";
-            $res = DB::select($sql);
-            if($res){
+            $sql = "SELECT p.*,AVG(`stars`) as `stars` from `p_case_list` as p LEFT JOIN `p_case_star` as s on p.id=s.cid where p.id =:photoId AND p.issue =0";
+            $res = DB::select($sql,['photoId' => $photoId]);
+            if(!empty($res[0]->id)){
                 $comment = [];
                 $comment = Cases::find($photoId)->caseComment()->orderBy('created_at','desc')->limit($this->pageCount)->get();
-                foreach($comment as  $key=>&$value){
+                foreach($comment as  $key=>&$value ){
                     $userMess = Users::where('id',$value->uid)->get();
                     if(!$userMess->isEmpty()){
                         $value->userMess = empty($userMess[0]->nick_name) ? $userMess[0]->user_name : $userMess[0]->nick_name;
@@ -136,6 +140,7 @@ class HomeController extends Controller
                         }
                         else $v->photosTmp = $this->baseImg($this->defaultImage,129,129);
                     }
+                    unset($v);
                 }else{
                     $sql = "SELECT * from `p_case_list` WHERE `id` not in({$photoId}) order by `created_at` desc limit ".$this->pageCount;
                     $sameList = DB::SELECT($sql);
@@ -146,21 +151,18 @@ class HomeController extends Controller
                         }
                         else $v->photosTmp = $this->baseImg($this->defaultImage,129,129);
                     }
+                    unset($v);
                 }
-                unset($v);
-            }
-            else{
-                $code = -1;
-                $msg = '没有数据';
+            }else{
+                $code = -2;
+                $back = 1;
             }
         }
         else{
             $code = -1;
-             $msg = '参数错误';
+            $back = 1;
         }
-        if($code < 0){
-            return back()->withErrors(['error'=> $msg],'store');
-        }
+        $msg = $this->getReturnMsg($code,$back);
         $data = [
             'result' => $res[0],
             'sameList' => $sameList
@@ -182,31 +184,46 @@ class HomeController extends Controller
             $query->where('created_at','>',$nowtime-500);
         })->orderBy('created_at','desc')->limit(1)->get();
         if($commentLimit->isEmpty()){
-            $updateData = [
-                'content' => $content,
-                'cid' => $photoId,
-                'uid' => $uid,
-                'create_at' => $nowtime,
-            ];
-            $starData = [
-                'cid' => $photoId,
-                'uid' => $uid,
-                'stars' => $starCount
-            ];
-            $id = CaseComment::create($updateData);
-            $sid = CaseStar::create($starData);
-        }
-        return $this->showdetail($request);
+            $comment = CaseComment::where(function($query)use($uid,$photoId,$nowtime){
+                $query->where(['uid'=>$uid,'cid'=>$photoId]);
+            })->orderBy('created_at','desc')->limit(1)->get();
+            if($comment->isEmpty()){
+                $updateData = [
+                    'content' => $content,
+                    'cid' => $photoId,
+                    'uid' => $uid,
+                    'create_at' => $nowtime,
+                ];
+                $starData = [
+                    'cid' => $photoId,
+                    'uid' => $uid,
+                    'stars' => $starCount
+                ];
+                $id = CaseComment::create($updateData);
+                $sid = CaseStar::create($starData);
+                $code = 1;
+            }else $code = -4;
+        }else $code = -5;
+        return $this->showdetail($request,$photoId,$code);
     }
 
-    public function getAuthLogin($request)
+    //个人信息
+    public function getMine(createRequest $request)
     {
-        $session =$request->session()->all();
-        if(!empty($session['warn'])) {
-            $this ->loginType = $session['warn']['code'];
-            $this ->msg = $session['warn']['message'];
-            flash($this ->msg)->error()->important();
+        $uid = Auth::id();
+        $mineList = Cases::where(function($query)use($uid){
+            $query->where('uid',$uid);
+            $query->where('issue',0);
+        })->orderBy('created_at','desc')->get();
+        foreach ($mineList as $key => &$value) {
+            $value->baseId = base64_encode($value->id);
+            $value->creat_at = date('Y-m-d',strtotime($value->created_at));
         }
+        unset($value);
+        $data = [
+            'result' => $mineList,
+        ];
+        return view('web.pic.pc.caseManager',$data);
     }
 
     /*
@@ -215,6 +232,10 @@ class HomeController extends Controller
     */
     public function baseImg($imgPath,$width=370,$height=370){
         $image = new ImageManager ;
+        if(!is_readable($imgPath)){
+           $imgPath = $this->defaultImage;
+        }
+
         $images = $image->make($imgPath)->resize($width,$height)->encode('png', 75);
         $img_encode = 'data:image/png;base64,'. base64_encode($images);
         return $img_encode;
@@ -242,5 +263,46 @@ class HomeController extends Controller
             }
         }
         return $starArr;
+    }
+
+    public function getAuthLogin($request)
+    {
+        $session =$request->session()->all();
+        if(!empty($session['warn'])) {
+            $this->loginType = $session['warn']['code'];
+            $this->msg = $session['warn']['message'];
+            flash($this->msg)->error()->important();
+        }
+    }
+
+    /*
+    * @param code 错误代码
+    * @param isback 是否需要跳回上一页
+    */
+    public function getReturnMsg($code,$isback = 0){
+        // 错误 或者需要返回给前端的
+        if($code < 0 ){
+            $msg=[
+                '-1' => '参数错误',
+                '-2' => '没有数据',
+                '-3' => '发布失败',
+                '-4' => '暂时只能评论一次哦',
+                '-5' => '太快了，休息一下'
+            ];
+            if($isback){
+                return back()->withErrors(['error'=> $msg[$code]],'store');
+            }
+            flash($msg[$code])->error()->important();
+        }elseif($code > 0){
+            $msg=[
+                '1' => '发布成功',
+            ];
+            if($isback){
+                return back()->withErrors(['error'=> $msg[$code]],'store');
+            }
+            flash($msg[$code])->success();
+        }
+
+        return $msg[$code];
     }
 }

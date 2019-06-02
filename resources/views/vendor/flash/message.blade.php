@@ -9,7 +9,7 @@
         <div class="alert
             alert-{{ $message['level'] }}
             {{ $message['important'] ? 'alert-important' : '' }}"
-            role="alert" style='text-align: center;padding: 10px;margin-bottom:10px;'>
+            role="alert">
             @if ($message['important'])
                 <button type="button"
                         class="close"
