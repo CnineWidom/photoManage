@@ -97,9 +97,9 @@ class HomeController extends Controller
             if($res){
                 $comment = [];
                 $comment = Cases::find($photoId)->caseComment()->orderBy('created_at','desc')->limit($this->pageCount)->get();
-                foreach($comment as  $key=>&$value ){
-                    $userMess = Users::find($value->uid)->get();
-                    if($userMess){
+                foreach($comment as  $key=>&$value){
+                    $userMess = Users::where('id',$value->uid)->get();
+                    if(!$userMess->isEmpty()){
                         $value->userMess = empty($userMess[0]->nick_name) ? $userMess[0]->user_name : $userMess[0]->nick_name;
                     }
                     else $value->userMess = "****";
@@ -126,7 +126,7 @@ class HomeController extends Controller
                 //类似的相关的图例
                 $key = $res[0]->keywords;
                 $keyStr = implode('|',explode(',', $key));
-                $sql = "SELECT * from `p_case_list` WHERE `id` not in({$photoId}) and  `keywords` REGEXP '{$keyStr}' limit 8";
+                $sql = "SELECT * from `p_case_list` WHERE `id` not in({$photoId}) and  `keywords` REGEXP '{$keyStr}' limit ".$this->pageCount;
                 $sameList = DB::SELECT($sql);
                 if($sameList){
                     foreach ($sameList as $k => &$v) {
@@ -137,7 +137,7 @@ class HomeController extends Controller
                         else $v->photosTmp = $this->baseImg($this->defaultImage,129,129);
                     }
                 }else{
-                    $sql = "SELECT * from `p_case_list` WHERE `id` not in({$photoId}) order by `created_at` desc limit 8";
+                    $sql = "SELECT * from `p_case_list` WHERE `id` not in({$photoId}) order by `created_at` desc limit ".$this->pageCount;
                     $sameList = DB::SELECT($sql);
                     foreach ($sameList as $k => &$v) {
                         $v->baseId = base64_encode($v->id);
