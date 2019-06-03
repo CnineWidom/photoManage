@@ -854,6 +854,9 @@ if ($('.uploadbtn').length > 0) {
 $('.uploadPicture_main_content_pic_preview ul').on('click', '.file-item .preview_delete', function () {
     if (confirm('是否删除选定图片？')) {
         $(this).parent().remove();
+        var preview_id = $(this).parent('li').attr('id');
+        console.log(preview_id);
+        uploader.removeFile( preview_id ,true);
     }
 })
 var keywords = [
