@@ -162,7 +162,7 @@ class HomeController extends Controller
             $code = -1;
             $back = 1;
         }
-        $msg = $this->getReturnMsg($code,$back);
+        $msg = getReturnMsg($code,$back);
         $data = [
             'result' => $res[0],
             'sameList' => $sameList

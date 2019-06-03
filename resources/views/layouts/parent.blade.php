@@ -6,7 +6,7 @@
 	<meta content='initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width' name='viewport'>
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<link rel="stylesheet" href="{{ URL::asset('css/common.css?190331') }}">
-	<link rel="stylesheet" href="{{ URL::asset('css/index.css?1903314') }}">
+	<link rel="stylesheet" href="{{ URL::asset('css/index.css?1903315') }}">
 	@section('styleCss')
 		<link rel="stylesheet" href="http://at.alicdn.com/t/font_1030860_kpunaqreyg.css">
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -23,6 +23,9 @@
 	}
 	.body2{
 		background:url({{ URL::asset("assest/pic2.png")}})  repeat-y left 20%;
+	}
+	.body3{
+		background-color: rgb(250,250,250);
 	}
 	.alert {
 	    padding: 10px;

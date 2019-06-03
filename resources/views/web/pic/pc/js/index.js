@@ -712,11 +712,6 @@ if ($('.uploadPicture_main_content_form').length > 0) {
         
     })
     uploader.on('fileQueued', function (file) {
-
-
-
-
-
         // console.log(state.successNum)
         // console.log();
         // console.log(file);

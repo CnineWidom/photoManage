@@ -5,6 +5,8 @@
 @endsection
 @section('title','上传图片')
 
+@section('body','body3')
+
 @section('siderbar')
     @parent
 @endsection
@@ -77,7 +79,15 @@
         </div>
     </div>
 @endsection
-
+@section('table')
+    <div class="mask" style='position: absolute;width: 100%;top:0px;left:0px;height:1279px;background:rgb(0,0,0,.079);z-index: 89;display:none'>
+        <div style='position:fixed;top:30%;left:50%;margin-left:-69px;width: auto;height: auto;background:rgb(242,242,242);border-radius: 19px;padding:20px 20px'>
+            <img src="picture/loading.gif" alt="" >
+            <div class='upload_pic_tip_word' style='width:135px;text-align:center;color:rgb(79,79,79);font-size: 24px;'>上传中</div>
+            <div class='upload_pic_num' style='width:135px;text-align:center;color:rgb(79,79,79);font-size: 24px;'></div>
+        </div>
+    </div>
+@endsection
 @section('footer')
     @parent
 @endsection
