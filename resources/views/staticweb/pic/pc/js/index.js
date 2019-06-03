@@ -792,6 +792,9 @@ if ($('.uploadPicture_main_content_form').length > 0) {
         }else{
             $('.upload_pic_num').text("");
             $('.upload_pic_tip_word').html("上传成功<br/>正在跳转");
+            setTimeout(function(){
+                window.location.href = 'uploadPictureSuccess.html';
+            },1399)
         }
         
     });
@@ -975,7 +978,7 @@ if ($('.KeyWordTip').length > 0) {
                 
                     for(var i = 0 ; i < uploadkey.length ; i++){
                         if(_this.text() == uploadkey[i].keyword){
-                            alert("你已经有次关键词");
+                            alert("你已经有此关键词");
                             $('.KeyWordTip').hide('fast');
                             return ;
                         }
