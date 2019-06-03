@@ -792,6 +792,9 @@ if ($('.uploadPicture_main_content_form').length > 0) {
         }else{
             $('.upload_pic_num').text("");
             $('.upload_pic_tip_word').html("上传成功<br/>正在跳转");
+            setTimeout(function(){
+                window.location.href = 'uploadPictureSuccess.html';
+            },1399)
         }
         
     });
@@ -821,29 +824,30 @@ if ($('.uploadbtn').length > 0) {
     // uploader
     $('.uploadbtn').click(function () {
         var state = uploader.getStats();
-        // if(state.queueNum == 0){
-        //     alert('请上传图片');
-        // }
+        if(state.queueNum == 0){
+            alert('请上传图片');
+            return false;
+        }
 
-        // if (serializeF('uploadform')) { 
-        //     var uploaddata = serializeF('uploadform');
-        //     //非空验证
-        //     if(uploaddata.title == ""){
-        //         alert("题目不能为空");
-        //         return false;
-        //     }
-        //     if(uploaddata.content == ""){
-        //         alert("描述不能为空");
-        //         return false;
-        //     }
+        if (serializeF('uploadform')) { 
+            var uploaddata = serializeF('uploadform');
+            //非空验证
+            if(uploaddata.title == ""){
+                alert("题目不能为空");
+                return false;
+            }
+            if(uploaddata.content == ""){
+                alert("描述不能为空");
+                return false;
+            }
             
-        //     if(uploadkey.length == 0){
-        //          alert("关键词不能为空");
-        //          return false;
-        //     }   
+            if(uploadkey.length == 0){
+                 alert("关键词不能为空");
+                 return false;
+            }   
       
-        // }
-        // $(".mask").css("display","block")
+        }
+        $(".mask").css("display","block")
         uploader.upload();
     })
 }
@@ -974,7 +978,7 @@ if ($('.KeyWordTip').length > 0) {
                 
                     for(var i = 0 ; i < uploadkey.length ; i++){
                         if(_this.text() == uploadkey[i].keyword){
-                            alert("你已经有次关键词");
+                            alert("你已经有此关键词");
                             $('.KeyWordTip').hide('fast');
                             return ;
                         }
