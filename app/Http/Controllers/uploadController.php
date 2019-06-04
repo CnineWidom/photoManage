@@ -1,14 +1,21 @@
 <?php
 /*图片上传*/
 namespace App\Http\Controllers;
+
+use App\Models\Cases;
+use App\Models\Users;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\createRequest;
 use Intervention\Image\ImageManager;
+
+
 class uploadController extends Controller
 {
 	//水印路径
     private $newFileNameByTmp = '/upload/images/userTmp/';
     private $newFileName = '/upload/images/user/';
+    private $textPath = "C:/Windows/Fonts/simkai.ttf";
     //是否用水印
     public  $useWalkMark = 1;
     //用哪种水印 1图片 2文字
@@ -17,14 +24,20 @@ class uploadController extends Controller
     public $markText = '花开蝶自来';
     //默认图片水印路径
     public $markPicPath = '';
-    //默认后缀
+    //系统默认后缀
     public $markBack = '.png';
 
 	//判断是否登录状态
 	public $loginType = 1;
 
-	//缩小或者放大的倍率
+	//缩小或者放大的倍率 0.5缩小
 	private $power = 0.5;
+    private $fontSize = 20;
+    private $width = 372;
+    //图片大小
+    private $size = 2097152;
+    //允许的类型
+    private $allowType=["image/jpeg","image/png","image/jpg"];
 
 	public function __construct()
 	{
@@ -39,53 +52,149 @@ class uploadController extends Controller
 		return view('web.pic.pc.uploadPicture',$data);
 	}
 
-	public function doupload(Request $request)
+	public function doupload(Request $request,ImageManager $image)
 	{
+        $uid = Auth::id();
 		$res= $request->all();
-		$file = $request->file('file');
+		$photoFile = $request->file('file');
+        $id = (int)$res['id'];
+        $res = escapeString($res);
+        $title = $res['title'];
+        $photographer = $res['photographer'];
+        $device = $res['device'];
+        $content = $res['content'];
+        $keyword = $res['keyword'];
+        $author = $res['author'];
+        $_token = $res['_token'];
+        $time = time();
+        $code = 1;
+        if(empty($title) || empty($photographer) ||empty($device) ||empty($content) ||empty($keyword) ||empty($author)){
+            $code = -9;
+        }
+        if(empty($photoFile)){
+            $code = -6;
+        }
+        //第一次插入
+        if($id == 0 &&$code==1){
+            //判断时间 十分钟才能插入一条
+            $findCase = Cases::where(function($query) use($uid){
+                $query->where('uid',$uid);
+                $query->where('created_at','<',$time-600);
+            })->get();
+            if($findCase->isEmpty()){
+                $data = [
+                    'uid' => $uid,
+                    'keywords' => $keyword,
+                    'content' => $content,
+                    'author' => $author,
+                    'photographer' => $photographer,
+                    'device' => $device,
+                    'issue' => 0,
+                    'token' => $_token,
+                ];
+                $result = $this->saveImage($image,$photoFile);
+                $code = $result['code'];
+                $filePath = [
+                    '0' => $result['msg']
+                ];
+                if($filePath && $code ==1){
+                    $filePath = json_encode($filePath);
+                    $data['photos'] = $filePath;
+                    Cases::create($data);
+                }else{
+                    getReturnMsg($code);
+                }
+            }else{
+                getReturnMsg(-5);
+            }
+        }elseif($code ==1){
 
-		if(!empty($file)){
-			if (!file_exists($path.$this->newFileNameByTmp)||!file_exists($path.$this->newFileName)){
-	            mkdir($path.$this->newFileNameByTmp,'0777',TRUE);
-	            mkdir($path.$newFileName,'0777',TRUE);
-	        }
-		}
+        }else{
+            getReturnMsg($code);
+        }
+        
 	}
 
-	public function saveImage(ImageManager $image,$file)
+	public function saveImage($image,$file)
 	{
 		$path = public_path();
-		$sizeArr = $this->retrunSize($file);
-        $width = $sizeArr[0];
-        $height = $sizeArr[1];
-        $tmpFileName = $file->getPathname();
-        $name =md5(base64_decode(time()));
-        $newFileName = $this->newFileName.$name.$this->markBack;
-        $newFileNameByTmp = $this->newFileNameByTmp.$name.$this->markBack;
-        $img = $image->make($tmpFileName)->resize($width,$height);
-        $img->save($path.$newFileName);
-        if($this->useWalkMark){
-            $img->text($this->markText,$width*0.2,$height*0.4,function ($font){
-                $font->file('C:/Windows/Fonts/simkai.ttf');//使用本地ttf文件 使用laravel自带的话会出现中文乱码
-                // $font->file(2);
-                $font->size(40);
-                $font->color('#fff');
-                $font->align('center');
-            });
+        $filePath = "";
+        $code = $this->checkFile($file);
+        if($code == 1){
+            $width = $this->width;
+            $height = $this->width;
+            $tmpFileName = $file->getPathname();
+            $name =md5(base64_decode(time()));
+            if (!file_exists($path.$this->newFileNameByTmp)||!file_exists($path.$this->newFileName)){
+                mkdir($path.$this->newFileNameByTmp,'0777',TRUE);
+                mkdir($path.$newFileName,'0777',TRUE);
+            }
+            $newFileName = $this->newFileName.$name.$this->markBack;
+            $newFileNameByTmp = $this->newFileNameByTmp.$name.$this->markBack;
+
+            $img = $image->make($tmpFileName);
+            //原图原样存储
+            // $img->save($path.$newFileName);
+            //使用文字水印
+            $img->resize($width,$height);
+            $arr = $this->returnSite(4,$width);
+            if($this->useMarkType == 1){ 
+                foreach ($arr as $key => $value) {
+                    $img->text($this->markText,$value[0],$value[1],function ($font){
+                        $font->file($this->textPath);//使用本地ttf文件 使用laravel自带的话会出现中文乱码
+                        // $font->file(2);
+                        $font->size($this->fontSize);
+                        $font->color('#fff');
+                        $font->align('center');
+                    });
+                }
+            }
+            //图片水印暂时不开放
+            // else{
+            //     $img->insert($this->markPicPath);
+            // }
+            //水印图固定大小 数据库存储水印路径
+            // $img->save($path.$newFileNameByTmp);
+            $filePath = $newFileNameByTmp;
         }
-        else{
-            $img->insert($this->markPicPath);
-        }
-        //$newFileName  插入数据库 后期写
-        $img->save($path.$newFileNameByTmp);
+        $res =[
+            'code' => $code,
+            'msg' => $filePath
+        ];
+        return $res;
     }
-    public function retrunSize($file)
+
+    public function checkFile($file)
     {
-        $str=getimagesize($file)[3];
-        list($width,$height) = explode(' ', str_replace('"', '', $str));
-        $width = $this->power*(int)explode('=', $width)[1];
-        $height = $this->power*(int)explode('=', $height)[1];
-        $arr = [$width,$height];
-        return $arr;
+        $code = 1;
+        $size = $file->getSize();
+        $fileName = $file->getRealPath();
+        $mimeType = $file->getMimeType();
+        if($size > $this->size) $code = -7;
+        if(!in_array($mimeType, $this->allowType)) $code = -8;
+        return $code;
+    }
+
+    /**
+    * @param $count 需要多少个水印
+    * @param $width 宽度
+    * @return 返回一x，y坐标的数组
+    */
+    public function returnSite($count,$width)
+    {
+        $prv = ceil(($width/$count));
+        $size = strlen($this->markText);
+        $data = array();
+        for ($i=0; $i < $count; $i++) { 
+            $x = $prv * $i+$size*3.4;
+            $y = $prv * $i+$this->fontSize;
+            if($x > $width || $y > $width)
+            {
+                $x = $width-$size*3.4;
+                $y = $width-$this->fontSize;
+            }
+            array_push($data,[$x,$y]);
+        }
+        return $data;
     }
 }

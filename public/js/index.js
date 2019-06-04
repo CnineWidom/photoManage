@@ -637,7 +637,7 @@ if ($('.uploadPicture_main_content_form').length > 0) {
         swf: 'https://cdn.bootcss.com/webuploader/0.1.1/Uploader.swf',
 
         // 文件接收服务端。
-        server: 'http://photomanage.com/uploadPicture/doupload',
+        server: 'http://photo.test/uploadPicture/doupload',
 
         // 选择文件的按钮。可选。
         // 内部根据当前运行是创建，可能是input元素，也可能是flash.
@@ -729,7 +729,9 @@ if ($('.uploadPicture_main_content_form').length > 0) {
 
     // 文件上传成功，给item添加成功class, 用样式标记上传成功。
     uploader.on('uploadSuccess', function (file, response) {
-        // console.log(response);
+        console.log(response);
+        console.log(response.id);
+        uploadid = response.id;
 
         $('#' + file.id + ' .preview_tip').removeClass('preview_tip_error');
         $('#' + file.id + ' .preview_tip').addClass('preview_tip_success');
@@ -745,10 +747,6 @@ if ($('.uploadPicture_main_content_form').length > 0) {
 
     // 文件上传失败，显示上传出错。
     uploader.on('uploadError', function (file, erroMsg) {
-        // var $li = $( '#'+file.id ),
-        //     $error = $li.find('div.error');
-        // alert(erroMsg);
-        uploadid = response.id;
         console.log(erroMsg)
         $('#' + file.id + ' .preview_tip').removeClass('preview_tip_success');
         $('#' + file.id + ' .preview_tip').addClass('preview_tip_error');
@@ -759,30 +757,59 @@ if ($('.uploadPicture_main_content_form').length > 0) {
         // $( '#'+file.id ).find('.progress').remove();
     });
 }
+// if ($('.uploadbtn').length > 0) {
+//     // uploader
+//     $('.uploadbtn').click(function () {
+//         var state = uploader.getStats();
+//         if(state.queueNum == 0){
+//             alert('请上传图片');
+//         }
+//         if (serializeF('uploadform')) { 
+//             var uploaddata = serializeF('uploadform');
+//             //非空验证
+//             // if(uploaddata.title == ""){
+//             //     alert("题目不能为空");
+//             //     return false;
+//             // }else if(uploaddata.content == ""){
+//             //     alert("描述不能为空");
+//             //     return false;
+//             // }else if(uploadkey.length == 0){
+//             //      alert("关键词不能为空");
+//             //      return false;
+//             // }
+//             else{
+//                 $('#uploadform').submit()
+//             }
+//         }
+//         $(".mask").css("display","block")
+//         uploader.upload();
+//     })
+// }
 if ($('.uploadbtn').length > 0) {
-    // uploader
+// uploader
     $('.uploadbtn').click(function () {
-        var state = uploader.getStats();
+    var state = uploader.getStats();
         if(state.queueNum == 0){
             alert('请上传图片');
+            return false;
         }
-        if (serializeF('uploadform')) { 
-            // var uploaddata = serializeF('uploadform');
-            // //非空验证
-            // if(uploaddata.title == ""){
-            //     alert("题目不能为空");
-            //     return false;
-            // }else if(uploaddata.content == ""){
-            //     alert("描述不能为空");
-            //     return false;
-            // }else if(uploadkey.length == 0){
-            //      alert("关键词不能为空");
-            //      return false;
-            // }
-            // else{
-            //     $('#uploadform').submit()
-            // }
-        }
+
+        // if (serializeF('uploadform')) { 
+        //     var uploaddata = serializeF('uploadform');
+        //     //非空验证
+        //     if(uploaddata.title == ""){
+        //     alert("题目不能为空");
+        //     return false;
+        //     }
+        //     if(uploaddata.content == ""){
+        //     alert("描述不能为空");
+        //     return false;
+        //     }
+        //     if(uploadkey.length == 0){
+        //     alert("关键词不能为空");
+        //     return false;
+        //     } 
+        // }
         $(".mask").css("display","block")
         uploader.upload();
     })
@@ -824,7 +851,7 @@ var keywords = [
 ];
 var uploadkey = [];
 var uploadid = 0;
-
+var uploadnum = 0;
 if ($('.keywordInput').length > 0) {
     $('.keywordInput').bind('input', function () {
         var _this = $(this);

@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="http://at.alicdn.com/t/font_1030860_dwgss5vfofm.css">
 @endsection
 @section('title','上传图片')
+@section('body','body3')
 
 @section('siderbar')
     @parent

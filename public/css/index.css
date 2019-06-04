@@ -673,6 +673,7 @@ text-align: left;
     font-size:20px;
     color: black;
     float: left; 
+    margin-top: 2px;
 }
 .caseDetail_main_similar_pic li img{
     width: 100%;

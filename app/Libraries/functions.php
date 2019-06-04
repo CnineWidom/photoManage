@@ -129,3 +129,67 @@ if(!function_exists('getIP')){
         return $ip;
     }
 }
+
+/**
+* @param code 错误代码
+* @param isback 是否需要跳回上一页
+*/
+if(!function_exists('getReturnMsg')){
+    function getReturnMsg($code,$isback = 0){
+        // 错误 或者需要返回给前端的
+        if($code < 0 ){
+            $msg=[
+                '-1' => '参数错误',
+                '-2' => '没有数据',
+                '-3' => '发布失败',
+                '-4' => '暂时只能评论一次哦',
+                '-5' => '太快了，休息一下',
+                '-6' => '请选择文件',
+                '-7' => '文件不能超过2M',
+                '-8' => '上传的文件只能是图片格式',
+                '-9' => '请把内容填写完整'
+            ];
+            if($isback){
+                return back()->withErrors(['error'=> $msg[$code]],'store');
+            }
+            flash($msg[$code])->error()->important();
+        }elseif($code > 0){
+            $msg=[
+                '1' => '发布成功',
+            ];
+            if($isback){
+                return back()->withErrors(['error'=> $msg[$code]],'store');
+            }
+            flash($msg[$code])->success();
+        }
+
+        return $msg[$code];
+    }
+}
+
+/**
+* 防止sql注入字符转义 XSS攻击
+*return array|string
+* 
+*/
+if(!function_exists('escapeString')){
+    function escapeString($content) {
+        $pattern = "/(select[\s])|(insert[\s])|(update[\s])|(delete[\s])|(from[\s])|(where[\s])|(drop[\s])/i";
+        if (is_array($content)) {
+            foreach ($content as $key=>$value) {
+                $content[$key] = htmlspecialchars(trim($value));
+                if(!get_magic_quotes_gpc()) $content[$key] = addslashes($content[$key]);
+                if(preg_match($pattern,$content[$key])) {
+                    $content[$key] = '';
+                }
+            }
+        } else {
+            $content = htmlspecialchars(trim($content));
+            if(!get_magic_quotes_gpc()) $content = addslashes($content);
+            if(preg_match($pattern,$content)) {
+                $content = '';
+            }
+        }
+        return $content;
+    }
+}
