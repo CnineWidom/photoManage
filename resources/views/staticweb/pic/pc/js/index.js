@@ -687,10 +687,24 @@ if ($('.uploadPicture_main_content_form').length > 0) {
             mimeTypes: '.jpg,.jpeg,.png,.gif'
         },
         fileNumLimit: 12, //限制上传个数
-        fileSingleSizeLimit: 20480000 //限制单个上传图片的大小
+        fileSingleSizeLimit: 2048000 //限制单个上传图片的大小
     });
-    uploader.on('beforeFileQueued', function (file) {
+    uploader.on("error", function (type) {
+        if (type == "Q_TYPE_DENIED") {
+            alert("请上传jpg,jpeg,png,gif格式文件");
+            return ;
+        } 
+        if (type == "F_EXCEED_SIZE") {
+            alert("文件大小不能超过2M");
+            return ; 
+        }else {
+            alert("上传出错！请检查后重新上传！错误代码"+type);
+            return ; 
+        }
+    });
 
+    uploader.on('beforeFileQueued', function (file) {
+        
         if (file.ext == "") {
             return false;
         } else {
@@ -782,20 +796,27 @@ if ($('.uploadPicture_main_content_form').length > 0) {
     // 文件上传成功，给item添加成功class, 用样式标记上传成功。
     uploader.on('uploadSuccess', function (file, response) {
         // console.log(response);
-        uploadid = response.id;
-        $('#' + file.id + ' .preview_tip').removeClass('preview_tip_error');
-        $('#' + file.id + ' .preview_tip').addClass('preview_tip_success');
-        var state = uploader.getStats();
-        var num = state.queueNum;
-        if(num != "0"){
-            $('.upload_pic_num').text("(还有"+(num)+"张)");
+        if(response.code < 0){
+            uploader.stop();
+            alert('非法参数');
+            return false;
         }else{
-            $('.upload_pic_num').text("");
-            $('.upload_pic_tip_word').html("上传成功<br/>正在跳转");
-            setTimeout(function(){
-                window.location.href = 'uploadPictureSuccess.html';
-            },1399)
+            uploadid = response.id;
+            $('#' + file.id + ' .preview_tip').removeClass('preview_tip_error');
+            $('#' + file.id + ' .preview_tip').addClass('preview_tip_success');
+            var state = uploader.getStats();
+            var num = state.queueNum;
+            if(num != "0"){
+                $('.upload_pic_num').text("(还有"+(num)+"张)");
+            }else{
+                $('.upload_pic_num').text("");
+                $('.upload_pic_tip_word').html("上传成功<br/>正在跳转");
+                setTimeout(function(){
+                    window.location.href = 'uploadPictureSuccess.html';
+                },1399)
+            }
         }
+       
         
     });
 
@@ -803,7 +824,7 @@ if ($('.uploadPicture_main_content_form').length > 0) {
     uploader.on('uploadError', function (file, erroMsg) {
         // var $li = $( '#'+file.id ),
         //     $error = $li.find('div.error');
-        alert(erroMsg);
+        alert('上传失败，错误信息：'+erroMsg);
         $('#' + file.id + ' .preview_tip').removeClass('preview_tip_success');
         $('#' + file.id + ' .preview_tip').addClass('preview_tip_error');
 
