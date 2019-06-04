@@ -100,14 +100,16 @@ class uploadController extends Controller
                 if($filePath && $code ==1){
                     $filePath = json_encode($filePath);
                     $data['photos'] = $filePath;
-                    Cases::create($data);
+                    $id = Cases::create($data);
+                    echo json_encode(['id'=> $id]);
+                    
                 }else{
                     getReturnMsg($code);
                 }
             }else{
                 getReturnMsg(-5);
             }
-        }elseif($code ==1){
+        }elseif($id > 0 &&$code ==1){
 
         }else{
             getReturnMsg($code);
