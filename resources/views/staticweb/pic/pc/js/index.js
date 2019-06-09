@@ -719,8 +719,10 @@ if ($('.uploadPicture_main_content_form').length > 0) {
     //添加表单验证
     uploader.on('uploadBeforeSend', function (file, data, headers) {
         if (serializeF('uploadform')) { 
+            headers
             var uploaddata = serializeF('uploadform');
             //参数
+
             var state = uploader.getStats();
             var num = state.queueNum;
             data.num = num;
@@ -730,7 +732,19 @@ if ($('.uploadPicture_main_content_form').length > 0) {
             data.partners = uploaddata.partners;
             data.photograper = uploaddata.photograper;
             data.equipment = uploaddata.equipment;
-            data.key = JSON.stringify(uploadkey);
+            var keylength = uploadkey.length;
+    
+            var keystr = "";
+            for(var i = 0 ; i < keylength ; i++){
+
+                if(keylength == "1" || keylength-1 == i){
+                    keystr =  keystr + uploadkey[i].keyword
+                }else{
+                    keystr = keystr + uploadkey[i].keyword + ",";
+                }
+            }
+            // console.log(keystr);
+            data.key = keystr;
             data.id = uploadid;
         }
     })
@@ -812,7 +826,7 @@ if ($('.uploadPicture_main_content_form').length > 0) {
                 $('.upload_pic_num').text("");
                 $('.upload_pic_tip_word').html("上传成功<br/>正在跳转");
                 setTimeout(function(){
-                    window.location.href = 'uploadPictureSuccess.html';
+                    // window.location.href = 'uploadPictureSuccess.html';
                 },1399)
             }
         }
