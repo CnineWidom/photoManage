@@ -147,7 +147,8 @@ if(!function_exists('getReturnMsg')){
                 '-6' => '请选择文件',
                 '-7' => '文件不能超过2M',
                 '-8' => '上传的文件只能是图片格式',
-                '-9' => '请把内容填写完整'
+                '-9' => '请把内容填写完整',
+                '-10' => '参数错误',
             ];
             if($isback){
                 return back()->withErrors(['error'=> $msg[$code]],'store');

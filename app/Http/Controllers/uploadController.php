@@ -63,19 +63,20 @@ class uploadController extends Controller
         $photographer = $res['photographer'];
         $device = $res['device'];
         $content = $res['content'];
-        $keyword = $res['keyword'];
+        $keyword = stripslashes($res['keyword']);
         $author = $res['author'];
         $_token = $res['_token'];
         $time = time();
         $code = 1;
-        if(empty($title) || empty($photographer) ||empty($device) ||empty($content) ||empty($keyword) ||empty($author)){
+
+        if(empty($title) || empty($photographer) || empty($device) || empty($content) ||empty($keyword) ||empty($author) || empty($_token)){
             $code = -9;
         }
         if(empty($photoFile)){
             $code = -6;
         }
         //第一次插入
-        if($id == 0 &&$code==1){
+        if($id == 0 && $code ==1){
             //判断时间 十分钟才能插入一条
             $findCase = Cases::where(function($query) use($uid){
                 $query->where('uid',$uid);
@@ -83,6 +84,7 @@ class uploadController extends Controller
             })->get();
             if($findCase->isEmpty()){
                 $data = [
+                    'title' => $title,
                     'uid' => $uid,
                     'keywords' => $keyword,
                     'content' => $content,
@@ -94,27 +96,32 @@ class uploadController extends Controller
                 ];
                 $result = $this->saveImage($image,$photoFile);
                 $code = $result['code'];
-                $filePath = [
-                    '0' => $result['msg']
-                ];
-                if($filePath && $code ==1){
-                    $filePath = json_encode($filePath);
+                $filePath = [$result['msg']];
+                if(!empty($filePath) && $code ==1){
                     $data['photos'] = $filePath;
-                    $id = Cases::create($data);
-                    echo json_encode(['id'=> $id]);
-                    
+                    $insertRes = Cases::create($data);
+                    echo json_encode(['id'=> $insertRes->id]);
                 }else{
                     getReturnMsg($code);
                 }
             }else{
                 getReturnMsg(-5);
             }
-        }elseif($id > 0 &&$code ==1){
-
+        }elseif($id > 0 && $code ==1){
+            $findCase = Cases::where(function($query) use($uid,$id,$_token){
+                $query->where('uid',$uid);
+                $query->where('id',$id);
+                $query->where('token',$_token);
+            })->get();
+            if(!$findCase->isEmpty()){
+                $filePath = json_decode($findCase->photos);
+                
+            }else{
+                $code = -10;
+            }
         }else{
             getReturnMsg($code);
         }
-        
 	}
 
 	public function saveImage($image,$file)
@@ -136,7 +143,7 @@ class uploadController extends Controller
 
             $img = $image->make($tmpFileName);
             //原图原样存储
-            // $img->save($path.$newFileName);
+            $img->save($path.$newFileName);
             //使用文字水印
             $img->resize($width,$height);
             $arr = $this->returnSite(4,$width);
@@ -156,7 +163,7 @@ class uploadController extends Controller
             //     $img->insert($this->markPicPath);
             // }
             //水印图固定大小 数据库存储水印路径
-            // $img->save($path.$newFileNameByTmp);
+            $img->save($path.$newFileNameByTmp);
             $filePath = $newFileNameByTmp;
         }
         $res =[

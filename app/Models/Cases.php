@@ -16,7 +16,7 @@ class Cases extends Model
     protected $dateFormat = 'U';
 
     protected $fillable = [
-        'title','keywords','content','author','device','issue'
+        'title','keywords','content','author','device','issue','uid','photos','token','photographer'
     ];
     public function users()
     {

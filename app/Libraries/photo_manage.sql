@@ -278,7 +278,7 @@ CREATE TABLE `p_case_list` (
   `created_at` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `updated_at` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改时间',
   `photos` varchar(500) NOT NULL DEFAULT '' COMMENT '影像',
-  `views` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '浏览数',
+  -- `views` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '浏览数',
   `issue` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '是否发布',
   `token` varchar(255)  DEFAULT '' COMMENT '验证信息',
   PRIMARY KEY (`id`) USING BTREE,

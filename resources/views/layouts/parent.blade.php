@@ -208,4 +208,4 @@
     	alert(error)
     }
 </script>
-<script src='{{URL::asset("js/index.js?1904082")}}'></script>
+<script src='{{URL::asset("js/index.js?1904092")}}'></script>
