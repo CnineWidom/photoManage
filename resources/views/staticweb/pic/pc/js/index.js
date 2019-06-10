@@ -809,11 +809,12 @@ if ($('.uploadPicture_main_content_form').length > 0) {
 
     // 文件上传成功，给item添加成功class, 用样式标记上传成功。
     uploader.on('uploadSuccess', function (file, response) {
-        // console.log(response);
         if(response.code < 0){
-            uploader.stop();
-            alert('非法参数');
-            return false;
+            // uploader.stop();
+            alert('上传错误：-1');
+            $('#' + file.id + ' .preview_tip').removeClass('preview_tip_success');
+            $('#' + file.id + ' .preview_tip').addClass('preview_tip_error');
+            // return false;
         }else{
             uploadid = response.id;
             $('#' + file.id + ' .preview_tip').removeClass('preview_tip_error');
