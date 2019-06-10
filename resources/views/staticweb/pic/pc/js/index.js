@@ -749,14 +749,6 @@ if ($('.uploadPicture_main_content_form').length > 0) {
         }
     })
     uploader.on('fileQueued', function (file) {
-
-
-
-
-
-        // console.log(state.successNum)
-        // console.log();
-        // console.log(file);
         var $li = $(
             '<li id="' + file.id + '" class="file-item thumbn   ail">' +
             '<div class="progress previewprogress"><span></span></div>' +

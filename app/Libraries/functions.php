@@ -135,7 +135,7 @@ if(!function_exists('getIP')){
 * @param isback 是否需要跳回上一页
 */
 if(!function_exists('getReturnMsg')){
-    function getReturnMsg($code,$isback = 0){
+    function getReturnMsg($code,$isback = 0,$isajax = 0){
         // 错误 或者需要返回给前端的
         if($code < 0 ){
             $msg=[
@@ -149,11 +149,12 @@ if(!function_exists('getReturnMsg')){
                 '-8' => '上传的文件只能是图片格式',
                 '-9' => '请把内容填写完整',
                 '-10' => '参数错误',
+                '-11' => '上传出错，请重新上传'
             ];
             if($isback){
                 return back()->withErrors(['error'=> $msg[$code]],'store');
             }
-            flash($msg[$code])->error()->important();
+            if($isajax == 0) flash($msg[$code])->error()->important();
         }elseif($code > 0){
             $msg=[
                 '1' => '发布成功',
@@ -161,7 +162,7 @@ if(!function_exists('getReturnMsg')){
             if($isback){
                 return back()->withErrors(['error'=> $msg[$code]],'store');
             }
-            flash($msg[$code])->success();
+            if($isajax == 0) flash($msg[$code])->success();
         }
 
         return $msg[$code];

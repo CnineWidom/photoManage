@@ -54,6 +54,8 @@ class uploadController extends Controller
 
 	public function doupload(Request $request,ImageManager $image)
 	{
+        // $this->deleteMess(25);
+        // exit;
         $uid = Auth::id();
 		$res= $request->all();
 		$photoFile = $request->file('file');
@@ -78,6 +80,7 @@ class uploadController extends Controller
         //第一次插入
         if($id == 0 && $code ==1){
             //判断时间 十分钟才能插入一条
+
             $findCase = Cases::where(function($query) use($uid){
                 $query->where('uid',$uid);
                 $query->where('created_at','<',$time-600);
@@ -101,27 +104,41 @@ class uploadController extends Controller
                     $data['photos'] = $filePath;
                     $insertRes = Cases::create($data);
                     echo json_encode(['id'=> $insertRes->id]);
-                }else{
-                    getReturnMsg($code);
                 }
             }else{
-                getReturnMsg(-5);
+                $code = -5;
             }
         }elseif($id > 0 && $code ==1){
-            $findCase = Cases::where(function($query) use($uid,$id,$_token){
-                $query->where('uid',$uid);
-                $query->where('id',$id);
-                $query->where('token',$_token);
-            })->get();
-            if(!$findCase->isEmpty()){
-                $filePath = json_decode($findCase->photos);
-                
-            }else{
-                $code = -10;
+            try {
+                $findCase = Cases::where(function($query) use($uid,$id,$_token){
+                    $query->where('uid',$uid);
+                    $query->where('id',$id);
+                    $query->where('token',$_token);
+                })->get();
+                if(!$findCase->isEmpty()){
+                    $filePath = $findCase[0]->photos;
+                    $result = $this->saveImage($image,$photoFile);
+                    $code = $result['code'];
+                    $fileNewPath = $result['msg'];
+                    array_push($filePath, $fileNewPath);
+                    if(!empty($filePath) && $code ==1){
+                        $res = Cases::find($id);
+                        $res->photos = $filePath;
+                        $res->save();
+                    }
+                }else{
+                    $code = -10;
+                }
+            } catch (Exception $e) {
+                $this->deleteMess($id);
+                $code = -11;
             }
-        }else{
-            getReturnMsg($code);
         }
+        $res = [
+            'code'=> $code,
+            'msg' => getReturnMsg($code,0,1),
+        ];
+        return $res;
 	}
 
 	public function saveImage($image,$file)
@@ -171,6 +188,31 @@ class uploadController extends Controller
             'msg' => $filePath
         ];
         return $res;
+    }
+
+    /**
+    *错误的时候删除整条数据 以及对应的资源文件
+    */
+    public function deleteMess($id)
+    {
+        $uid = Auth::id();
+        $findCase = Cases::where(function($query) use($uid,$id){
+            $query->where('uid',$uid);
+            $query->where('id',$id);
+        })->limit(1)->get(); 
+        if(!$findCase->isEmpty()){
+            $photoFile = $findCase[0]->photos;
+            if(is_array($photoFile)){
+                foreach ($photoFile as $key => $value) {
+                    $fileName = public_path().$value;
+                    $fileNameTmp = str_replace('userTmp', 'user',public_path().$value);
+                    unlink($fileName);
+                    unlink($fileNameTmp);
+                }
+            }
+            //删除该条记录 删除资源
+            Cases::find($id)->delete();
+        }
     }
 
     public function checkFile($file)
