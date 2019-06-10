@@ -119,7 +119,7 @@
 		@show
 
 	    @section('content')
-			<p>主要内容存放</p>
+			
 	    @show
 	</div>
 	@section('table')
@@ -208,4 +208,4 @@
     	alert(error)
     }
 </script>
-<script src='{{URL::asset("js/index.js?1904082")}}'></script>
+<script src='{{URL::asset("js/index.js?1904093")}}'></script>

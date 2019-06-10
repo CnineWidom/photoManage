@@ -157,7 +157,7 @@ body{background: #d2f5f1}
 		<div class="in">
 			<div class="textThis">
 				<h2>出错啦404！</h2>
-				<p><span>页面自动<a id="href" href="http://www.baidu.com">跳转</a></span><span>等待<b id="wait">6</b>秒</span></p>
+				<p><span>页面自动<a id="href" href="/index">跳转</a></span><span>等待<b id="wait">6</b>秒</span></p>
 				<script type="text/javascript">                            (function() {
 						var wait = document.getElementById('wait'), href = document.getElementById('href').href;
 						var interval = setInterval(function() {

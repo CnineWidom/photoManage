@@ -25,9 +25,13 @@ Route::get('uploadPicture','uploadController@index')->name('upload');
 Route::post('uploadPicture/doupload','uploadController@doupload');
 
 Route::post('detail/{photoId?}','HomeController@upComment');
+
 Route::get('detail/{photoId?}','HomeController@showDetail')->name('detail');
 
 Route::get('mine','HomeController@getMine')->name('mine');
+Route::get('success',function(){
+	return view('web.pic.pc.uploadPictureSuccess');
+})->name('success');
 
 //public html
 Route::get('normal/{text?}',function($text){

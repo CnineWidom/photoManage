@@ -38,7 +38,7 @@
                     <div class="pic_content_detail_introduction"  style="width: 100%;border:none;padding-top: 0px">
                         <h2 style="float:none;margin-bottom: 30px">填写图片信息</h2>
                         <h3 class='uploadpicture_main_title'>标题 &nbsp;&nbsp;&nbsp;<span>示例：中央视网膜动脉阻塞</span></h3>
-                        <input type="text" name='title' style="width:100%;margin-top:10px;height:25px;padding-left:5px;font-size:16px;color:rgb(39,39,39);padding-right:5px;box-sizing:border-box;border: 1px solid rgba(0, 0, 0, .3);">
+                        <input type="text" name='title' autocomplete="off" style="width:100%;margin-top:10px;height:25px;padding-left:5px;font-size:16px;color:rgb(39,39,39);padding-right:5px;box-sizing:border-box;border: 1px solid rgba(0, 0, 0, .3);">
 
                         <h3 class='uploadpicture_main_title'>条件及关键词
                             &nbsp;&nbsp;&nbsp;<span>写入关键词，会对您进行相应的推荐如：keyword,脉络膜黑色素瘤,渗出性视网膜,眼部直视眼全视野成像</span>
@@ -49,7 +49,7 @@
                         </div>
                         <div class='uploadpicture_main_keyword_input'
                             style="box-sizing:border-box;width:100%;min-height:25px;border: 1px solid rgba(0, 0, 0, .3)">
-                            <input type="text" class="keywordInput" name='keyword' style='width: 100%;height: 25px;padding-left: 5px;box-sizing: border-box'>
+                            <input type="text" class="keywordInput" autocomplete="off" name='keyword' style='width: 100%;height: 25px;padding-left: 5px;box-sizing: border-box'>
                             <div class='KeyWordTip' style="display:none">
                                 <div class="KeyWordTip_input KeyWordTip_input_normal" style="background:rgb(242,242,242)">
                                 </div>
@@ -63,13 +63,13 @@
 
                         <h3 class='uploadpicture_main_title' >作者 &nbsp;&nbsp;&nbsp;<span>示例：John Smith,
                                 University of Minnesota, Delaware Street Clinic</span></h3>
-                        <input type="text" name='author' style="width:100%;margin-top:10px;height:25px;padding-left:5px;font-size:16px;color:rgb(39,39,39);padding-right:5px;box-sizing:border-box;border: 1px solid rgba(0, 0, 0, .3);">
+                        <input type="text" name='author'  autocomplete="off"  style="width:100%;margin-top:10px;height:25px;padding-left:5px;font-size:16px;color:rgb(39,39,39);padding-right:5px;box-sizing:border-box;border: 1px solid rgba(0, 0, 0, .3);">
 
                         <h3 class='uploadpicture_main_title'>摄影师 &nbsp;&nbsp;&nbsp;<span>示例：John Smith,University of Minnesota, Delaware Street Clinic</span></h3>
-                        <input type="text" name='photographer' style="width:100%;margin-top:10px;height:25px;padding-left:5px;font-size:16px;color:rgb(39,39,39);padding-right:5px;box-sizing:border-box;border: 1px solid rgba(0, 0, 0, .3);">
+                        <input type="text" name='photographer'  autocomplete="off" style="width:100%;margin-top:10px;height:25px;padding-left:5px;font-size:16px;color:rgb(39,39,39);padding-right:5px;box-sizing:border-box;border: 1px solid rgba(0, 0, 0, .3);">
 
                         <h3 class='uploadpicture_main_title'>成像设备 &nbsp;&nbsp;&nbsp;<span>示例：HeidelbergSpectralis 或 Zeiss FF4</span></h3>
-                        <input type="text" name='device' style="width:100%;margin-top:10px;height:25px;padding-left:5px;font-size:16px;color:rgb(39,39,39);padding-right:5px;box-sizing:border-box;border: 1px solid rgba(0, 0, 0, .3);">
+                        <input type="text" name='device' autocomplete="off" style="width:100%;margin-top:10px;height:25px;padding-left:5px;font-size:16px;color:rgb(39,39,39);padding-right:5px;box-sizing:border-box;border: 1px solid rgba(0, 0, 0, .3);">
                         <button class="uploadbtn share_button" type="button" style="margin-top:30px;">上传案例</button>
                         <!-- <input type="submit" class="uploadbtn share_button" style="margin-top:30px;" value="上传案例"> -->
                     </div>

@@ -637,6 +637,7 @@ if ($('.uploadPicture_main_content_form').length > 0) {
         swf: 'https://cdn.bootcss.com/webuploader/0.1.1/Uploader.swf',
 
         // 文件接收服务端。
+        // server: 'http://photo.test/uploadPicture/doupload',
         server: 'http://photo.test/uploadPicture/doupload',
 
         // 选择文件的按钮。可选。
@@ -684,7 +685,7 @@ if ($('.uploadPicture_main_content_form').length > 0) {
     })
     //添加表单验证
     uploader.on('uploadBeforeSend', function (file, data, headers) {
-        if (serializeF('uploadform')) { 
+        if (serializeF('uploadform')) {
             var uploaddata = serializeF('uploadform');
             //参数
             var state = uploader.getStats();
@@ -693,9 +694,22 @@ if ($('.uploadPicture_main_content_form').length > 0) {
             data.title = uploaddata.title;
             data.content = uploaddata.content;
             data.author= uploaddata.author;
-            // data.photographer = uploaddata.photographer;
-            // data.device = uploaddata.device;
-            data.keyword = JSON.stringify(uploadkey);
+            data.photographer = uploaddata.photographer;
+            data.device = uploaddata.device;
+            // data.keyword = JSON.stringify(uploadkey);
+            var keylength = uploadkey.length;
+
+            var keystr = "";
+            for(var i = 0 ; i < keylength ; i++){
+
+                if(keylength == '1' || keylength-1 == i){
+                    keystr =  keystr + uploadkey[i].keyword
+                }else{
+                    keystr = keystr + uploadkey[i].keyword + ',';
+                }
+            }
+            data.keyword = keystr;
+            // data.keyword = "{'id':'0','keyword':'设定'}"
             data._token = token_csrf;
             data.id = uploadid;
         }
@@ -745,13 +759,8 @@ if ($('.uploadPicture_main_content_form').length > 0) {
     uploader.on('uploadSuccess', function (file, response) {
         if(response.code < 0){
             uploader.stop();
-            alert('非法参数');
-            return false;
-																		   
-										
-						 
-					   
-															  
+            alert(response.msg);
+            return false;												  
         }else{
             uploadid = response.id;
             $('#' + file.id + ' .preview_tip').removeClass('preview_tip_error');
@@ -764,7 +773,7 @@ if ($('.uploadPicture_main_content_form').length > 0) {
                 $('.upload_pic_num').text("");
                 $('.upload_pic_tip_word').html("上传成功<br/>正在跳转");
                 setTimeout(function(){
-                    window.location.href = 'uploadPictureSuccess.html';
+                    window.location.href = '/success';
                 },1399)
             }
         }
@@ -791,7 +800,6 @@ if ($('.uploadPicture_main_content_form').length > 0) {
         // $( '#'+file.id ).find('.progress').remove();
     });
 }
-
 
 if ($('.uploadbtn').length > 0) {
 // uploader
@@ -873,7 +881,6 @@ if ($('.keywordInput').length > 0) {
             $('.KeyWordTip_input').text('添加：' + $(this).val());
             $('.KeyWordTip .KeyWordTip_input').siblings().remove();
             keywords.forEach(function (item) {
-
                 if (item.keyword.indexOf(_this.val()) != -1) {
                     if (item.keyword == _this.val()) {
                         $('.keywordInput').hide();
